@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "TestUnrealEngine",
+			"Path": "C:\\Users\\PC\\Jieun\\StartUnrealEngine\\TestUnrealEngine\\Source\\TestUnrealEngine.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "TestUnrealEngineEditor",
+			"Path": "C:\\Users\\PC\\Jieun\\StartUnrealEngine\\TestUnrealEngine\\Source\\TestUnrealEngineEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

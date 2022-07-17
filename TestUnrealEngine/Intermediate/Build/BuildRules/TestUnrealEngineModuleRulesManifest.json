@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\PC\\Jieun\\StartUnrealEngine\\TestUnrealEngine\\Source\\TestUnrealEngine\\TestUnrealEngine.Build.cs",
+		"C:\\Users\\PC\\Jieun\\StartUnrealEngine\\TestUnrealEngine\\Source\\TestUnrealEngine.Target.cs",
+		"C:\\Users\\PC\\Jieun\\StartUnrealEngine\\TestUnrealEngine\\Source\\TestUnrealEngineEditor.Target.cs"
+	],
+	"EngineVersion": "4.27.2"
+}
