@@ -54,6 +54,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category=Pawn)
 	bool IsAttacking = false;
 
+
 	UPROPERTY()
 	class UMyAnimInstance* AnimInstance;
 
@@ -75,5 +76,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	class UWidgetComponent* HpBar;
+
 
 };

@@ -32,6 +32,25 @@ AMyWeapon::AMyWeapon()
 
 }
 
+
+void AMyWeapon::GetWeapon(AActor* OtherActor)
+{
+	
+
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+
+
+	if (MyCharacter)
+	{
+		//막아줘야할 것들 함수로 빼기
+		FName WeaponSocket(TEXT("hand_l_socket"));
+
+		AttachToComponent(MyCharacter->GetMesh(),
+			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			WeaponSocket);
+	}
+}
+
 // Called when the game starts or when spawned
 void AMyWeapon::BeginPlay()
 {
@@ -51,13 +70,22 @@ void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 	UE_LOG(LogTemp, Log, TEXT("Overlapped"));
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+
+
 	if (MyCharacter)
 	{
-		FName WeaponSocket(TEXT("hand_l_socket"));
+		//만약 이 상태에서 E 버튼을 누르면
+		//디버그 찍어보기
+
+
+		//이거 풀면 원래대로 동작
+		/*FName WeaponSocket(TEXT("hand_l_socket"));
 
 		AttachToComponent(MyCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);
+			WeaponSocket);*/
 	}
 }
+
+
 
