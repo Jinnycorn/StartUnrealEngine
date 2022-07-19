@@ -9,24 +9,41 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class TESTUNREALENGINE_API UItem : public UObject
 {
 	GENERATED_BODY()
 	
 public:
-	//UPROPERTY(VisibleAnywhere)
-	//	string ItemName=""; //아이템 이름
+	UItem();
 
+	virtual class UWorld* GetWorld() const { return World; };
+
+	UPROPERTY(Transient)
+	class UWorld* World;
+	//text for using the item (Equip, Eat, etc)
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Item")
+	FText UseActionText;
+
+	//Thumbnail
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	class UTexture2D* Thumbnail;
+
+	//display name 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	FText ItemDisplayName;
+
+	//optional description for the item
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta=(MultiLine=true))
+	FText ItemDescription;
+
+    //The inventory that owns this item
 	UPROPERTY()
-		int32 ItemIndex = 0; //아이템 인덱스
-	
-	//UPROPERTY(VisibleAnywhere)
-	//	string ItemDescription = 0; //아이템 설명
+	class UInventoryComponent* OwningInventory;
 
-	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* Weapon;
+	virtual void Use(class AMyCharacter* Character);
 
-	UPROPERTY(VisibleAnywhere)
-		class UBoxComponent* Trigger;
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUse(class AMyCharacter* Character);
 };

@@ -12,6 +12,8 @@
 #include "Components/WidgetComponent.h"
 #include "MyCharacterWidget.h"
 #include "MyAIController.h"
+#include "Item.h"
+#include "InventoryComponent.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -38,6 +40,9 @@ AMyCharacter::AMyCharacter()
 	{
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
+
+	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	Inventory->Capacity = 20;
 
 	Stat = CreateDefaultSubobject<UMyStatComponent>(TEXT("STAT"));
 
@@ -111,11 +116,12 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
+	//PlayerInputComponent->BindAxis(TEXT("PickUp"), EInputEvent::IE_Pressed, this, &AMyCharacter::PickUp);
 
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::UpDown);
 	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::LeftRight);
 	PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyCharacter::Yaw);
-
+	
 }
 
 void AMyCharacter::Attack()
@@ -219,4 +225,14 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	Stat->OnAttacked(DamageAmount);
 
 	return DamageAmount;
+}
+
+void AMyCharacter::UseItem(class UItem* Item)
+{
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this); //BP event
+
+	}
 }

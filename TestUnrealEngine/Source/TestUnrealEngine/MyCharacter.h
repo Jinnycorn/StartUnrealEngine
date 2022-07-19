@@ -12,6 +12,9 @@ class TESTUNREALENGINE_API AMyCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category=Camera, meta=(AllowPrivateAccess="true"))
+	class UInventoryComponent* Inventory;
+
 public:
 	// Sets default values for this character's properties
 	AMyCharacter();
@@ -42,6 +45,10 @@ public:
 	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+	UFUNCTION(BlueprintCallable, Category="Items")
+	void UseItem(class UItem* Item);
+	
 
 private:
 	
