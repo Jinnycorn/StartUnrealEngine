@@ -192,6 +192,12 @@ void AMyCharacter::AttackCheck()
 	}
 }
 
+void AMyCharacter::PickUp()
+{
+	//인벤토리랑 연결
+	UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!"));
+}
+
 void AMyCharacter::UpDown(float Value)
 {
 	
