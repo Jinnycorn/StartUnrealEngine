@@ -200,7 +200,7 @@ void AMyCharacter::PickUp()
 	{
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem);
 
-		UE_LOG(LogTemp, Log, TEXT("From MyCharacter.cpp -I GOT WEAPON!!"));
+		UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!"));
 	}
 	else
 	{

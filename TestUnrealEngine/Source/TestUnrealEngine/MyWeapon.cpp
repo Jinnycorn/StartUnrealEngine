@@ -29,6 +29,7 @@ AMyWeapon::AMyWeapon()
 	Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
 
+	AActor* CurrentOverlappedItem = nullptr;
 
 }
 

@@ -87,7 +87,7 @@ public:
 	class UWidgetComponent* HpBar;
 
 	UPROPERTY(VisibleAnywhere)
-	class AMyWeapon* CurrentOverlappedItem;
+	class AActor* CurrentOverlappedItem;
 
 
 };
