@@ -116,7 +116,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
-	//PlayerInputComponent->BindAxis(TEXT("PickUp"), EInputEvent::IE_Pressed, this, &AMyCharacter::PickUp);
+	PlayerInputComponent->BindAction(TEXT("PickUp"), EInputEvent::IE_Pressed, this, &AMyCharacter::PickUp);
 
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::UpDown);
 	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::LeftRight);
@@ -192,10 +192,27 @@ void AMyCharacter::AttackCheck()
 	}
 }
 
+
 void AMyCharacter::PickUp()
 {
-	//인벤토리랑 연결
-	UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!"));
+	//현재 오버랩중인 아이템이 있는지 없는지 확인해(널인지 아닌지)
+	if (CurrentOverlappedItem != nullptr)
+	{
+		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem);
+
+		UE_LOG(LogTemp, Log, TEXT("From MyCharacter.cpp -I GOT WEAPON!!"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("CurrentOverlapped item is null"));
+	}
+
+
+	//아이템 정보 받아오기 
+
+	//정보 받아와서 인벤토리 안에 넣기
+
+
 }
 
 void AMyCharacter::UpDown(float Value)

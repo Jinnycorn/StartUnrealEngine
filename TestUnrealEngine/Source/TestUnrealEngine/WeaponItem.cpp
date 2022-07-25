@@ -8,6 +8,6 @@ void UWeaponItem::Use(class AMyCharacter* Character)
 {
 	if (Character)
 	{
-		//UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!"));
+		//UE_LOG(LogTemp, Log, TEXT("From: WeaponItem.cpp - I GOT WEAPON!!"));
 	}
 }

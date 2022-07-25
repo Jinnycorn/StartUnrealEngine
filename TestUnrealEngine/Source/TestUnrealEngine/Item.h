@@ -46,4 +46,6 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUse(class AMyCharacter* Character);
+
+
 };

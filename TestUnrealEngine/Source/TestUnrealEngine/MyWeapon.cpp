@@ -55,7 +55,7 @@ void AMyWeapon::GetWeapon(AActor* OtherActor)
 void AMyWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 void AMyWeapon::PostInitializeComponents()
@@ -63,27 +63,43 @@ void AMyWeapon::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	Trigger->OnComponentBeginOverlap.AddDynamic(this, &AMyWeapon::OnCharacterOverlap);
+	Trigger->OnComponentEndOverlap.AddDynamic(this, &AMyWeapon::OnCharacterEndOverlap);
+
+
 }
 
+//겹치기 시작했을 때 딱 한번만 불림
 void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
+{ 
 	UE_LOG(LogTemp, Log, TEXT("Overlapped"));
 
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
+	//Cast는 실제 타입을 찾아주는 검증의 의미
+	
 
-
-	if (MyCharacter)
+	if (MyCharacter) //내 캐릭터일때만 실행하겠다
 	{
-		//만약 이 상태에서 E 버튼을 누르면
-		//디버그 찍어보기
-
-
+		MyCharacter->CurrentOverlappedItem = this;
+		
+		
 		//이거 풀면 원래대로 동작
 		/*FName WeaponSocket(TEXT("hand_l_socket"));
 
 		AttachToComponent(MyCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
 			WeaponSocket);*/
+	}
+}
+
+void AMyWeapon::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); 
+
+
+	if (MyCharacter) 
+	{
+		MyCharacter->CurrentOverlappedItem = nullptr;
+
 	}
 }
 
