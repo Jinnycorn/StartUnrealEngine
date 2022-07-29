@@ -13,6 +13,7 @@
 #include "MyCharacterWidget.h"
 #include "MyAIController.h"
 #include "Item.h"
+#include "MyItem.h"
 #include "InventoryComponent.h"
 
 // Sets default values
@@ -200,7 +201,7 @@ void AMyCharacter::PickUp()
 	{
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem);
 
-		UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!"));
+		UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
 	}
 	else
 	{
@@ -250,7 +251,7 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	return DamageAmount;
 }
 
-void AMyCharacter::UseItem(class UItem* Item)
+void AMyCharacter::UseItem(class AMyItem* Item)
 {
 	if (Item)
 	{
