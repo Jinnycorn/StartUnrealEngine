@@ -49,7 +49,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintCallable, Category="Items")
-	void UseItem(class AMyItem* Item);
+	void UseItem(class UItem* Item);
 	
 
 private:

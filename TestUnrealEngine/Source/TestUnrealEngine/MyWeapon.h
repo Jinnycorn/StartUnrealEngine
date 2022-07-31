@@ -41,6 +41,8 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
 
-
+	//Thumbnail
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	class UTexture2D* Thumbnail;
 
 };

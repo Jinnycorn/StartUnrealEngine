@@ -13,7 +13,6 @@
 #include "MyCharacterWidget.h"
 #include "MyAIController.h"
 #include "Item.h"
-#include "MyItem.h"
 #include "InventoryComponent.h"
 
 // Sets default values
@@ -52,6 +51,7 @@ AMyCharacter::AMyCharacter()
 	HpBar->SetRelativeLocation(FVector(0.f, 0.f, 200.f));
 
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
+
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
 
@@ -201,6 +201,14 @@ void AMyCharacter::PickUp()
 	{
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem);
 
+		
+		//UItem* Item = CreateDefaultSubobject<UItem>(TEXT("UItem"));
+		UItem* Item = NewObject<UItem>();
+		//MyWeapon->Thumbnail=Item->Thumbnail;
+		Inventory->AddItem(Item);
+		
+		
+
 		UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
 	}
 	else
@@ -251,7 +259,7 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	return DamageAmount;
 }
 
-void AMyCharacter::UseItem(class AMyItem* Item)
+void AMyCharacter::UseItem(class UItem* Item)
 {
 	if (Item)
 	{
