@@ -14,10 +14,13 @@
 #include "MyAIController.h"
 #include "Item.h"
 #include "InventoryComponent.h"
+#include "ItemInfo.h"
+
 
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
+
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -35,6 +38,8 @@ AMyCharacter::AMyCharacter()
 	
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonYin/Characters/Heroes/Yin/Meshes/Yin.Yin'"));
 
+
+	
 	
 	if (SM.Succeeded())
 	{
@@ -199,13 +204,14 @@ void AMyCharacter::PickUp()
 	//현재 오버랩중인 아이템이 있는지 없는지 확인해(널인지 아닌지)
 	if (CurrentOverlappedItem != nullptr)
 	{
-		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem);
+		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); //웨폰
 
-		
-		//UItem* Item = CreateDefaultSubobject<UItem>(TEXT("UItem"));
-		UItem* Item = NewObject<UItem>();
-		//MyWeapon->Thumbnail=Item->Thumbnail;
-		Inventory->AddItem(Item);
+		UItem* Item = NewObject<UItem>(); //유아이
+
+		//Item->Thumbnail=MyWeapon->Thumbnail; //웨폰 썸네일을 유아이에 넣어줘야하는데
+		Item->ItemDisplayName = MyWeapon->ItemDisplayName;
+		//Item->ItemDisplayName =Info->ItemDisplayName;
+		Inventory->AddItem(Item); //인벤토리에 유아이를 넣어준다..?
 		
 		
 

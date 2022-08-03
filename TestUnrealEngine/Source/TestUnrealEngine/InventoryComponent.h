@@ -19,7 +19,7 @@ public:
 
 	virtual void BeginPlay() override;
 	
-	//고치게 된다면 AMyWeapon*로 바꾸던지.... 
+
 	bool AddItem(class UItem* Item);
 	bool RemoveItem(class UItem* Item);
 

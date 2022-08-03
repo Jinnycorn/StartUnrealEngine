@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "MyCharacter.generated.h"
 
+
 DECLARE_MULTICAST_DELEGATE(FOnAttackEnd);
 
 UCLASS()
@@ -88,6 +89,5 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	class AActor* CurrentOverlappedItem;
-
 
 };

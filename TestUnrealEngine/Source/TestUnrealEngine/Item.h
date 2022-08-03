@@ -7,9 +7,9 @@
 #include "Item.generated.h"
 
 /**
- * 
+ * Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced
  */
-UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
+UCLASS( BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class TESTUNREALENGINE_API UItem : public UObject
 {
 	GENERATED_BODY()
@@ -21,13 +21,16 @@ public:
 
 	UPROPERTY(Transient)
 	class UWorld* World;
+	
 	//text for using the item (Equip, Eat, etc)
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Item")
 	FText UseActionText;
 
 	//Thumbnail
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item") ¿ø·¡²¨
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(BlueprintReadWrite, Category = "Item")
 	class UTexture2D* Thumbnail;
 
 	//display name 

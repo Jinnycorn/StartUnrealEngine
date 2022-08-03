@@ -4,13 +4,19 @@
 #include "MyWeapon.h"
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
+#include "ItemInfo.h"
+
 // Sets default values
 AMyWeapon::AMyWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-	
 
+	
+	UItemInfo* Info = NewObject<UItemInfo>();
+	
+	ItemDisplayName = Info->ItemDisplayName;
+	
 	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
@@ -30,7 +36,7 @@ AMyWeapon::AMyWeapon()
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
 
 	AActor* CurrentOverlappedItem = nullptr;
-
+	
 }
 
 

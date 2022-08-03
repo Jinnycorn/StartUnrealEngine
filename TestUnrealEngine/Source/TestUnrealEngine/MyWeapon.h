@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "MyWeapon.generated.h"
 
+
 UCLASS()
 class TESTUNREALENGINE_API AMyWeapon : public AActor
 {
@@ -41,8 +42,16 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
 
+
+
 	//Thumbnail
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	UPROPERTY(BlueprintReadWrite, Category = "Item")
 	class UTexture2D* Thumbnail;
+
+
+	//display name 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	FText ItemDisplayName;
+	
 
 };
