@@ -16,6 +16,7 @@ AMyWeapon::AMyWeapon()
 	UItemInfo* Info = NewObject<UItemInfo>();
 	
 	ItemDisplayName = Info->ItemDisplayName;
+	Thumbnail = Info->Thumbnail;
 	
 	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));

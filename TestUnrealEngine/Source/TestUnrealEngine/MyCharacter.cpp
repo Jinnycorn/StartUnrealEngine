@@ -208,7 +208,7 @@ void AMyCharacter::PickUp()
 
 		UItem* Item = NewObject<UItem>(); //유아이
 
-		//Item->Thumbnail=MyWeapon->Thumbnail; //웨폰 썸네일을 유아이에 넣어줘야하는데
+		Item->Thumbnail=MyWeapon->Thumbnail; //웨폰 썸네일을 유아이에 넣어줘야하는데
 		Item->ItemDisplayName = MyWeapon->ItemDisplayName;
 		//Item->ItemDisplayName =Info->ItemDisplayName;
 		Inventory->AddItem(Item); //인벤토리에 유아이를 넣어준다..?
