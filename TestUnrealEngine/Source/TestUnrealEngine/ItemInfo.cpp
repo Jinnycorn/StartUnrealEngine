@@ -6,7 +6,7 @@
 
 UItemInfo::UItemInfo()
 {
-	ItemDisplayName = FText::FromString("ItemInfo");
+	ItemDisplayName = FText::FromString("Sword");
 	UseActionText = FText::FromString("Use");
 	
 	

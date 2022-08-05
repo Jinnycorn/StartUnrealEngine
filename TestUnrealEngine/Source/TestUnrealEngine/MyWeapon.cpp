@@ -21,7 +21,7 @@ AMyWeapon::AMyWeapon()
 	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonYin/FX/Meshes/Heroes/SM_Spline_X_Aligned.SM_Spline_X_Aligned'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
 	if (SW.Succeeded())
 	{
 		Weapon->SetStaticMesh(SW.Object);

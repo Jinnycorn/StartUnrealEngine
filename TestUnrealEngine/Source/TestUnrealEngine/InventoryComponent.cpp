@@ -16,10 +16,10 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (auto& Item : DefaultItems)
+	/*for (auto& Item : DefaultItems)
 	{
 		AddItem(Item);
-	}
+	}*/
 	
 }
 
