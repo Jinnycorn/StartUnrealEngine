@@ -265,7 +265,8 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 
 void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
-	AMyWeapon* WeaponForEquip = NewObject<AMyWeapon>();
+	AMyWeapon* WeaponForEquip;
+	WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
 
 
 	//정보 채우기
@@ -279,7 +280,6 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 		//Item->OnUse(this); //BP event <--안불리고 있었음
 
 	}
-
 
 	//손에 붙이기 ->함수 호출은 되지만 기능을 하지 않음
 	WeaponForEquip->EquipWeapon(this);

@@ -20,6 +20,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EquipWeapon(AActor* OtherActor);
 
+	UPROPERTY(VisibleAnywhere)
+	class UWorld* World;
+
+	AMyWeapon* SpawnedActor;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

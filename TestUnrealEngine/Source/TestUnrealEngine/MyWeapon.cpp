@@ -46,18 +46,18 @@ AMyWeapon::AMyWeapon()
 void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
 {
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-	//if (MyCharacter)
-	//{
+	if (MyCharacter)
+	{
 
-	//	//UE_LOG(LogTemp, Log, TEXT("EquipWeapon!!"));
-	//	//막아줘야할 것들 함수로 빼기
-	//	FName WeaponSocket(TEXT("hand_l_socket"));
-	//	AttachToComponent(MyCharacter->GetMesh(),
-	//		FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-	//		WeaponSocket);
+		//UE_LOG(LogTemp, Log, TEXT("EquipWeapon!!"));
+		//막아줘야할 것들 함수로 빼기
+		FName WeaponSocket(TEXT("hand_l_socket"));
+		AttachToComponent(MyCharacter->GetMesh(),
+			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			WeaponSocket);
 
-	//	
-	//}
+		
+	}
 }
 
 // Called when the game starts or when spawned

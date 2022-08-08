@@ -20,7 +20,7 @@ void UItem::Use(class AMyCharacter* Character)
 	//사용했다는 것이니까 인벤토리에서 Item을 지워주면 됨 
 	//UE_LOG(LogTemp, Log, TEXT("CLICKED!!"));
 	
-
+	
 	Character->Inventory->RemoveItem(this);
 
 	
