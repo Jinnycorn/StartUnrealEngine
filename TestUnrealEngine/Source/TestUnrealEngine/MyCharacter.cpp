@@ -265,6 +265,14 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 
 void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
+	AMyWeapon* WeaponForEquip = NewObject<AMyWeapon>();
+
+
+	//정보 채우기
+	WeaponForEquip->Thumbnail = Item->Thumbnail;
+	WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
+
+
 	if (Item)
 	{
 		Item->Use(this);
@@ -272,17 +280,9 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 
 	}
 
-	AMyWeapon* WeaponForEquip = NewObject<AMyWeapon>();
-	
+
+	//손에 붙이기 ->함수 호출은 되지만 기능을 하지 않음
 	WeaponForEquip->EquipWeapon(this);
-	
 
-
-	
-
-
-	//정보 채우기
-	// 
-	//손에 붙여주기 
 
 }

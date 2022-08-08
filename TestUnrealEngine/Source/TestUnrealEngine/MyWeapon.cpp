@@ -21,9 +21,11 @@ AMyWeapon::AMyWeapon()
 	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonYin/FX/Meshes/Splines/SM_Forward_Burst_Splines.SM_Forward_Burst_Splines'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
 	if (SW.Succeeded())
 	{
+		
 		Weapon->SetStaticMesh(SW.Object);
 	}
 
@@ -43,19 +45,19 @@ AMyWeapon::AMyWeapon()
 
 void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
 {
-
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+	//if (MyCharacter)
+	//{
 
+	//	//UE_LOG(LogTemp, Log, TEXT("EquipWeapon!!"));
+	//	//막아줘야할 것들 함수로 빼기
+	//	FName WeaponSocket(TEXT("hand_l_socket"));
+	//	AttachToComponent(MyCharacter->GetMesh(),
+	//		FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+	//		WeaponSocket);
 
-	if (MyCharacter)
-	{
-		//막아줘야할 것들 함수로 빼기
-		FName WeaponSocket(TEXT("hand_l_socket"));
-
-		AttachToComponent(MyCharacter->GetMesh(),
-			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);
-	}
+	//	
+	//}
 }
 
 // Called when the game starts or when spawned
@@ -78,7 +80,7 @@ void AMyWeapon::PostInitializeComponents()
 //겹치기 시작했을 때 딱 한번만 불림
 void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 { 
-	UE_LOG(LogTemp, Log, TEXT("Overlapped"));
+	//UE_LOG(LogTemp, Log, TEXT("Overlapped"));
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
 	//Cast는 실제 타입을 찾아주는 검증의 의미
@@ -90,11 +92,11 @@ void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 		
 		
 		//이거 풀면 원래대로 동작
-		FName WeaponSocket(TEXT("hand_l_socket"));
+		/*FName WeaponSocket(TEXT("hand_l_socket"));
 
 		AttachToComponent(MyCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);
+			WeaponSocket);*/
 	}
 }
 

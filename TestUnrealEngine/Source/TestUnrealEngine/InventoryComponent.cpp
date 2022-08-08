@@ -41,7 +41,7 @@ bool UInventoryComponent::AddItem(class UItem* Item)
 	return true;
 }
 
-//함수 이름만 보고 어떤 일 하는지 알아야함
+
 bool UInventoryComponent::RemoveItem(class UItem* Item)
 {
 	if (Item)
