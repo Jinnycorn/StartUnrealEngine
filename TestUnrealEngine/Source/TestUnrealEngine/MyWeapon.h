@@ -17,7 +17,8 @@ public:
 	AMyWeapon();
 
 	//무기 잡는 함수 따로 빼줌
-	void GetWeapon(AActor* OtherActor);
+	UFUNCTION(BlueprintCallable)
+	void EquipWeapon(AActor* OtherActor);
 
 protected:
 	// Called when the game starts or when spawned

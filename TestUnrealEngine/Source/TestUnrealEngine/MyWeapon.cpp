@@ -41,9 +41,8 @@ AMyWeapon::AMyWeapon()
 }
 
 
-void AMyWeapon::GetWeapon(AActor* OtherActor)
+void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
 {
-	
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 
@@ -91,11 +90,11 @@ void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 		
 		
 		//이거 풀면 원래대로 동작
-		/*FName WeaponSocket(TEXT("hand_l_socket"));
+		FName WeaponSocket(TEXT("hand_l_socket"));
 
 		AttachToComponent(MyCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);*/
+			WeaponSocket);
 	}
 }
 

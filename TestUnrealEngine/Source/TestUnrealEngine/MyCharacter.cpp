@@ -222,10 +222,6 @@ void AMyCharacter::PickUp()
 	}
 
 
-	//아이템 정보 받아오기 
-
-	//정보 받아와서 인벤토리 안에 넣기
-
 
 }
 
@@ -264,12 +260,29 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	return DamageAmount;
 }
 
-void AMyCharacter::UseItem(class UItem* Item)
+//인벤토리로부터 아이템을 빼는 것
+
+
+void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
 	if (Item)
 	{
 		Item->Use(this);
-		Item->OnUse(this); //BP event
+		//Item->OnUse(this); //BP event <--안불리고 있었음
 
 	}
+
+	AMyWeapon* WeaponForEquip = NewObject<AMyWeapon>();
+	
+	WeaponForEquip->EquipWeapon(this);
+	
+
+
+	
+
+
+	//정보 채우기
+	// 
+	//손에 붙여주기 
+
 }
