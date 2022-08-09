@@ -15,6 +15,7 @@
 #include "Item.h"
 #include "InventoryComponent.h"
 #include "ItemInfo.h"
+#include "MyPotion.h"
 
 
 // Sets default values
@@ -74,16 +75,18 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	FName WeaponSocket(TEXT("hand_l_socket"));
 
-	auto CurrentWeapon= GetWorld()->SpawnActor<AMyWeapon>(FVector::ZeroVector, FRotator::ZeroRotator);
+	//여기 Weapon 자동 생성하는 SpawnActor 있었음..!!!! 
+	//FName WeaponSocket(TEXT("hand_l_socket"));
 
-	if (CurrentWeapon)
-	{
-		/*CurrentWeapon->AttachToComponent(GetMesh(),
-			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);*/
-	}
+	//auto CurrentWeapon= GetWorld()->SpawnActor<AMyWeapon>(FVector::ZeroVector, FRotator::ZeroRotator);
+
+	//if (CurrentWeapon)
+	//{
+	//	/*CurrentWeapon->AttachToComponent(GetMesh(),
+	//		FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+	//		WeaponSocket);*/
+	//}
 
 }
 
@@ -276,12 +279,13 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 
 	if (Item)
 	{
+	
 		Item->Use(this);
 		//Item->OnUse(this); //BP event <--안불리고 있었음
 
 	}
 
-	//손에 붙이기 ->함수 호출은 되지만 기능을 하지 않음
+
 	WeaponForEquip->EquipWeapon(this);
 
 

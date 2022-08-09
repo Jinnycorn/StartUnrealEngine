@@ -37,5 +37,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
 	FText ItemDescription;
 
+	UPROPERTY(EditDefaultsOnly)
+	int32 ItemKey;
 	
 };

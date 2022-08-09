@@ -16,6 +16,7 @@ class TESTUNREALENGINE_API UItem : public UObject
 	
 public:
 	UItem();
+	
 
 	virtual class UWorld* GetWorld() const { return World; };
 
