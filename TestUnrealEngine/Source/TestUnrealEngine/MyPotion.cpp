@@ -13,7 +13,8 @@ AMyPotion::AMyPotion()
 	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonYin/FX/Meshes/Splines/SM_Swirl_Spline_X.SM_Swirl_Spline_X'"));
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
 	
 	if (SW.Succeeded())
 	{

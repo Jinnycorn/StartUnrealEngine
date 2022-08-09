@@ -18,15 +18,16 @@ AMyWeapon::AMyWeapon()
 	ItemDisplayName = Info->ItemDisplayName;
 	Thumbnail = Info->Thumbnail;
 	
-	Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
+	//Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonYin/FX/Meshes/Splines/SM_Forward_Burst_Splines.SM_Forward_Burst_Splines'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SW(TEXT("SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_HeroSword22/SK_Blade_HeroSword22.SK_Blade_HeroSword22'"));	
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
 	if (SW.Succeeded())
 	{
-		
-		Weapon->SetStaticMesh(SW.Object);
+		Weapon->SetSkeletalMesh(SW.Object);
+		//Weapon->SetStaticMesh(SW.Object);
 	}
 
 	Weapon->SetupAttachment(RootComponent);
@@ -48,15 +49,11 @@ void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 	if (MyCharacter)
 	{
-
-		//UE_LOG(LogTemp, Log, TEXT("EquipWeapon!!"));
-		//막아줘야할 것들 함수로 빼기
 		FName WeaponSocket(TEXT("hand_l_socket"));
 		AttachToComponent(MyCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
 			WeaponSocket);
-
-		
+	
 	}
 }
 

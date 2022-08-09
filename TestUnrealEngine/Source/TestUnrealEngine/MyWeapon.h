@@ -43,7 +43,8 @@ private:
 public:
 
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* Weapon;
+	//UStaticMeshComponent* Weapon;
+	USkeletalMeshComponent* Weapon;
 	
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
