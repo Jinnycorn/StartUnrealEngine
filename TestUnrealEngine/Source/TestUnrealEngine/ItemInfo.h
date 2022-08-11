@@ -6,9 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "ItemInfo.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class TESTUNREALENGINE_API UItemInfo : public UObject
 {
@@ -37,7 +35,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
 	FText ItemDescription;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	int32 ItemKey;
+
+
+	
 	
 };
+

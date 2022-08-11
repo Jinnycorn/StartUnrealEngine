@@ -5,21 +5,29 @@
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
 #include "ItemInfo.h"
+#include "MyItemDataTable.h"
 
-// Sets default values
+
 AMyWeapon::AMyWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = false;
 
-	
-	UItemInfo* Info = NewObject<UItemInfo>();
+	//DataTable 초기화
+	static ConstructorHelpers::FObjectFinder<UDataTable> IDT(TEXT("DataTable'/Game/Items/BP_MyItemDataTable.BP_MyItemDataTable'"));
+	if (IDT.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("DataTable Succeed!"));
+		IDataTable = IDT.Object;
+	}
+
+	//원래 있던 자리
+	/*UItemInfo* Info = NewObject<UItemInfo>();
 	
 	ItemDisplayName = Info->ItemDisplayName;
-	Thumbnail = Info->Thumbnail;
+	Thumbnail = Info->Thumbnail;*/
 	
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
-	//Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SW(TEXT("SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_HeroSword22/SK_Blade_HeroSword22.SK_Blade_HeroSword22'"));	
@@ -33,8 +41,6 @@ AMyWeapon::AMyWeapon()
 	Weapon->SetupAttachment(RootComponent);
 	Trigger->SetupAttachment(Weapon);
 
-
-
 	Weapon->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
@@ -43,8 +49,24 @@ AMyWeapon::AMyWeapon()
 	
 }
 
+// Called when the game starts or when spawned
+void AMyWeapon::BeginPlay()
+{
+	Super::BeginPlay();
 
-void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
+	auto List = IDataTable->GetRowNames();
+	RandomName = List[FMath::RandRange(0, 1)];
+	FMyItemDataTable* ItemData = IDataTable->FindRow<FMyItemDataTable>(RandomName, FString(""));
+	
+	
+	UItemInfo* Info = NewObject<UItemInfo>();
+	ItemKey = ItemData->D_ItemKey;
+	ItemDisplayName = ItemData->D_ItemDisplayName;
+	Thumbnail = ItemData->D_Thumbnail;
+}
+
+
+void AMyWeapon::EquipWeapon(AActor* OtherActor) 
 {
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 	if (MyCharacter)
@@ -57,12 +79,7 @@ void AMyWeapon::EquipWeapon(AActor* OtherActor) //이걸 마이캐릭터로 받아와도 됨
 	}
 }
 
-// Called when the game starts or when spawned
-void AMyWeapon::BeginPlay()
-{
-	Super::BeginPlay();
 
-}
 
 void AMyWeapon::PostInitializeComponents()
 {

@@ -31,7 +31,7 @@ AMyPotion::AMyPotion()
 	Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
 
-	//AActor* CurrentOverlappedItem = nullptr;
+	AActor* CurrentOverlappedItem = nullptr;
 }
 
 // Called when the game starts or when spawned
@@ -61,7 +61,7 @@ void AMyPotion::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 
 	if (MyCharacter) //내 캐릭터일때만 실행하겠다
 	{
-		//MyCharacter->CurrentOverlappedItem = this;
+		MyCharacter->CurrentOverlappedItem = this;
 		UE_LOG(LogTemp, Log, TEXT("Potion Overlapped"));
 	}
 }
