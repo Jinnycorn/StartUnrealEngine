@@ -19,9 +19,24 @@ struct FMyCharacterData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MaxHp;
 };
-/**
- * 
- */
+
+USTRUCT(BlueprintType)
+struct FMyItemData : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_ItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UTexture2D* D_Thumbnail;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText D_ItemDisplayName;
+
+};
+
+
 UCLASS()
 class TESTUNREALENGINE_API UMyGameInstance : public UGameInstance
 {
@@ -33,6 +48,15 @@ public:
 	virtual void Init() override;
 
 	FMyCharacterData* GetStatData(int32 Level);
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UDataTable* IDataTable;
+
+	//ItemData 가져오기
+	FMyItemData* GetItemData(int32 ItemKey);
+
+
 private:
 	UPROPERTY()
 	class UDataTable* MyStats;

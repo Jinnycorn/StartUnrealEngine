@@ -6,26 +6,13 @@
 #include "MyCharacter.h"
 #include "ItemInfo.h"
 #include "MyItemDataTable.h"
-
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 AMyWeapon::AMyWeapon()
 {
  	
 	PrimaryActorTick.bCanEverTick = false;
-
-	//DataTable 초기화
-	static ConstructorHelpers::FObjectFinder<UDataTable> IDT(TEXT("DataTable'/Game/Items/BP_MyItemDataTable.BP_MyItemDataTable'"));
-	if (IDT.Succeeded())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("DataTable Succeed!"));
-		IDataTable = IDT.Object;
-	}
-
-	//원래 있던 자리
-	/*UItemInfo* Info = NewObject<UItemInfo>();
-	
-	ItemDisplayName = Info->ItemDisplayName;
-	Thumbnail = Info->Thumbnail;*/
 	
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
@@ -35,7 +22,6 @@ AMyWeapon::AMyWeapon()
 	if (SW.Succeeded())
 	{
 		Weapon->SetSkeletalMesh(SW.Object);
-		//Weapon->SetStaticMesh(SW.Object);
 	}
 
 	Weapon->SetupAttachment(RootComponent);
@@ -49,20 +35,49 @@ AMyWeapon::AMyWeapon()
 	
 }
 
-// Called when the game starts or when spawned
+
 void AMyWeapon::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GAMEINSTANCE)
+	{
+		UE_LOG(LogTemp, Log, TEXT("I GOT GAMEINSTANCE!!!!"));
+		
+			UItemInfo* Info = NewObject<UItemInfo>();
+	
+			ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
+			ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
+			Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
+	}
+	
+	//UMyGameInstance* GameInstance = (UMyGameInstance*)GetWorld()->GetAuthGameMode();
+//UMyGameInstance* GameInstance = (UMyGameInstance*)GetWorld()->GetAuthGameMode();
+	//if (GameInstance)
+	//{
+	//	UE_LOG(LogTemp, Log, TEXT("I GOT GAMEINSTANCE!!!!"));
+	//	
 
-	auto List = IDataTable->GetRowNames();
-	RandomName = List[FMath::RandRange(0, 1)];
-	FMyItemDataTable* ItemData = IDataTable->FindRow<FMyItemDataTable>(RandomName, FString(""));
+	//	UItemInfo* Info = NewObject<UItemInfo>();
+
+	//	
+	///*	ItemKey = GameInstance->GetItemData()->D_ItemKey;		
+	//	ItemDisplayName = GameInstance->GetItemData()->D_ItemDisplayName;
+	//	Thumbnail = GameInstance->GetItemData()->D_Thumbnail;*/
+	//}
+
+	//원래코드
+	//auto List = IDataTable->GetRowNames();
+	//RandomName = List[FMath::RandRange(0, 1)];
+	//FMyItemDataTable* ItemData = IDataTable->FindRow<FMyItemDataTable>("Item1", FString(""));
 	
 	
-	UItemInfo* Info = NewObject<UItemInfo>();
-	ItemKey = ItemData->D_ItemKey;
+	//UItemInfo* Info = NewObject<UItemInfo>();
+
+	/*ItemKey = ItemData->D_ItemKey;
 	ItemDisplayName = ItemData->D_ItemDisplayName;
-	Thumbnail = ItemData->D_Thumbnail;
+	Thumbnail = ItemData->D_Thumbnail;*/
 }
 
 

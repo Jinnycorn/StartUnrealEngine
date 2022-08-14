@@ -16,27 +16,14 @@ class TESTUNREALENGINE_API UItemInfo : public UObject
 public:
 	UItemInfo();
 
-	//text for using the item (Equip, Eat, etc)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemKey;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	FText UseActionText;
-
-	//Thumbnail
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item") ¿ø·¡²¨
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	UPROPERTY(BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;
 
-	//display name 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
-
-	//optional description for the item
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
-	FText ItemDescription;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	int32 ItemKey;
 
 
 	

@@ -35,13 +35,13 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
 
-	//Thumbnail
-	UPROPERTY(BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;
 
-
-	//display name 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
 
 };

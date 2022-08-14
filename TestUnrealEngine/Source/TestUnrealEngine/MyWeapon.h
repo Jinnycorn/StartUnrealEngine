@@ -49,23 +49,20 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
 
-	
-
-	//Thumbnail
-	UPROPERTY(BlueprintReadWrite, Category = "Item")
-	class UTexture2D* Thumbnail;
-
-
-	//display name 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	FText ItemDisplayName;
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UDataTable* IDataTable;
+	class UTexture2D* Thumbnail;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FName RandomName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText ItemDisplayName;
+
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UDataTable* IDataTable;*/
+
+	/*UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FName RandomName;*/
+
+
 };

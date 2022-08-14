@@ -16,4 +16,5 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 
 	AMyGameModeBase();
 	
+
 };

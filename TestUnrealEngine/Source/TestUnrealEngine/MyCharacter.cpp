@@ -18,6 +18,7 @@
 #include "MyPotion.h"
 
 
+
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
@@ -209,15 +210,21 @@ void AMyCharacter::PickUp()
 	{
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); //웨폰
 
-		UItem* Item = NewObject<UItem>(); //유아이
-
-		Item->Thumbnail=MyWeapon->Thumbnail; 
-		Item->ItemDisplayName = MyWeapon->ItemDisplayName;
-		Inventory->AddItem(Item); 
-		CurrentOverlappedItem->Destroy();
 		
+		
+		UItem* Item = NewObject<UItem>(); //유아이
+		
+		
+			Item->ItemKey = MyWeapon->ItemKey;
+			Item->Thumbnail = MyWeapon->Thumbnail;
+			Item->ItemDisplayName = MyWeapon->ItemDisplayName;
+			Inventory->AddItem(Item);
+			CurrentOverlappedItem->Destroy();
 
-		UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
+
+			UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
+		
+		
 	}
 	else
 	{
@@ -272,14 +279,13 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 	WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
 
 
-	//정보 채우기
-	WeaponForEquip->Thumbnail = Item->Thumbnail;
-	WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
-
-
 	if (Item)
 	{
-	
+
+		//정보 채우기
+		WeaponForEquip->Thumbnail = Item->Thumbnail;
+		WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
+		
 		Item->Use(this);
 		//Item->OnUse(this); //BP event <--안불리고 있었음
 

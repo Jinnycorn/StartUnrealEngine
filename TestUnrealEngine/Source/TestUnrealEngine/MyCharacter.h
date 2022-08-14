@@ -95,4 +95,6 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class AActor* CurrentOverlappedItem;
 
+	
+
 };
