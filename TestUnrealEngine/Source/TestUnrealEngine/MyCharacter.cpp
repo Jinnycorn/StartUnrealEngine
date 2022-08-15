@@ -209,7 +209,20 @@ void AMyCharacter::PickUp()
 	if (CurrentOverlappedItem != nullptr)
 	{
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); //웨폰
+		
+		
+		//AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem->GetClass()->ClassGeneratedBy); //웨폰														 
+		//AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
 
+		/*if (MyWeapon == nullptr)
+		{
+			UE_LOG(LogTemp, Log, TEXT("Weapon is Null"));
+		}*/
+		/*
+		if (MyPotion == nullptr)
+		{
+			UE_LOG(LogTemp, Log, TEXT("Potion is Null"));
+		}*/
 		
 		
 		UItem* Item = NewObject<UItem>(); //유아이

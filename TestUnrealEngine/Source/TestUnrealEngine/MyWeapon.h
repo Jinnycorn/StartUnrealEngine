@@ -50,7 +50,10 @@ public:
 	class UBoxComponent* Trigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey;
+	int32 ItemKey; //아이템끼리의 구분 (Weapon, Potion)
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemNo; //아이템 내에서 구분(Weapon-1, Weapon-2)
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;

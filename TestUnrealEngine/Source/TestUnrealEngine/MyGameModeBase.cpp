@@ -18,7 +18,7 @@ AMyGameModeBase::AMyGameModeBase()
 		DefaultPawnClass = BP_Char.Class;
 	}
 
-	
+
 	
 }
 

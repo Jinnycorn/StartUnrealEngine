@@ -3,6 +3,8 @@
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
 #include "ItemInfo.h"
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMyPotion::AMyPotion()
@@ -18,7 +20,6 @@ AMyPotion::AMyPotion()
 	
 	if (SW.Succeeded())
 	{
-
 		Potion->SetStaticMesh(SW.Object);
 	}
 
@@ -38,7 +39,30 @@ AMyPotion::AMyPotion()
 void AMyPotion::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GAMEINSTANCE)
+	{
+		UE_LOG(LogTemp, Log, TEXT("I GOT Potion Instance!!!!"));
+
+		ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
+		ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
+		Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
+	}
 	
+}
+
+void AMyPotion::EatPotion(AActor* OtherActor)
+{
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+	if (MyCharacter)
+	{
+		//Hp 값 늘어나고
+		//Hp Bar에 적용시키기
+		//이걸 MyStatComponent에서 해줄지 여기서 해줄지...
+		//아니면 먹는건 사람이니까 Character에..?
+
+	}
 }
 
 void AMyPotion::PostInitializeComponents()

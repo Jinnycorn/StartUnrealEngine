@@ -15,6 +15,9 @@ public:
 	// Sets default values for this actor's properties
 	AMyPotion();
 
+	UFUNCTION(BlueprintCallable)
+	void EatPotion(AActor* OtherActor);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

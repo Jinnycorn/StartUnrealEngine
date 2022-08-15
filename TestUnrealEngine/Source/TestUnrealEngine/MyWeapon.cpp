@@ -8,6 +8,7 @@
 #include "MyItemDataTable.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyGameModeBase.h"
 
 AMyWeapon::AMyWeapon()
 {
@@ -43,13 +44,11 @@ void AMyWeapon::BeginPlay()
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
 	{
-		UE_LOG(LogTemp, Log, TEXT("I GOT GAMEINSTANCE!!!!"));
-		
-			UItemInfo* Info = NewObject<UItemInfo>();
+		AGameModeBase* GM = (AGameModeBase*)GetWorld()->GetAuthGameMode();
 	
-			ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
-			ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
-			Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
+		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
+		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
+		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
 	}
 	
 	//UMyGameInstance* GameInstance = (UMyGameInstance*)GetWorld()->GetAuthGameMode();
@@ -118,14 +117,7 @@ void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 	if (MyCharacter) //내 캐릭터일때만 실행하겠다
 	{
 		MyCharacter->CurrentOverlappedItem = this;
-		
-		
-		//이거 풀면 원래대로 동작
-		/*FName WeaponSocket(TEXT("hand_l_socket"));
 
-		AttachToComponent(MyCharacter->GetMesh(),
-			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);*/
 	}
 }
 
