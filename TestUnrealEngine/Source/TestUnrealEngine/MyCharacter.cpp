@@ -208,25 +208,16 @@ void AMyCharacter::PickUp()
 	//현재 오버랩중인 아이템이 있는지 없는지 확인해(널인지 아닌지)
 	if (CurrentOverlappedItem != nullptr)
 	{
+		auto test = CurrentOverlappedItem->GetClass()->GetFName();
+		UE_LOG(LogTemp, Log, TEXT("test is %s"), *test.ToString());
+		
+		//UE_LOG(LogTemp, Log, TEXT("PickUp is &d"), CurrentOverlappedItem->GetClass()->GetFName().ToString());
 		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); //웨폰
+													 
+		AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
 		
 		
-		//AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem->GetClass()->ClassGeneratedBy); //웨폰														 
-		//AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
-
-		/*if (MyWeapon == nullptr)
-		{
-			UE_LOG(LogTemp, Log, TEXT("Weapon is Null"));
-		}*/
-		/*
-		if (MyPotion == nullptr)
-		{
-			UE_LOG(LogTemp, Log, TEXT("Potion is Null"));
-		}*/
-		
-		
-		UItem* Item = NewObject<UItem>(); //유아이
-		
+		UItem* Item = NewObject<UItem>(); //유아이	
 		
 			Item->ItemKey = MyWeapon->ItemKey;
 			Item->Thumbnail = MyWeapon->Thumbnail;
@@ -234,10 +225,8 @@ void AMyCharacter::PickUp()
 			Inventory->AddItem(Item);
 			CurrentOverlappedItem->Destroy();
 
-
 			UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
-		
-		
+	
 	}
 	else
 	{
