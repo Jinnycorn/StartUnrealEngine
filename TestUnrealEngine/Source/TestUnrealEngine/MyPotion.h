@@ -18,6 +18,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EatPotion(AActor* OtherActor);
 
+	UPROPERTY(VisibleAnywhere)
+	class UWorld* World;
+
+	AMyPotion* SpawnedActor;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,6 +44,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemNo; 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;

@@ -61,11 +61,4 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
 
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UDataTable* IDataTable;*/
-
-	/*UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FName RandomName;*/
-
-
 };

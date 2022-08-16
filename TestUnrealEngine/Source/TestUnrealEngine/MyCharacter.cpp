@@ -77,18 +77,6 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//여기 Weapon 자동 생성하는 SpawnActor 있었음..!!!! 
-	//FName WeaponSocket(TEXT("hand_l_socket"));
-
-	//auto CurrentWeapon= GetWorld()->SpawnActor<AMyWeapon>(FVector::ZeroVector, FRotator::ZeroRotator);
-
-	//if (CurrentWeapon)
-	//{
-	//	/*CurrentWeapon->AttachToComponent(GetMesh(),
-	//		FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-	//		WeaponSocket);*/
-	//}
-
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -205,27 +193,41 @@ void AMyCharacter::AttackCheck()
 
 void AMyCharacter::PickUp()
 {
-	//현재 오버랩중인 아이템이 있는지 없는지 확인해(널인지 아닌지)
+	
 	if (CurrentOverlappedItem != nullptr)
 	{
 		auto test = CurrentOverlappedItem->GetClass()->GetFName();
 		UE_LOG(LogTemp, Log, TEXT("test is %s"), *test.ToString());
 		
-		//UE_LOG(LogTemp, Log, TEXT("PickUp is &d"), CurrentOverlappedItem->GetClass()->GetFName().ToString());
-		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); //웨폰
+		
+		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); 
 													 
 		AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
 		
-		
-		UItem* Item = NewObject<UItem>(); //유아이	
-		
+		if (test.ToString() == "MyWeapon")
+		{
+			UItem* Item = NewObject<UItem>(); //유아이	
+
 			Item->ItemKey = MyWeapon->ItemKey;
 			Item->Thumbnail = MyWeapon->Thumbnail;
 			Item->ItemDisplayName = MyWeapon->ItemDisplayName;
 			Inventory->AddItem(Item);
 			CurrentOverlappedItem->Destroy();
+		}
+		else if (test.ToString() == "MyPotion")
+		{
+			UE_LOG(LogTemp, Log, TEXT("I GOT Potion!!!"));
+			UItem* Item = NewObject<UItem>(); //유아이	
 
-			UE_LOG(LogTemp, Log, TEXT("I GOT WEAPON!!!"));
+			Item->ItemKey = MyPotion->ItemKey;
+			Item->Thumbnail = MyPotion->Thumbnail;
+			Item->ItemDisplayName = MyPotion->ItemDisplayName;
+			Inventory->AddItem(Item);
+			CurrentOverlappedItem->Destroy();
+		}
+		
+
+		
 	
 	}
 	else

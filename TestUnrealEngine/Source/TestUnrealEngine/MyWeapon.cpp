@@ -4,7 +4,6 @@
 #include "MyWeapon.h"
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
-#include "ItemInfo.h"
 #include "MyItemDataTable.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
@@ -30,7 +29,7 @@ AMyWeapon::AMyWeapon()
 
 	Weapon->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
-	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
+	Trigger->SetBoxExtent(FVector(40.f, 40.f, 40.f));
 
 	AActor* CurrentOverlappedItem = nullptr;
 	
