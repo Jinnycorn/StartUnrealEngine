@@ -34,6 +34,10 @@ struct FMyItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText D_ItemDisplayName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_Health;
+
+
 };
 
 

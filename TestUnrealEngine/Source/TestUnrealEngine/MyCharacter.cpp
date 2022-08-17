@@ -8,15 +8,15 @@
 #include "MyAnimInstance.h"
 #include "DrawDebugHelpers.h"
 #include "MyWeapon.h"
+#include "MyPotion.h"
 #include "MyStatComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyCharacterWidget.h"
 #include "MyAIController.h"
 #include "Item.h"
 #include "InventoryComponent.h"
-#include "ItemInfo.h"
-#include "MyPotion.h"
-
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -197,15 +197,12 @@ void AMyCharacter::PickUp()
 	if (CurrentOverlappedItem != nullptr)
 	{
 		auto test = CurrentOverlappedItem->GetClass()->GetFName();
-		UE_LOG(LogTemp, Log, TEXT("test is %s"), *test.ToString());
-		
-		
-		AMyWeapon* MyWeapon= Cast<AMyWeapon>(CurrentOverlappedItem); 
-													 
-		AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
-		
+		//UE_LOG(LogTemp, Log, TEXT("test is %s"), *test.ToString());
+				
 		if (test.ToString() == "MyWeapon")
 		{
+
+			AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem);
 			UItem* Item = NewObject<UItem>(); //유아이	
 
 			Item->ItemKey = MyWeapon->ItemKey;
@@ -216,8 +213,9 @@ void AMyCharacter::PickUp()
 		}
 		else if (test.ToString() == "MyPotion")
 		{
-			UE_LOG(LogTemp, Log, TEXT("I GOT Potion!!!"));
-			UItem* Item = NewObject<UItem>(); //유아이	
+
+			AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
+			UItem* Item = NewObject<UItem>(); 
 
 			Item->ItemKey = MyPotion->ItemKey;
 			Item->Thumbnail = MyPotion->Thumbnail;
@@ -225,17 +223,12 @@ void AMyCharacter::PickUp()
 			Inventory->AddItem(Item);
 			CurrentOverlappedItem->Destroy();
 		}
-		
 
-		
-	
 	}
 	else
 	{
 		UE_LOG(LogTemp, Log, TEXT("CurrentOverlapped item is null"));
 	}
-
-
 
 }
 
@@ -274,29 +267,59 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	return DamageAmount;
 }
 
+//여기!!!!!!
+float AMyCharacter::TakeHp(float Health)
+{
+	Stat->RecoverHp(Health);
+
+	return Health;
+}
+
+
 //인벤토리로부터 아이템을 빼는 것
-
-
 void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
-	AMyWeapon* WeaponForEquip;
-	WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
-
-
 	if (Item)
 	{
+		if (Item->ItemDisplayName.ToString() == "Weapon")
+		{
+			AMyWeapon* WeaponForEquip;
+			WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
+			//정보 채우기
+			WeaponForEquip->Thumbnail = Item->Thumbnail;
+			WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
 
-		//정보 채우기
-		WeaponForEquip->Thumbnail = Item->Thumbnail;
-		WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
+			Item->Use(this);
+			//Item->OnUse(this); //BP event <--안불리고 있었음
+			WeaponForEquip->EquipWeapon(this);
+		}
+
+		if(Item->ItemDisplayName.ToString() == "Potion")
+		{
+			UE_LOG(LogTemp, Log, TEXT("I EAT POTION!!!!"));
+			
+			//AMyPotion* PotionForEat; 
+			//PotionForEat->Thumbnail = Item->Thumbnail;
+			//PotionForEat->ItemDisplayName = Item->ItemDisplayName;
+			Item->Use(this);
+			auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+			if (MyGameInstance)
+			{
+				int32 Health = MyGameInstance->GetItemData(2)->D_Health;
+				
+				//여기!!
+				TakeHp(Health); //여기꺼 아이템 테이블껄로 
+			}
+			
+			
+			
+		}
 		
-		Item->Use(this);
-		//Item->OnUse(this); //BP event <--안불리고 있었음
 
 	}
 
 
-	WeaponForEquip->EquipWeapon(this);
+	
 
 
 }

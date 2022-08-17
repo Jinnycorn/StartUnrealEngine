@@ -48,34 +48,9 @@ void AMyWeapon::BeginPlay()
 		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
+		Health= GAMEINSTANCE->GetItemData(1)->D_Health;
 	}
 	
-	//UMyGameInstance* GameInstance = (UMyGameInstance*)GetWorld()->GetAuthGameMode();
-//UMyGameInstance* GameInstance = (UMyGameInstance*)GetWorld()->GetAuthGameMode();
-	//if (GameInstance)
-	//{
-	//	UE_LOG(LogTemp, Log, TEXT("I GOT GAMEINSTANCE!!!!"));
-	//	
-
-	//	UItemInfo* Info = NewObject<UItemInfo>();
-
-	//	
-	///*	ItemKey = GameInstance->GetItemData()->D_ItemKey;		
-	//	ItemDisplayName = GameInstance->GetItemData()->D_ItemDisplayName;
-	//	Thumbnail = GameInstance->GetItemData()->D_Thumbnail;*/
-	//}
-
-	//원래코드
-	//auto List = IDataTable->GetRowNames();
-	//RandomName = List[FMath::RandRange(0, 1)];
-	//FMyItemDataTable* ItemData = IDataTable->FindRow<FMyItemDataTable>("Item1", FString(""));
-	
-	
-	//UItemInfo* Info = NewObject<UItemInfo>();
-
-	/*ItemKey = ItemData->D_ItemKey;
-	ItemDisplayName = ItemData->D_ItemDisplayName;
-	Thumbnail = ItemData->D_Thumbnail;*/
 }
 
 

@@ -61,4 +61,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Health;
+
 };

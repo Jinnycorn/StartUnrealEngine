@@ -1,6 +1,5 @@
 
 #include "Item.h"
-#include "ItemInfo.h"
 #include "MyWeapon.h"
 #include "InventoryComponent.h"
 #include "MyCharacter.h"

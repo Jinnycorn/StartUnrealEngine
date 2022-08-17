@@ -15,9 +15,6 @@ public:
 	// Sets default values for this actor's properties
 	AMyPotion();
 
-	UFUNCTION(BlueprintCallable)
-	void EatPotion(AActor* OtherActor);
-
 	UPROPERTY(VisibleAnywhere)
 	class UWorld* World;
 
@@ -53,5 +50,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Health;
+
 
 };

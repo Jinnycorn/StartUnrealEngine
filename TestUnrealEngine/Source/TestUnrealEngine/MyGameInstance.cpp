@@ -24,7 +24,7 @@ void UMyGameInstance::Init()
 {
 	Super::Init();
 	UE_LOG(LogTemp, Warning, TEXT("MyGameInstance %d"),GetStatData(1)->Attack);
-	//UE_LOG(LogTemp, Warning, TEXT("MyGameInstance %s"), GetItemData(0)->D_ItemDisplayName);
+
 }
 
 FMyCharacterData* UMyGameInstance::GetStatData(int32 Level)

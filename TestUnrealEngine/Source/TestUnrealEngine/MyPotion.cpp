@@ -51,22 +51,11 @@ void AMyPotion::BeginPlay()
 		ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
+		Health = GAMEINSTANCE->GetItemData(2)->D_Health;
 	}
 	
 }
 
-void AMyPotion::EatPotion(AActor* OtherActor)
-{
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-	if (MyCharacter)
-	{
-		//Hp 값 늘어나고
-		//Hp Bar에 적용시키기
-		//이걸 MyStatComponent에서 해줄지 여기서 해줄지...
-		//아니면 먹는건 사람이니까 Character에..?
-
-	}
-}
 
 void AMyPotion::PostInitializeComponents()
 {

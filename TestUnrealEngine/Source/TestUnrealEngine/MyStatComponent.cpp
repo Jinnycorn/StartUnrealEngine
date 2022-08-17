@@ -44,6 +44,7 @@ void UMyStatComponent::SetLevel(int32 NewLevel)
 			SetHp(StatData->MaxHp);
 			MaxHp = StatData->MaxHp;
 			Attack = StatData->Attack;
+
 		}
 	}
 }
@@ -52,7 +53,22 @@ void UMyStatComponent::SetHp(int32 NewHp)
 {
 	Hp = NewHp;
 	if (Hp < 0)
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Before Hp %d"), Hp); //-10 나옴
 		Hp = 0;
+	}
+		
+	//이 부분 지우면 일단 해결
+	//if (Hp > MaxHp)
+	//{
+	//	Hp = MaxHp;
+	//	UE_LOG(LogTemp, Warning, TEXT("Hp %d"), Hp); //0 나옴
+	//	UE_LOG(LogTemp, Warning, TEXT("MaxHp %d"), MaxHp); //0 나옴
+
+	//}
+	//	
+	
+	//죽는 거 SetHp나 OnAttacked에서 처리
 
 	OnHpChanged.Broadcast();
 }
@@ -63,5 +79,14 @@ void UMyStatComponent::OnAttacked(float DamageAmount)
 	int32 NewHp = Hp - DamageAmount;
 	SetHp(NewHp);
 	//UE_LOG(LogTemp, Warning, TEXT("OnAttacked %d"),Hp);
+	//UE_LOG(LogTemp, Warning, TEXT("NewHp %d"), NewHp);
 }
 
+void UMyStatComponent::RecoverHp(float Health)
+{
+
+	int32 NewHp = Hp + Health;
+	SetHp(NewHp);
+	//UE_LOG(LogTemp, Warning, TEXT("RecoverHp %d"),Hp);
+	//UE_LOG(LogTemp, Warning, TEXT("NewHp %d"), NewHp);
+}
