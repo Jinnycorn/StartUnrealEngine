@@ -44,14 +44,17 @@ void AMyPotion::BeginPlay()
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
 	{
-		AGameModeBase* GM = (AGameModeBase*)GetWorld()->GetAuthGameMode();
+		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 
-		UE_LOG(LogTemp, Log, TEXT("I GOT Potion Instance!!!!"));
+		//UE_LOG(LogTemp, Log, TEXT("I GOT Potion Instance!!!!"));
 
 		ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
 		Health = GAMEINSTANCE->GetItemData(2)->D_Health;
+
+		
+		
 	}
 	
 }

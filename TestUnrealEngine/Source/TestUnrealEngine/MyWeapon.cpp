@@ -43,12 +43,17 @@ void AMyWeapon::BeginPlay()
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
 	{
-		AGameModeBase* GM = (AGameModeBase*)GetWorld()->GetAuthGameMode();
-	
+		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
+		
+		UE_LOG(LogTemp, Log, TEXT("I GOT Weapon Instance!!!!"));
 		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
 		Health= GAMEINSTANCE->GetItemData(1)->D_Health;
+
+		ItemNo = GM->GM_ItemNo++;
+		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->GM_ItemNo);
+		
 	}
 	
 }

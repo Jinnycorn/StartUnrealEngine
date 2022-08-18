@@ -16,5 +16,9 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 
 	AMyGameModeBase();
 	
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 GM_ItemNo;
+	
 
 };

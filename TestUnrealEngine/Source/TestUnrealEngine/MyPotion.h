@@ -43,7 +43,7 @@ public:
 	int32 ItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemNo; 
+	int32 ItemNo=0; 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;
