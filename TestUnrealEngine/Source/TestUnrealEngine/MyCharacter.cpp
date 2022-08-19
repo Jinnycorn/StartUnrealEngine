@@ -209,7 +209,12 @@ void AMyCharacter::PickUp()
 			Item->Thumbnail = MyWeapon->Thumbnail;
 			Item->ItemDisplayName = MyWeapon->ItemDisplayName;
 			Inventory->AddItem(Item);
+
+			UE_LOG(LogTemp, Warning, TEXT("Weapon: Destroy_ItemNo %d"), MyWeapon->ItemNo);
+			
 			CurrentOverlappedItem->Destroy();
+
+			
 		}
 		else if (test.ToString() == "MyPotion")
 		{
@@ -221,6 +226,9 @@ void AMyCharacter::PickUp()
 			Item->Thumbnail = MyPotion->Thumbnail;
 			Item->ItemDisplayName = MyPotion->ItemDisplayName;
 			Inventory->AddItem(Item);
+
+			UE_LOG(LogTemp, Warning, TEXT("Potion: Destroy_ItemNo %d"), MyPotion->ItemNo);
+
 			CurrentOverlappedItem->Destroy();
 		}
 

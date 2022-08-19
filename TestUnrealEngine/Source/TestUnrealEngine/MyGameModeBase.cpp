@@ -20,7 +20,6 @@ AMyGameModeBase::AMyGameModeBase()
 
 	
 	GM_ItemNo = 0;
-	UE_LOG(LogTemp, Warning, TEXT("GM_ItemNo %d"), GM_ItemNo);
 
 	
 }
