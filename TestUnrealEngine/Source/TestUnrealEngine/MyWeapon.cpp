@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MyGameModeBase.h"
 
+
 AMyWeapon::AMyWeapon()
 {
  	
@@ -49,7 +50,7 @@ void AMyWeapon::BeginPlay()
 		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
-		Health= GAMEINSTANCE->GetItemData(1)->D_Health;
+		//Health= GAMEINSTANCE->GetItemData(1)->D_Health;
 
 		ItemNo = GM->GM_ItemNo++;
 		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->GM_ItemNo);

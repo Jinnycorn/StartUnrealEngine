@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ItemBase.h"
 #include "MyPotion.generated.h"
 
 UCLASS()
-class TESTUNREALENGINE_API AMyPotion : public AActor
+class TESTUNREALENGINE_API AMyPotion : public AItemBase
 {
 	GENERATED_BODY()
 	
@@ -15,12 +16,12 @@ public:
 	// Sets default values for this actor's properties
 	AMyPotion();
 
-	UPROPERTY(VisibleAnywhere)
-	class UWorld* World;
+	/*UPROPERTY(VisibleAnywhere)
+	class UWorld* World;*/
 
 	AMyPotion* SpawnedActor;
 protected:
-	// Called when the game starts or when spawned
+	
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
@@ -31,12 +32,13 @@ private:
 
 	UFUNCTION()
 	void OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 public:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Potion;
 
-	UPROPERTY(VisibleAnywhere)
+	/*UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* Trigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -49,7 +51,7 @@ public:
 	class UTexture2D* Thumbnail;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemDisplayName;
+	FText ItemDisplayName;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Health;

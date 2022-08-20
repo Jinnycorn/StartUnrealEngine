@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ItemBase.h"
 #include "MyWeapon.generated.h"
 
 
 UCLASS()
-class TESTUNREALENGINE_API AMyWeapon : public AActor
+class TESTUNREALENGINE_API AMyWeapon : public AItemBase
 {
 	GENERATED_BODY()
 	
@@ -20,15 +21,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EquipWeapon(AActor* OtherActor);
 
-	UPROPERTY(VisibleAnywhere)
-	class UWorld* World;
+	//UPROPERTY(VisibleAnywhere)
+	//class UWorld* World;
 
 	AMyWeapon* SpawnedActor;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	
+	
 	virtual void PostInitializeComponents() override;
 
 	
@@ -46,22 +48,22 @@ public:
 	//UStaticMeshComponent* Weapon;
 	USkeletalMeshComponent* Weapon;
 	
-	UPROPERTY(VisibleAnywhere)
-	class UBoxComponent* Trigger;
+	//UPROPERTY(VisibleAnywhere)
+	//class UBoxComponent* Trigger;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey; //아이템끼리의 구분 (Weapon, Potion)
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemKey; */
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemNo=0; //아이템 내에서 구분(Weapon-1, Weapon-2)
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemNo=0; */
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemDisplayName;
+	FText ItemDisplayName;*/
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Health;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//int32 Health;
 
 };
