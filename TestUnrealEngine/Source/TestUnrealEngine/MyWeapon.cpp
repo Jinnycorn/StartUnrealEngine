@@ -4,7 +4,6 @@
 #include "MyWeapon.h"
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
-#include "MyItemDataTable.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyGameModeBase.h"

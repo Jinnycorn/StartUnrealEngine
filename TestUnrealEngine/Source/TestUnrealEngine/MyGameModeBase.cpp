@@ -3,7 +3,7 @@
 
 #include "MyGameModeBase.h"
 #include "MyCharacter.h"
-#include "MyItemDataTable.h"
+
 
 AMyGameModeBase::AMyGameModeBase()
 {
