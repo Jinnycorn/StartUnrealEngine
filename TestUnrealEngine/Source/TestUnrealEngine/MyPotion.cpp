@@ -72,27 +72,27 @@ void AMyPotion::PostInitializeComponents()
 }
 
 //겹치기 시작했을 때 딱 한번만 불림
-void AMyPotion::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
-
-
-	if (MyCharacter) //내 캐릭터일때만 실행하겠다
-	{
-		MyCharacter->CurrentOverlappedItem = this;
-		UE_LOG(LogTemp, Log, TEXT("Potion Overlapped"));
-	}
-}
-
-void AMyPotion::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-
-
-	if (MyCharacter)
-	{
-		MyCharacter->CurrentOverlappedItem = nullptr;
-
-	}
-}
+//void AMyPotion::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+//{
+//
+//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
+//
+//
+//	if (MyCharacter) //내 캐릭터일때만 실행하겠다
+//	{
+//		MyCharacter->CurrentOverlappedItem = this;
+//		UE_LOG(LogTemp, Log, TEXT("Potion Overlapped"));
+//	}
+//}
+//
+//void AMyPotion::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+//{
+//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+//
+//
+//	if (MyCharacter)
+//	{
+//		MyCharacter->CurrentOverlappedItem = nullptr;
+//
+//	}
+//}
