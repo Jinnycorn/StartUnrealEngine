@@ -20,6 +20,28 @@ struct FMyCharacterData : public FTableRowBase
 	int32 MaxHp;
 };
 
+USTRUCT()
+struct FMyMonsterData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterHp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterAttack;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterMaxHp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterRewardItemKey;
+};
+
+
 USTRUCT(BlueprintType)
 struct FMyItemData : public FTableRowBase
 {
