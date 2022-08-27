@@ -57,5 +57,5 @@ FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
 void UMonAnimInstance::MonAnimNotify_AttackHit()
 {
 	//UE_LOG(LogTemp, Log, TEXT("AnimNotify_AttackHit"));
-	//OnAttackHit.Broadcast();
+	OnAttackHit.Broadcast();
 }
