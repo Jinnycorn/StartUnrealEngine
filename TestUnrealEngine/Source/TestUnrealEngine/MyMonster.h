@@ -19,6 +19,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void PostInitializeComponents() override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -26,10 +28,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Attack();
 
-	void UpDown(float Value);
-	void LeftRight(float Value);
-	void Yaw(float Value);
+	UFUNCTION()
+	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
 
 private:
 
@@ -39,11 +42,13 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
-
-public:
-	UPROPERTY()
-	float UpDownValue = 0;
+	UPROPERTY(VisibleAnywhere, Category = Pawn)
+	bool IsAttacking = false;
 
 	UPROPERTY()
-	float LeftRightValue = 0;
+	class UMonAnimInstance* MAnimInstance;
+
+	UPROPERTY()
+	int32 AttackIndex = 0;
+
 };

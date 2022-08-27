@@ -2,7 +2,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-
+#include "MonAnimInstance.h"
 
 AMyMonster::AMyMonster()
 {
@@ -38,7 +38,27 @@ void AMyMonster::BeginPlay()
 	
 }
 
-// Called every frame
+void AMyMonster::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	MAnimInstance = Cast<UMonAnimInstance>(GetMesh()->GetAnimInstance());
+
+	if (MAnimInstance)
+	{
+		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
+		//AnimInstance->OnAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
+	}
+
+	//HpBar->InitWidget();
+
+	//auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
+	//if (HpWidget)
+	//	HpWidget->BindHp(Stat);
+
+
+}
+
 void AMyMonster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -49,28 +69,29 @@ void AMyMonster::Tick(float DeltaTime)
 void AMyMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyMonster::UpDown);
-	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyMonster::LeftRight);
-	PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyMonster::Yaw);
+	
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyMonster::Attack);
+
 }
 
-void AMyMonster::UpDown(float Value)
+void AMyMonster::Attack()
 {
 
-	UpDownValue = Value;
-	AddMovementInput(GetActorForwardVector(), Value);
+	if (IsAttacking)
+		return;
 
+
+	MAnimInstance->MonPlayAttackMontage();
+
+	MAnimInstance->JumpToSection(AttackIndex);
+	AttackIndex = (AttackIndex + 1) % 3;
+
+	IsAttacking = true;
 }
 
-void AMyMonster::LeftRight(float Value)
+void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-
-	LeftRightValue = Value;
-	AddMovementInput(GetActorRightVector(), Value);
+	IsAttacking = false;
+	//OnAttackEnd.Broadcast();
 }
 
-void AMyMonster::Yaw(float Value)
-{
-
-	AddControllerYawInput(Value);
-}

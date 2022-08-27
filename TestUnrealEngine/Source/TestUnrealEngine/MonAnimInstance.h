@@ -18,8 +18,24 @@ public:
 	UMonAnimInstance();
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+	void MonPlayAttackMontage();
+
+	void JumpToSection(int32 SectionIndex);
+
+	FName GetAttackMontageName(int32 SectionIndex);
+
+private:
+	UFUNCTION()
+	void MonAnimNotify_AttackHit();
 private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	float Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	bool IsFalling;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	UAnimMontage* MonAttackMontage;
+
 };
