@@ -95,3 +95,18 @@ void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 	//OnAttackEnd.Broadcast();
 }
 
+void AMyMonster::UpDown(float Value)
+{
+
+	UpDownValue = Value;
+	AddMovementInput(GetActorForwardVector(), Value);
+
+}
+
+void AMyMonster::LeftRight(float Value)
+{
+
+	LeftRightValue = Value;
+	AddMovementInput(GetActorRightVector(), Value);
+}
+

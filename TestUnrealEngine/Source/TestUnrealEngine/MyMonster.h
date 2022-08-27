@@ -30,6 +30,10 @@ public:
 
 	void Attack();
 
+	void UpDown(float Value);
+	void LeftRight(float Value);
+
+
 	UFUNCTION()
 	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
@@ -50,5 +54,12 @@ private:
 
 	UPROPERTY()
 	int32 AttackIndex = 0;
+
+public:
+	UPROPERTY()
+	float UpDownValue = 0;
+
+	UPROPERTY()
+	float LeftRightValue = 0;
 
 };
