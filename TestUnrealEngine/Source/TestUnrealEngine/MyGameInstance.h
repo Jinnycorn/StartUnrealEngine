@@ -20,7 +20,7 @@ struct FMyCharacterData : public FTableRowBase
 	int32 MaxHp;
 };
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FMyMonsterData : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -75,13 +75,18 @@ public:
 
 	FMyCharacterData* GetStatData(int32 Level);
 
-
+	//ItemData 가져오기
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* IDataTable;
 
-	//ItemData 가져오기
+	
 	FMyItemData* GetItemData(int32 ItemKey);
 
+	//MonsterData 가져오기
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UDataTable* MDataTable;
+	
+	FMyMonsterData* GetMonsterData(int32 MonsterKey);
 
 private:
 	UPROPERTY()

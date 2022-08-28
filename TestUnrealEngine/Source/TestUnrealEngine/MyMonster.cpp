@@ -47,8 +47,8 @@ void AMyMonster::PostInitializeComponents()
 
 	if (MAnimInstance)
 	{
-		//MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
-		//MAnimInstance->OnAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
+		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
+		MAnimInstance->OnAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
 	}
 
 	//HpBar->InitWidget();

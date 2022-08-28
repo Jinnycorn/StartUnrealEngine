@@ -5,10 +5,10 @@
 
 UMyGameInstance::UMyGameInstance()
 {
-	static ConstructorHelpers::FObjectFinder<UDataTable> DATA(TEXT("DataTable'/Game/Data/StatTable.StatTable'"));
+	static ConstructorHelpers::FObjectFinder<UDataTable> STATDATA(TEXT("DataTable'/Game/Data/StatTable.StatTable'"));
 
 	
-		MyStats = DATA.Object;
+		MyStats = STATDATA.Object;
 
 	//DataTable √ ±‚»≠
 	static ConstructorHelpers::FObjectFinder<UDataTable> ITEMDATA(TEXT("DataTable'/Game/Data/ItemTable.ItemTable'"));
@@ -17,6 +17,14 @@ UMyGameInstance::UMyGameInstance()
 		UE_LOG(LogTemp, Warning, TEXT("DataTable Succeed!"));
 		IDataTable = ITEMDATA.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> MONSTERDATA(TEXT("DataTable'/Game/Data/MonsterTable.MonsterTable'"));
+	if (MONSTERDATA.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MonsterTable Succeed!"));
+		MDataTable = MONSTERDATA.Object;
+	}
+
 	
 }
 
@@ -36,5 +44,12 @@ FMyItemData* UMyGameInstance::GetItemData(int32 ItemKey)
 {
 
 	return IDataTable->FindRow<FMyItemData>(*FString::FromInt(ItemKey), TEXT(""));
+
+}
+
+FMyMonsterData* UMyGameInstance::GetMonsterData(int32 MonsterKey)
+{
+
+	return MDataTable->FindRow<FMyMonsterData>(*FString::FromInt(MonsterKey), TEXT(""));
 
 }
