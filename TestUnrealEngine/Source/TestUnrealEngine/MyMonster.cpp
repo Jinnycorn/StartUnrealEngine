@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "MonAnimInstance.h"
 #include "DrawDebugHelpers.h"
+#include "MonStatComponent.h"
 
 AMyMonster::AMyMonster()
 {
@@ -30,6 +31,9 @@ AMyMonster::AMyMonster()
 	{
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
+
+	MonStat = CreateDefaultSubobject<UMonStatComponent>(TEXT("MONSTAT"));
+
 }
 
 // Called when the game starts or when spawned
@@ -137,9 +141,9 @@ void AMyMonster::AttackCheck()
 	if (bResult && HitResult.Actor.IsValid())
 	{
 		UE_LOG(LogTemp, Log, TEXT("Hit Actor: %s"), *HitResult.Actor->GetName());
-		/*FDamageEvent DamageEvent;
-		HitResult.Actor->TakeDamage(Stat->GetAttack(),
-			DamageEvent, GetController(), this);*/
+		FDamageEvent DamageEvent;
+		HitResult.Actor->TakeDamage(MonStat->GetAttack(),
+			DamageEvent, GetController(), this);
 	}
 }
 
@@ -164,4 +168,19 @@ void AMyMonster::LeftRight(float Value)
 	LeftRightValue = Value;
 	AddMovementInput(GetActorRightVector(), Value);
 }
+
+float AMyMonster::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	MonStat->OnAttacked(DamageAmount);
+
+	return DamageAmount;
+}
+
+//¿©±â!!!!!!
+//float AMyCharacter::TakeHp(float Health)
+//{
+//	Stat->RecoverHp(Health);
+//
+//	return Health;
+//}
 

@@ -28,6 +28,9 @@ struct FMyMonsterData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 D_MonsterKey;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 D_MonsterLevel;
+
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 D_MonsterHp;*/
 

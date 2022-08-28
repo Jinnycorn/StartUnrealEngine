@@ -21,8 +21,6 @@ UMyStatComponent::UMyStatComponent()
 void UMyStatComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 	
 }
 

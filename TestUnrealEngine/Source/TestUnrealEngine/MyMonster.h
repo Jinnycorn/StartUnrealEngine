@@ -38,6 +38,8 @@ public:
 	UFUNCTION()
 	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
 
 private:
 
@@ -62,5 +64,8 @@ public:
 
 	UPROPERTY()
 	float LeftRightValue = 0;
+
+	UPROPERTY(VisibleAnywhere)
+	class UMonStatComponent* MonStat;
 
 };
