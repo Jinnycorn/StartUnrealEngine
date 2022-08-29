@@ -12,7 +12,7 @@
 #include "MyStatComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyCharacterWidget.h"
-#include "MyAIController.h"
+
 #include "Item.h"
 #include "InventoryComponent.h"
 #include "MyGameInstance.h"
@@ -68,8 +68,8 @@ AMyCharacter::AMyCharacter()
 		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
 	}
 
-	AIControllerClass = AMyAIController::StaticClass();
-	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	//AIControllerClass = AMyAIController::StaticClass();
+	//AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 // Called when the game starts or when spawned
@@ -128,7 +128,7 @@ void AMyCharacter::Attack()
 	if (IsAttacking)
 		return;
 
-
+	UE_LOG(LogTemp, Log, TEXT("Character Attack!!!!"));
 	AnimInstance->PlayAttackMontage();
 
 	AnimInstance->JumpToSection(AttackIndex);
@@ -265,7 +265,7 @@ void AMyCharacter::Yaw(float Value)
 void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	IsAttacking = false;
-	OnAttackEnd.Broadcast();
+	//OnAttackEnd.Broadcast();
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)

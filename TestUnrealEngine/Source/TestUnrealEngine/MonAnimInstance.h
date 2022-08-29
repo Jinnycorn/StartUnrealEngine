@@ -6,7 +6,7 @@
 #include "Animation/AnimInstance.h"
 #include "MonAnimInstance.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnAttackHit);
+DECLARE_MULTICAST_DELEGATE(FOnMonsterAttackHit);
 
 UCLASS()
 class TESTUNREALENGINE_API UMonAnimInstance : public UAnimInstance
@@ -46,5 +46,5 @@ private:
 
 
 public:
-	FOnAttackHit OnAttackHit;
+	FOnMonsterAttackHit OnMonAttackHit;
 };

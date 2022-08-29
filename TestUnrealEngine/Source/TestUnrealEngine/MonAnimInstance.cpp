@@ -44,8 +44,12 @@ void UMonAnimInstance::MonPlayAttackMontage()
 
 void UMonAnimInstance::JumpToSection(int32 SectionIndex)
 {
+
 	FName Name = GetAttackMontageName(SectionIndex);
+	
 	Montage_JumpToSection(Name, MonAttackMontage);
+
+	
 }
 
 FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
@@ -56,6 +60,6 @@ FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
 
 void UMonAnimInstance::MonAnimNotify_AttackHit()
 {
-	//UE_LOG(LogTemp, Log, TEXT("AnimNotify_AttackHit"));
-	OnAttackHit.Broadcast();
+	UE_LOG(LogTemp, Log, TEXT("MonsterAnimNotify_AttackHit"));
+	OnMonAttackHit.Broadcast();
 }

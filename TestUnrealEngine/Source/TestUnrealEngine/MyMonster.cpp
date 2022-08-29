@@ -7,6 +7,7 @@
 #include "MonStatComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyCharacterWidget.h"
+#include "MyAIController.h"
 
 AMyMonster::AMyMonster()
 {
@@ -50,6 +51,9 @@ AMyMonster::AMyMonster()
 		HpBar->SetWidgetClass(UW.Class);
 		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
 	}
+
+	AIControllerClass = AMyAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 // Called when the game starts or when spawned
@@ -65,10 +69,14 @@ void AMyMonster::PostInitializeComponents()
 
 	MAnimInstance = Cast<UMonAnimInstance>(GetMesh()->GetAnimInstance());
 
+	if (MAnimInstance == nullptr)
+	{
+		UE_LOG(LogTemp, Log, TEXT("MAnimInstance is null"));
+	}
 	if (MAnimInstance)
 	{
 		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
-		MAnimInstance->OnAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
+		MAnimInstance->OnMonAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
 	}
 
 	HpBar->InitWidget();
@@ -100,7 +108,7 @@ void AMyMonster::Attack()
 
 	if (IsAttacking)
 		return;
-
+	//UE_LOG(LogTemp, Log, TEXT("1.Monster Attack!!!!"));
 
 	MAnimInstance->MonPlayAttackMontage();
 
@@ -108,13 +116,16 @@ void AMyMonster::Attack()
 	AttackIndex = (AttackIndex + 1) % 3;
 
 	IsAttacking = true;
+
 }
 
 void AMyMonster::AttackCheck()
 {
 	FHitResult HitResult;
+
 	FCollisionQueryParams Params(NAME_None, false, this);
 
+	UE_LOG(LogTemp, Log, TEXT("2. AttackCheck!!!!"));
 	float AttackRange = 100.f;
 	float AttackRadius = 50.f;
 
@@ -156,7 +167,7 @@ void AMyMonster::AttackCheck()
 	);
 	if (bResult && HitResult.Actor.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Hit Actor: %s"), *HitResult.Actor->GetName());
+		UE_LOG(LogTemp, Log, TEXT("Monster's Hit Actor: %s"), *HitResult.Actor->GetName());
 		FDamageEvent DamageEvent;
 		HitResult.Actor->TakeDamage(MonStat->GetAttack(),
 			DamageEvent, GetController(), this);
@@ -167,7 +178,7 @@ void AMyMonster::AttackCheck()
 void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	IsAttacking = false;
-	//OnAttackEnd.Broadcast();
+	OnAttackEnd.Broadcast();
 }
 
 void AMyMonster::UpDown(float Value)
@@ -192,11 +203,5 @@ float AMyMonster::TakeDamage(float DamageAmount, struct FDamageEvent const& Dama
 	return DamageAmount;
 }
 
-//¿©±â!!!!!!
-//float AMyCharacter::TakeHp(float Health)
-//{
-//	Stat->RecoverHp(Health);
-//
-//	return Health;
-//}
+
 
