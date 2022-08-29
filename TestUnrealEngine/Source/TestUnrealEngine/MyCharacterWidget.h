@@ -16,11 +16,12 @@ class TESTUNREALENGINE_API UMyCharacterWidget : public UUserWidget
 
 public:
 	void BindHp(class UMyStatComponent* StatComp);
-
+	void BindMonHp(class UMonStatComponent* StatComp);
 	void UpdateHp();
 	
 private:
 	TWeakObjectPtr<class UMyStatComponent> CurrentStatComp;
+	TWeakObjectPtr<class UMonStatComponent> CurrentMonStatComp;
 
 	UPROPERTY(meta=(BindWidget))
 	class UProgressBar* PB_HpBar;

@@ -68,4 +68,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UMonStatComponent* MonStat;
 
+	UPROPERTY(VisibleAnywhere)
+	class UWidgetComponent* HpBar;
+
 };

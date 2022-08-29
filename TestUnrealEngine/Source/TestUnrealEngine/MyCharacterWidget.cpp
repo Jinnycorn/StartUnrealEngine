@@ -3,6 +3,7 @@
 
 #include "MyCharacterWidget.h"
 #include "MyStatComponent.h"
+#include "MonStatComponent.h"
 #include "Components/ProgressBar.h"
 
 void UMyCharacterWidget::BindHp(class UMyStatComponent* StatComp)
@@ -12,6 +13,13 @@ void UMyCharacterWidget::BindHp(class UMyStatComponent* StatComp)
 	
 }
 
+void UMyCharacterWidget::BindMonHp(class UMonStatComponent* StatComp)
+{
+	CurrentMonStatComp = StatComp;
+	StatComp->OnMonHpChanged.AddUObject(this, &UMyCharacterWidget::UpdateHp);
+
+}
+
 void UMyCharacterWidget::UpdateHp()
 {
 	if (CurrentStatComp.IsValid())
@@ -19,5 +27,9 @@ void UMyCharacterWidget::UpdateHp()
 		PB_HpBar->SetPercent(CurrentStatComp->GetHpRatio());
 	}
 	
+	if (CurrentMonStatComp.IsValid())
+	{
+		PB_HpBar->SetPercent(CurrentMonStatComp->GetHpRatio());
+	}
 	
 }

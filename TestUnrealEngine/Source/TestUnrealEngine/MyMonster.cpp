@@ -5,6 +5,8 @@
 #include "MonAnimInstance.h"
 #include "DrawDebugHelpers.h"
 #include "MonStatComponent.h"
+#include "Components/WidgetComponent.h"
+#include "MyCharacterWidget.h"
 
 AMyMonster::AMyMonster()
 {
@@ -34,6 +36,20 @@ AMyMonster::AMyMonster()
 
 	MonStat = CreateDefaultSubobject<UMonStatComponent>(TEXT("MONSTAT"));
 
+	HpBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("HPBAR"));
+	HpBar->SetupAttachment(GetMesh());
+	HpBar->SetRelativeLocation(FVector(0.f, 0.f, 200.f));
+
+	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
+
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
+
+	if (UW.Succeeded())
+	{
+		HpBar->SetWidgetClass(UW.Class);
+		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
+	}
 }
 
 // Called when the game starts or when spawned
@@ -55,11 +71,11 @@ void AMyMonster::PostInitializeComponents()
 		MAnimInstance->OnAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
 	}
 
-	//HpBar->InitWidget();
+	HpBar->InitWidget();
 
-	//auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
-	//if (HpWidget)
-	//	HpWidget->BindHp(Stat);
+	auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
+	if (HpWidget)
+		HpWidget->BindMonHp(MonStat);
 
 
 }
