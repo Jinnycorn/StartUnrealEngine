@@ -69,10 +69,6 @@ void AMyMonster::PostInitializeComponents()
 
 	MAnimInstance = Cast<UMonAnimInstance>(GetMesh()->GetAnimInstance());
 
-	if (MAnimInstance == nullptr)
-	{
-		UE_LOG(LogTemp, Log, TEXT("MAnimInstance is null"));
-	}
 	if (MAnimInstance)
 	{
 		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
@@ -108,7 +104,7 @@ void AMyMonster::Attack()
 
 	if (IsAttacking)
 		return;
-	//UE_LOG(LogTemp, Log, TEXT("1.Monster Attack!!!!"));
+
 
 	MAnimInstance->MonPlayAttackMontage();
 
@@ -125,7 +121,6 @@ void AMyMonster::AttackCheck()
 
 	FCollisionQueryParams Params(NAME_None, false, this);
 
-	UE_LOG(LogTemp, Log, TEXT("2. AttackCheck!!!!"));
 	float AttackRange = 100.f;
 	float AttackRadius = 50.f;
 
@@ -174,6 +169,13 @@ void AMyMonster::AttackCheck()
 	}
 }
 
+void AMyMonster::Die()
+{
+	
+	//hp가 0이 되면 이 함수 불릴 것
+	UE_LOG(LogTemp, Log, TEXT("Monster Dead"));
+	IsDead = true;
+}
 
 void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {

@@ -45,7 +45,6 @@ void AMyWeapon::BeginPlay()
 	{
 		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 		
-		//UE_LOG(LogTemp, Log, TEXT("I GOT Weapon Instance!!!!"));
 		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;

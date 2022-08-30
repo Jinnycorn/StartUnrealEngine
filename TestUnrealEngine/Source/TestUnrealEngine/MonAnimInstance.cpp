@@ -58,8 +58,8 @@ FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
 	return FName(*FString::Printf(TEXT("Attack%d"), SectionIndex));
 }
 
-void UMonAnimInstance::MonAnimNotify_AttackHit()
+void UMonAnimInstance::AnimNotify_AttackHit()
 {
-	UE_LOG(LogTemp, Log, TEXT("MonsterAnimNotify_AttackHit"));
+	//UE_LOG(LogTemp, Log, TEXT("MonsterAnimNotify_AttackHit"));
 	OnMonAttackHit.Broadcast();
 }

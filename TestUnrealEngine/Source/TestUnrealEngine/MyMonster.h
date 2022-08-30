@@ -14,11 +14,11 @@ class TESTUNREALENGINE_API AMyMonster : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+
 	AMyMonster();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
@@ -32,6 +32,7 @@ public:
 
 	void Attack();
 	void AttackCheck();
+	void Die();
 
 	FOnAttackEnd OnAttackEnd;
 
@@ -55,6 +56,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = Pawn)
 	bool IsAttacking = false;
+
+	UPROPERTY(VisibleAnywhere)
+	bool IsDead= false;
 
 	UPROPERTY()
 	class UMonAnimInstance* MAnimInstance;

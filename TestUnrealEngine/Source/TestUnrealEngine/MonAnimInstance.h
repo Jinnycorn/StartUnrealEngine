@@ -25,7 +25,7 @@ public:
 
 private:
 	UFUNCTION()
-	void MonAnimNotify_AttackHit();
+	void AnimNotify_AttackHit();
 
 private:
 
@@ -47,4 +47,6 @@ private:
 
 public:
 	FOnMonsterAttackHit OnMonAttackHit;
+
+
 };

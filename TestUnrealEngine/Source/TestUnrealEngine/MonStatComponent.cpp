@@ -1,7 +1,7 @@
 #include "MonStatComponent.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "MyMonster.h"
 
 UMonStatComponent::UMonStatComponent()
 {
@@ -25,6 +25,7 @@ void UMonStatComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
 	SetLevel(Level);
+
 }
 
 void UMonStatComponent::SetLevel(int32 NewLevel)
@@ -46,10 +47,13 @@ void UMonStatComponent::SetLevel(int32 NewLevel)
 
 void UMonStatComponent::SetHp(int32 NewHp)
 {
+	
+
 	Hp = NewHp;
 	if (Hp < 0)
 	{
 		Hp = 0;
+		
 	}
 
 
