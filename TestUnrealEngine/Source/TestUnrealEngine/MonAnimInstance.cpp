@@ -55,7 +55,7 @@ void UMonAnimInstance::JumpToSection(int32 SectionIndex)
 FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
 {
 
-	return FName(*FString::Printf(TEXT("MonAttack%d"), SectionIndex));
+	return FName(*FString::Printf(TEXT("Attack%d"), SectionIndex));
 }
 
 void UMonAnimInstance::MonAnimNotify_AttackHit()

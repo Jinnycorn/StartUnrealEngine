@@ -15,14 +15,14 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerCom
 {
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	auto MyCharacter=Cast<AMyMonster>(OwnerComp.GetAIOwner()->GetPawn());
-	if (MyCharacter == nullptr)
+	auto MyMonster=Cast<AMyMonster>(OwnerComp.GetAIOwner()->GetPawn());
+	if (MyMonster == nullptr)
 		return EBTNodeResult::Failed;
 
-	MyCharacter->Attack();
+	MyMonster->Attack();
 	bIsAttacking = true;
 
-	MyCharacter->OnAttackEnd.AddLambda([this]()
+	MyMonster->OnAttackEnd.AddLambda([this]()
 		{
 			bIsAttacking = false;
 		});
