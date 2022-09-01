@@ -8,6 +8,8 @@
 #include "Components/WidgetComponent.h"
 #include "MyCharacterWidget.h"
 #include "MyAIController.h"
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 AMyMonster::AMyMonster()
 {
@@ -60,6 +62,15 @@ AMyMonster::AMyMonster()
 void AMyMonster::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GAMEINSTANCE)
+	{
+		
+		MonsterRewardItemKey = GAMEINSTANCE->GetMonsterData(1)->D_MonsterRewardItemKey;
+
+		UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);
+	}
 	
 }
 
@@ -175,6 +186,12 @@ void AMyMonster::Die()
 	//hp가 0이 되면 이 함수 불릴 것
 	UE_LOG(LogTemp, Log, TEXT("Monster Dead"));
 	IsDead = true;
+
+	if (IsDead == true)
+	{
+
+		this->Destroy();
+	}
 }
 
 void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -202,6 +219,10 @@ float AMyMonster::TakeDamage(float DamageAmount, struct FDamageEvent const& Dama
 {
 	MonStat->OnAttacked(DamageAmount);
 
+	if (MonStat->OnAttacked(DamageAmount))
+	{
+		Die();
+	}
 	return DamageAmount;
 }
 

@@ -26,7 +26,7 @@ protected:
 public:
 	void SetLevel(int32 Level);
 	void SetHp(int32 NewHp);
-	void OnAttacked(float DamageAmount);
+	bool OnAttacked(float DamageAmount);
 
 
 	int32 GetLevel() { return Level; }
@@ -47,6 +47,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = MonStat, Meta = (AllowPrivateAccess = true))
 	int32 Attack;
+
 	
 
 public:

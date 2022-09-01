@@ -1,7 +1,7 @@
 #include "MonStatComponent.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "MyMonster.h"
+
 
 UMonStatComponent::UMonStatComponent()
 {
@@ -60,11 +60,16 @@ void UMonStatComponent::SetHp(int32 NewHp)
 	OnMonHpChanged.Broadcast();
 }
 
-void UMonStatComponent::OnAttacked(float DamageAmount)
+bool UMonStatComponent::OnAttacked(float DamageAmount)
 {
-	int32 NewHp = Hp - DamageAmount;
+	int32 NewHp = Hp - DamageAmount;	
 	SetHp(NewHp);
 	
+	if (NewHp <= 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 

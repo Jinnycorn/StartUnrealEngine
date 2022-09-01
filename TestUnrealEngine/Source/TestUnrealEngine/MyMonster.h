@@ -79,4 +79,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UWidgetComponent* HpBar;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MonsterRewardItemKey;
+
 };
