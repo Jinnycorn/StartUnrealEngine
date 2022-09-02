@@ -10,6 +10,7 @@
 #include "MyAIController.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "ItemBase.h"
 
 AMyMonster::AMyMonster()
 {
@@ -64,11 +65,15 @@ void AMyMonster::BeginPlay()
 	Super::BeginPlay();
 
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	
+	
+
 	if (GAMEINSTANCE)
 	{
 		
 		MonsterRewardItemKey = GAMEINSTANCE->GetMonsterData(1)->D_MonsterRewardItemKey;
-
+		
+		
 		UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);
 	}
 	
@@ -189,7 +194,6 @@ void AMyMonster::Die()
 
 	if (IsDead == true)
 	{
-
 		this->Destroy();
 	}
 }
