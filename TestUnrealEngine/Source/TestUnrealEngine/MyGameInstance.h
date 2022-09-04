@@ -51,6 +51,9 @@ struct FMyItemData : public FTableRowBase
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText D_ItemType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 D_ItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -61,6 +64,8 @@ struct FMyItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 D_Health;
+
+
 
 
 };
