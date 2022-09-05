@@ -43,6 +43,7 @@ public:
 	void UpDown(float Value);
 	void LeftRight(float Value);
 
+	//FVector  MonsterDeadLocation;
 
 
 	UFUNCTION()
@@ -89,5 +90,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText RewardItemType;
+
+	
 
 };

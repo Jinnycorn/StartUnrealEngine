@@ -11,6 +11,8 @@
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "ItemBase.h"
+#include "MyWeapon.h"
+#include "MyPotion.h"
 
 AMyMonster::AMyMonster()
 {
@@ -65,7 +67,7 @@ void AMyMonster::BeginPlay()
 	Super::BeginPlay();
 	
 	//ÀÓ½Ã·Î
-	SpawnRewardItem();
+	//SpawnRewardItem();
 }
 
 void AMyMonster::PostInitializeComponents()
@@ -183,6 +185,7 @@ void AMyMonster::Die()
 
 	if (IsDead == true)
 	{
+		SpawnRewardItem();
 		this->Destroy();
 	}
 }
@@ -191,14 +194,7 @@ void AMyMonster::SpawnRewardItem()
 {
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
-	/*static ConstructorHelpers::FObjectFinder<UDataTable> ITEMDATA(TEXT("DataTable'/Game/Data/ItemTable.ItemTable'"));
-	if (ITEMDATA.Succeeded())
-	{
-		IDataTable = ITEMDATA.Object;
-	}*/
 
-	
-	
 	if (GAMEINSTANCE)
 	{
 
@@ -218,7 +214,24 @@ void AMyMonster::SpawnRewardItem()
 		}
 		else if (RT == "Potion")
 		{
-			UE_LOG(LogTemp, Warning, TEXT("RT should be Potion: %s"), *RT);
+			//¾êµµ µÇ°í(Á×ÀºÀÚ¸®¿¡ »ý±è)
+			UWorld* world = GetWorld();
+			if (world)
+			{
+				UE_LOG(LogTemp, Log, TEXT("SpawnAmmo"));
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+				FRotator rotator;
+				FVector  SpawnLocation = GetActorLocation();
+				SpawnLocation.Z -= 90.0f;
+
+				world->SpawnActor<AMyPotion>(SpawnLocation, rotator, SpawnParams);
+			}
+
+			//¾êµµ µÇ°í
+		/*	UE_LOG(LogTemp, Warning, TEXT("RT should be Potion: %s"), *RT);
+			FTransform SpawnLocation;
+			GetWorld()->SpawnActor<AMyPotion>(AMyPotion::StaticClass(), SpawnLocation);*/
 		}
 		
 		//UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);

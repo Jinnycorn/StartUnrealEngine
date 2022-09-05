@@ -83,33 +83,7 @@ void AMyWeapon::PostInitializeComponents()
 
 }
 
-//겹치기 시작했을 때 딱 한번만 불림
-//void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-//{ 
-//	//UE_LOG(LogTemp, Log, TEXT("Overlapped"));
-//
-//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
-//	//Cast는 실제 타입을 찾아주는 검증의 의미
-//	
-//
-//	if (MyCharacter) //내 캐릭터일때만 실행하겠다
-//	{
-//		MyCharacter->CurrentOverlappedItem = this;
-//
-//	}
-//}
-//
-//void AMyWeapon::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-//{
-//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); 
-//
-//
-//	if (MyCharacter) 
-//	{
-//		MyCharacter->CurrentOverlappedItem = nullptr;
-//
-//	}
-//}
+
 
 
 
