@@ -17,6 +17,9 @@ public:
 
 	AMyMonster();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UDataTable* IDataTable;
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -33,11 +36,13 @@ public:
 	void Attack();
 	void AttackCheck();
 	void Die();
+	void SpawnRewardItem();
 
 	FOnAttackEnd OnAttackEnd;
 
 	void UpDown(float Value);
 	void LeftRight(float Value);
+
 
 
 	UFUNCTION()
@@ -81,5 +86,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MonsterRewardItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText RewardItemType;
 
 };

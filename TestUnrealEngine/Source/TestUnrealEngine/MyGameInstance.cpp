@@ -14,14 +14,14 @@ UMyGameInstance::UMyGameInstance()
 	static ConstructorHelpers::FObjectFinder<UDataTable> ITEMDATA(TEXT("DataTable'/Game/Data/ItemTable.ItemTable'"));
 	if (ITEMDATA.Succeeded())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("DataTable Succeed!"));
+		//UE_LOG(LogTemp, Warning, TEXT("DataTable Succeed!"));
 		IDataTable = ITEMDATA.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UDataTable> MONSTERDATA(TEXT("DataTable'/Game/Data/MonsterTable.MonsterTable'"));
 	if (MONSTERDATA.Succeeded())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MonsterTable Succeed!"));
+		//UE_LOG(LogTemp, Warning, TEXT("MonsterTable Succeed!"));
 		MDataTable = MONSTERDATA.Object;
 	}
 

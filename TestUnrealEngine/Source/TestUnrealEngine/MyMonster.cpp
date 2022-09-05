@@ -63,20 +63,9 @@ AMyMonster::AMyMonster()
 void AMyMonster::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	
-	
-
-	if (GAMEINSTANCE)
-	{
-		
-		MonsterRewardItemKey = GAMEINSTANCE->GetMonsterData(1)->D_MonsterRewardItemKey;
-		
-		
-		UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);
-	}
-	
+	//юс╫ц╥н
+	SpawnRewardItem();
 }
 
 void AMyMonster::PostInitializeComponents()
@@ -196,6 +185,47 @@ void AMyMonster::Die()
 	{
 		this->Destroy();
 	}
+}
+
+void AMyMonster::SpawnRewardItem()
+{
+	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	/*static ConstructorHelpers::FObjectFinder<UDataTable> ITEMDATA(TEXT("DataTable'/Game/Data/ItemTable.ItemTable'"));
+	if (ITEMDATA.Succeeded())
+	{
+		IDataTable = ITEMDATA.Object;
+	}*/
+
+	
+	
+	if (GAMEINSTANCE)
+	{
+
+		//FText SomeText = FText::FromString("Something");
+		//FString SomeString = SomeText.ToString();
+		//UE_LOG(LogTemp, Log, TEXT("SomeString: %s"), *SomeString); 
+
+
+		MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
+		RewardItemType= GAMEINSTANCE->GetItemData(MonsterRewardItemKey)->D_ItemType;
+		FString RT = RewardItemType.ToString();
+
+		if (RT == "Weapon")
+		{
+
+			UE_LOG(LogTemp, Warning, TEXT("RT should be Weapon: %s"), *RT);
+		}
+		else if (RT == "Potion")
+		{
+			UE_LOG(LogTemp, Warning, TEXT("RT should be Potion: %s"), *RT);
+		}
+		
+		//UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);
+		
+	}
+
+
 }
 
 void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
