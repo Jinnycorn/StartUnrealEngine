@@ -16,8 +16,8 @@ AMyPotion::AMyPotion()
 	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
-
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
 	
 	if (SM.Succeeded())
 	{

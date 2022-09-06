@@ -218,7 +218,6 @@ void AMyMonster::SpawnRewardItem()
 			UWorld* world = GetWorld();
 			if (world)
 			{
-				UE_LOG(LogTemp, Log, TEXT("SpawnAmmo"));
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.Owner = this;
 				FRotator rotator;
