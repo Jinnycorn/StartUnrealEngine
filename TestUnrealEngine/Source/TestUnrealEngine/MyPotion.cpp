@@ -10,7 +10,7 @@
 // Sets default values
 AMyPotion::AMyPotion()
 {
- 	
+  //텍스트 받아오는것 따로 만들기	
 	PrimaryActorTick.bCanEverTick = false;
 
 	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
