@@ -10,15 +10,54 @@
 // Sets default values
 AMyPotion::AMyPotion()
 {
-  //텍스트 받아오는것 따로 만들기	
+
 	PrimaryActorTick.bCanEverTick = false;
 
-	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
-	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
+	//ReadItemPath();
+	//Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
+	//Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
 	
+	/*if (SM.Succeeded())
+	{
+		Potion->SetStaticMesh(SM.Object);
+	}
+
+	Potion->SetupAttachment(RootComponent);*/
+	//Trigger->SetupAttachment(Potion);
+
+
+
+	//Potion->SetCollisionProfileName(TEXT("MyCollectible"));
+	//Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
+	//Trigger->SetBoxExtent(FVector(40.f, 40.f, 40.f));
+
+	AActor* CurrentOverlappedItem = nullptr;
+}
+
+
+void AMyPotion::ReadItemPath()
+{
+	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
+	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
+	
+
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
+
+	FString ItemPathTest = ItemPath.ToString();
+
+
+	const TCHAR* wavLink = *ItemPathTest;
+	
+	UE_LOG(LogTemp, Warning, TEXT("itemPathTest: %s"), *ItemPathTest);
+	
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(wavLink);
+
+	UE_LOG(LogTemp, Warning, TEXT("wavLink: %s"), wavLink);
+
+
 	if (SM.Succeeded())
 	{
 		Potion->SetStaticMesh(SM.Object);
@@ -28,12 +67,9 @@ AMyPotion::AMyPotion()
 	Trigger->SetupAttachment(Potion);
 
 
-
 	Potion->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetCollisionProfileName(TEXT("MyCollectible"));
 	Trigger->SetBoxExtent(FVector(40.f, 40.f, 40.f));
-
-	AActor* CurrentOverlappedItem = nullptr;
 }
 
 // Called when the game starts or when spawned
@@ -41,12 +77,16 @@ void AMyPotion::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
 	{
 		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 
-		//UE_LOG(LogTemp, Log, TEXT("I GOT Potion Instance!!!!"));
+
+		ItemPath = GAMEINSTANCE->GetItemData(2)->D_ItemPath;
+		FString SItemPath = ItemPath.ToString();
+		UE_LOG(LogTemp, Warning, TEXT("itemPath: %s"), *SItemPath);
 
 		ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
@@ -54,9 +94,13 @@ void AMyPotion::BeginPlay()
 		Health = GAMEINSTANCE->GetItemData(2)->D_Health;
 
 		ItemNo = GM->GM_ItemNo++;
+
 		UE_LOG(LogTemp, Warning, TEXT("Potion: GM_ItemNo %d"), GM->GM_ItemNo);
-		
+
 	}
+
+
+	ReadItemPath();
 	
 }
 
@@ -71,28 +115,3 @@ void AMyPotion::PostInitializeComponents()
 
 }
 
-//겹치기 시작했을 때 딱 한번만 불림
-//void AMyPotion::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-//{
-//
-//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); //Cast로 자식의 캐릭터로 바꿔준것
-//
-//
-//	if (MyCharacter) //내 캐릭터일때만 실행하겠다
-//	{
-//		MyCharacter->CurrentOverlappedItem = this;
-//		UE_LOG(LogTemp, Log, TEXT("Potion Overlapped"));
-//	}
-//}
-//
-//void AMyPotion::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-//{
-//	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-//
-//
-//	if (MyCharacter)
-//	{
-//		MyCharacter->CurrentOverlappedItem = nullptr;
-//
-//	}
-//}

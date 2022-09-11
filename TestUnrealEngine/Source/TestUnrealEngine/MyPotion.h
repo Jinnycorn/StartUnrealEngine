@@ -20,6 +20,9 @@ public:
 	class UWorld* World;*/
 
 	AMyPotion* SpawnedActor;
+
+	void ReadItemPath();
+
 protected:
 	
 	virtual void BeginPlay() override;
@@ -38,23 +41,11 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Potion;
 
-	/*UPROPERTY(VisibleAnywhere)
-	class UBoxComponent* Trigger;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemNo=0; 
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UTexture2D* Thumbnail;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemDisplayName;*/
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText ItemPath; 
 
 
 };
