@@ -44,5 +44,3 @@ void AItemBase::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActo
 
 	}
 }
-
-

@@ -18,7 +18,6 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UWorld* World;
 
-	
 
 
 protected:
@@ -50,9 +49,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
-
-	//아이템경로
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemPath;*/
 
 };

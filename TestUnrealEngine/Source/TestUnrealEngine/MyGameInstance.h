@@ -69,10 +69,6 @@ struct FMyItemData : public FTableRowBase
 	FText D_ItemPath;
 
 
-
-
-
-
 };
 
 
