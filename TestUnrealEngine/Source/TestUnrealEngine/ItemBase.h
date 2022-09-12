@@ -50,4 +50,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText ItemDisplayName;
 
+	FString test[100];
+
 };

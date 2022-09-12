@@ -10,7 +10,7 @@
 // Sets default values
 AMyPotion::AMyPotion()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Constructor Called"));
+	
 	PrimaryActorTick.bCanEverTick = false;
 
 	Potion = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("POTION"));
@@ -19,10 +19,16 @@ AMyPotion::AMyPotion()
 	ReadItemPath();
 
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
+	
+	//FString test = FString(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
+	
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TestHUDText);
-	UE_LOG(LogTemp, Warning, TEXT("ItemPath is %s"), *ItemPath); //읽힘
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(*test[1]);
+
+
+	//UE_LOG(LogTemp, Warning, TEXT("ItemPath is %s"), *ItemPath); //몬스터 죽고 아이템 생길때만 읽힘
+	//UE_LOG(LogTemp, Warning, TEXT("test is %s"), *test);
 
 	if (SM.Succeeded())
 	{
@@ -31,7 +37,6 @@ AMyPotion::AMyPotion()
 
 	Potion->SetupAttachment(RootComponent);
 	Trigger->SetupAttachment(Potion);
-
 
 
 	Potion->SetCollisionProfileName(TEXT("MyCollectible"));
@@ -45,14 +50,14 @@ AMyPotion::AMyPotion()
 void AMyPotion::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Begin Play Called"));
+	
 	//ReadItemPath();
 
 }
 
 void AMyPotion::ReadItemPath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ReadItemPath Called"));
+
 	//이부분은 원래 BeginPlay에 있었음
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
@@ -68,7 +73,7 @@ void AMyPotion::ReadItemPath()
 
 		//FString SomeString = ItemPath.ToString();
 
-		//UE_LOG(LogTemp, Warning, TEXT("ItemPath is %s"), *ItemPath);
+	
 
 		ItemNo = GM->GM_ItemNo++;
 		//UE_LOG(LogTemp, Warning, TEXT("Potion: GM_ItemNo %d"), GM->GM_ItemNo);
