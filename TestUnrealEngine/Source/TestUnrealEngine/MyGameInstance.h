@@ -66,7 +66,7 @@ struct FMyItemData : public FTableRowBase
 	int32 D_Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText D_ItemPath;
+	FString D_ItemPath;
 
 
 };

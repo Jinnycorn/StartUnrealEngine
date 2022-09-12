@@ -20,6 +20,8 @@ public:
 	class UWorld* World;*/
 
 	AMyPotion* SpawnedActor;
+
+	void ReadItemPath();
 protected:
 	
 	virtual void BeginPlay() override;
@@ -55,6 +57,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString ItemPath;
 
 
 };
