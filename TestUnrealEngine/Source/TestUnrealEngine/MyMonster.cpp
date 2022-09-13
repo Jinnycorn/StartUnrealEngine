@@ -31,9 +31,9 @@ AMyMonster::AMyMonster()
 	GetMesh()->SetRelativeLocationAndRotation(
 	FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 
-
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
-	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonCountess/Characters/Heroes/Countess/Meshes/SM_Countess.SM_Countess'"));
+	//1. 캐릭터 매쉬
+	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonCountess/Characters/Heroes/Countess/Meshes/SM_Countess.SM_Countess'"));
 
 
 	if (SM.Succeeded())
@@ -48,6 +48,19 @@ AMyMonster::AMyMonster()
 	HpBar->SetRelativeLocation(FVector(0.f, 0.f, 200.f));
 
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
+
+	//원래 이부분 없었음
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+
+	static ConstructorHelpers::FClassFinder<UAnimInstance> BP_MonAnim(TEXT
+	("AnimBlueprint'/Game/Blueprints/ABP_CMonAnim.ABP_CMonAnim_C'"));
+	if (BP_MonAnim.Succeeded())
+	{
+		GetMesh()->SetAnimInstanceClass(BP_MonAnim.Class);
+		UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
+	}
+
+	
 
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
@@ -76,13 +89,16 @@ void AMyMonster::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	MAnimInstance = Cast<UMonAnimInstance>(GetMesh()->GetAnimInstance());
-
+	
+	
 	if (MAnimInstance)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("MonAnimInstance also Succeeded"));
 		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
 		MAnimInstance->OnMonAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
 	}
 
+	
 	HpBar->InitWidget();
 
 	auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());

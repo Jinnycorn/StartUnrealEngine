@@ -15,6 +15,8 @@ UMonAnimInstance::UMonAnimInstance()
 	{
 		MonAttackMontage = AMON.Object;
 	}
+
+	
 }
 void UMonAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {

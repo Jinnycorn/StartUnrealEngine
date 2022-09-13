@@ -23,6 +23,9 @@ public:
 
 	FName GetAttackMontageName(int32 SectionIndex);
 
+
+	
+
 private:
 	UFUNCTION()
 	void AnimNotify_AttackHit();
