@@ -7,6 +7,8 @@
 
 AMyGameModeBase::AMyGameModeBase()
 {
+
+	PrimaryActorTick.bCanEverTick = true;
 	//코드로 할 때
 	//DefaultPawnClass = AMyCharacter::StaticClass();
 	
@@ -21,7 +23,34 @@ AMyGameModeBase::AMyGameModeBase()
 	
 	GM_ItemNo = 0;
 
+	//몬스터 스폰 테이블의 정보를 몬스터 맵에 넣어주기
+	
+	//MonsterSpawnTable 초기화
+	static ConstructorHelpers::FObjectFinder<UDataTable> SPAWNDATA(TEXT("DataTable'/Game/Data/MonsterSpawnTable.MonsterSpawnTable'"));
+	if (SPAWNDATA.Succeeded())
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("SpawnDataTable Succeed!"));
+		SpawnDataTable = SPAWNDATA.Object;
+	}
+
+	//데이터테이블의 monsterNo
+	//MonsterMap.Emplace();
 	
 }
 
+//FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 MonsterNo)
+//{
+//
+//	//return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(ItemKey), TEXT(""));
+//
+//}
+
+void AMyGameModeBase::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	GameTime += DeltaTime;
+	//UE_LOG(LogTemp, Warning, TEXT("DT is  %f"),GameTime); //잘 찍힘 1,2초씩
+
+
+}
 
