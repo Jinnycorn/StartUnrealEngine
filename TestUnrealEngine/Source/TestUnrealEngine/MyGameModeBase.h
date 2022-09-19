@@ -41,6 +41,10 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 
 	AMyGameModeBase();
 
+	virtual void InitGame(const FString & MapName,
+						const FString & Options,
+						FString & ErrorMessage) override;
+
 	virtual void Tick(float DeltaTime) override;
 	
 public:
@@ -54,6 +58,12 @@ public:
 
 	float GameTime = 0.f;
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* SpawnDataTable;
+
+	
+	
+	FMonsterSpawnData* Mon1;
+	FMonsterSpawnData* Mon2;
 };

@@ -41,7 +41,7 @@ AMyGameModeBase::AMyGameModeBase()
 	MonsterMap.Add(GetSpawnData(1)->D_MonsterNo);
 	MonsterMap.Add(GetSpawnData(2)->D_MonsterNo);
 	
-	FMonsterSpawnData* Mon1 = MonsterMap.Find(1);
+	Mon1 = MonsterMap.Find(1);
 	Mon1->D_MonsterNo = GetSpawnData(1)->D_MonsterNo;
 	Mon1->D_MonsterKey = GetSpawnData(1)->D_MonsterKey;	
 	Mon1->D_SpawnPosition = GetSpawnData(1)->D_SpawnPosition;
@@ -49,7 +49,9 @@ AMyGameModeBase::AMyGameModeBase()
 	Mon1->D_DeadTime = GetSpawnData(1)->D_DeadTime;
 	Mon1->D_isDead = GetSpawnData(1)->D_isDead;
 	
-	FMonsterSpawnData* Mon2 = MonsterMap.Find(2);
+
+	Mon2 = MonsterMap.Find(2);
+	Mon2 = MonsterMap.Find(2);
 	Mon2->D_MonsterNo = GetSpawnData(2)->D_MonsterNo;
 	Mon2->D_MonsterKey = GetSpawnData(2)->D_MonsterKey;
 	Mon2->D_SpawnPosition = GetSpawnData(2)->D_SpawnPosition;
@@ -57,31 +59,11 @@ AMyGameModeBase::AMyGameModeBase()
 	Mon2->D_DeadTime = GetSpawnData(2)->D_DeadTime;
 	Mon2->D_isDead = GetSpawnData(2)->D_isDead;
 	
-	/*UE_LOG(LogTemp, Warning, TEXT("FMonSpawnData is %f"), Mon2->D_DeadTime);
-	if (Mon2->D_isDead)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("true"))
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("false"))
-	}
-	UE_LOG(LogTemp, Warning, TEXT("Mon Location :: %s"), *(Mon2->D_SpawnPosition).ToString());*/
+
 
 	//FMonsterSpawnData* Ptr7 = MonsterMap.Find(1);
 	//UE_LOG(LogTemp, Warning, TEXT("FMonSpawnData is %s"), Ptr7);
 
-	
-	for (auto& i : MonsterMap)
-	{
-		//MonsterMap에 있는 데이터로 Monster Spawn 해주기
-		//APawn* ResultPawn = SpawnActor<AMyMonster>(DefaultPawnClass, Mon1->D_SpawnPosition, StartRotation, NULL, Instigator);
-		//GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition);
-	
-	}
-
-
-	
 }
 
 FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 MonsterNo)
@@ -89,6 +71,30 @@ FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 MonsterNo)
 
 	return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(MonsterNo), TEXT(""));
 
+}
+
+void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options,FString& ErrorMessage)
+{
+	Super::InitGame(MapName,Options,ErrorMessage);
+
+	UE_LOG(LogTemp, Warning, TEXT("InitGame called"));
+	for (auto& i : MonsterMap)
+	{
+		//MonsterMap에 있는 데이터로 Monster Spawn 해주기
+		//APawn* ResultPawn = SpawnActor<AMyMonster>(DefaultPawnClass, Mon1->D_SpawnPosition, StartRotation, NULL, Instigator);
+		FActorSpawnParameters SpawnParams;
+		FRotator rotator;
+
+		UWorld* world = GetWorld();
+		if (world == nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Getworld is null"));
+		}
+
+		//이거 주석치면 에러 일단 안남
+		GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition, rotator, SpawnParams);
+
+	}
 }
 
 void AMyGameModeBase::Tick(float DeltaTime)
@@ -99,4 +105,3 @@ void AMyGameModeBase::Tick(float DeltaTime)
 
 
 }
-

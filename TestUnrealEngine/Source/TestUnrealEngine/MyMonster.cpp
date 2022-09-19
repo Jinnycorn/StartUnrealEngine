@@ -32,8 +32,8 @@ AMyMonster::AMyMonster()
 	FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 
 	//1. 캐릭터 매쉬
-	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonCountess/Characters/Heroes/Countess/Meshes/SM_Countess.SM_Countess'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
+	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonCountess/Characters/Heroes/Countess/Meshes/SM_Countess.SM_Countess'"));
 
 
 	if (SM.Succeeded())
@@ -93,7 +93,7 @@ void AMyMonster::PostInitializeComponents()
 	
 	if (MAnimInstance)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MonAnimInstance also Succeeded"));
+		
 		MAnimInstance->OnMontageEnded.AddDynamic(this, &AMyMonster::OnAttackMontageEnded);
 		MAnimInstance->OnMonAttackHit.AddUObject(this, &AMyMonster::AttackCheck);
 	}
