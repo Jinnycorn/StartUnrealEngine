@@ -50,15 +50,16 @@ AMyMonster::AMyMonster()
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
 
 	//원래 이부분 없었음
-	/*GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	//2. Anim Instance
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> BP_MonAnim(TEXT
-	("AnimBlueprint'/Game/Blueprints/ABP_CMonAnim.ABP_CMonAnim_C'"));
+	("AnimBlueprint'/Game/Blueprints/ABP_MonAnim.ABP_MonAnim_C'"));
 	if (BP_MonAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(BP_MonAnim.Class);
 		UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
-	}*/
+	}
 
 	
 

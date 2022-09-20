@@ -9,7 +9,7 @@
 UMonAnimInstance::UMonAnimInstance()
 {
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> AMON(TEXT("AnimMontage'/Game/Animations/Zinx_Skeleton_Montage.Zinx_Skeleton_Montage'"));
-	//static ConstructorHelpers::FObjectFinder<UAnimMontage> AMON(TEXT("AnimMontage'/Game/Animations/S_Countess_Skeleton_Montage.S_Countess_Skeleton_Montage'"));
+    //static ConstructorHelpers::FObjectFinder<UAnimMontage> AMON(TEXT("AnimMontage'/Game/Animations/S_Countess_Skeleton_Montage.S_Countess_Skeleton_Montage'"));
 
 	if (AMON.Succeeded())
 	{
