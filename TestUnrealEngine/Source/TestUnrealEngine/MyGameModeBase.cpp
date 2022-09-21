@@ -34,9 +34,7 @@ AMyGameModeBase::AMyGameModeBase()
 		SpawnDataTable = SPAWNDATA.Object;
 	}
 
-	//데이터테이블 내용들을 Map에 저장해주기 -> 에러 
-	//MonsterMap.Add(GetSpawnData(1)->D_MonsterNo,SpawnDataTable[0]);
-	//MonsterMap.Add(GetSpawnData(2)->D_MonsterNo, SpawnDataTable[1]);
+
 
 	MonsterMap.Add(GetSpawnData(1)->D_MonsterNo);
 	MonsterMap.Add(GetSpawnData(2)->D_MonsterNo);
@@ -90,10 +88,13 @@ void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options,FS
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Getworld is null"));
 		}
+	
+		GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition, rotator, SpawnParams);
+		//UE_LOG(LogTemp, Warning, TEXT("M1 Spawn pos: %s "), *(Mon1->D_SpawnPosition).ToString());
 
-		//이거 주석치면 에러 일단 안남
-		//GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition, rotator, SpawnParams);
-
+		
+		GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon2->D_SpawnPosition, rotator, SpawnParams);
+		//UE_LOG(LogTemp, Warning, TEXT("M2 Spawn pos: %s "), *(Mon2->D_SpawnPosition).ToString());
 	}
 }
 

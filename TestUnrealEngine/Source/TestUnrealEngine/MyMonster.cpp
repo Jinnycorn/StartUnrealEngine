@@ -61,8 +61,8 @@ AMyMonster::AMyMonster()
 		//UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
 	}
 
-	
-
+	//콜리전 프리셋 코드로 바꿔주기
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("MyMonster"));
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
 
@@ -188,7 +188,8 @@ void AMyMonster::AttackCheck()
 	if (bResult && HitResult.Actor.IsValid())
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Monster's Hit Actor: %s"), *HitResult.Actor->GetName());
-
+		//UE_LOG(LogTemp, Warning, TEXT("HitResult.Actor->GetClass()->GetName: %s"), *HitResult.Actor->GetClass()->GetName()); //BP_MyMonster_C
+		//UE_LOG(LogTemp, Warning, TEXT("this->GetName: %s"), *this->GetClass()->GetName()); //BP_MyMonster2_2
 		if (HitResult.Actor->GetClass()->GetName()==this->GetClass()->GetName())
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("HitResult.Actor->GetClass()->GetName: %s"), *HitResult.Actor->GetClass()->GetName()); //BP_MyMonster_C
