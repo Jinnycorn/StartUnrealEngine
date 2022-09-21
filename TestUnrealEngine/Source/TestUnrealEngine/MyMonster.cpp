@@ -58,7 +58,7 @@ AMyMonster::AMyMonster()
 	if (BP_MonAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(BP_MonAnim.Class);
-		UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
+		//UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
 	}
 
 	
@@ -143,7 +143,7 @@ void AMyMonster::Attack()
 void AMyMonster::AttackCheck()
 {
 	FHitResult HitResult;
-
+	
 	FCollisionQueryParams Params(NAME_None, false, this);
 
 	float AttackRange = 100.f;
@@ -187,10 +187,18 @@ void AMyMonster::AttackCheck()
 	);
 	if (bResult && HitResult.Actor.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Monster's Hit Actor: %s"), *HitResult.Actor->GetName());
+		//UE_LOG(LogTemp, Warning, TEXT("Monster's Hit Actor: %s"), *HitResult.Actor->GetName());
+
+		if (HitResult.Actor->GetClass()->GetName()==this->GetClass()->GetName())
+		{
+			//UE_LOG(LogTemp, Warning, TEXT("HitResult.Actor->GetClass()->GetName: %s"), *HitResult.Actor->GetClass()->GetName()); //BP_MyMonster_C
+			//UE_LOG(LogTemp, Warning, TEXT("this->GetName: %s"), *this->GetClass()->GetName()); //BP_MyMonster2_2
+			return;
+		}
+		
 		FDamageEvent DamageEvent;
 		HitResult.Actor->TakeDamage(MonStat->GetAttack(),
-			DamageEvent, GetController(), this);
+		DamageEvent, GetController(), this);
 	}
 }
 

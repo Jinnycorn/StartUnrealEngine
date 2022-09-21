@@ -128,7 +128,7 @@ void AMyCharacter::Attack()
 	if (IsAttacking)
 		return;
 
-	UE_LOG(LogTemp, Log, TEXT("Character Attack!!!!"));
+	//UE_LOG(LogTemp, Log, TEXT("Character Attack!!!!"));
 	AnimInstance->PlayAttackMontage();
 
 	AnimInstance->JumpToSection(AttackIndex);
@@ -139,6 +139,7 @@ void AMyCharacter::Attack()
 
 void AMyCharacter::AttackCheck()
 {
+	
 	FHitResult HitResult;
 	FCollisionQueryParams Params(NAME_None, false, this);
 
@@ -155,6 +156,7 @@ void AMyCharacter::AttackCheck()
 		Params
 	);
 
+
 	FVector Vec = GetActorForwardVector() * AttackRange;
 	FVector Center = GetActorLocation() + Vec * 0.5f;
 	float HalfHeight = AttackRange * 0.5f + AttackRadius;
@@ -163,10 +165,12 @@ void AMyCharacter::AttackCheck()
 
 	if (bResult)
 	{
+		
 		DrawColor = FColor::Green;
 	}
 	else
 	{
+		
 		DrawColor = FColor::Red;
 	}
 

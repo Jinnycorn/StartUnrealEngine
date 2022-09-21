@@ -77,7 +77,7 @@ void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options,FS
 {
 	Super::InitGame(MapName,Options,ErrorMessage);
 
-	UE_LOG(LogTemp, Warning, TEXT("InitGame called"));
+	//UE_LOG(LogTemp, Warning, TEXT("InitGame called"));
 	for (auto& i : MonsterMap)
 	{
 		//MonsterMap에 있는 데이터로 Monster Spawn 해주기
@@ -92,7 +92,7 @@ void AMyGameModeBase::InitGame(const FString& MapName, const FString& Options,FS
 		}
 
 		//이거 주석치면 에러 일단 안남
-		GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition, rotator, SpawnParams);
+		//GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon1->D_SpawnPosition, rotator, SpawnParams);
 
 	}
 }
