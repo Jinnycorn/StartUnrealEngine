@@ -13,6 +13,7 @@
 #include "ItemBase.h"
 #include "MyWeapon.h"
 #include "MyPotion.h"
+#include "MyGameModeBase.h"
 
 AMyMonster::AMyMonster()
 {
@@ -205,11 +206,19 @@ void AMyMonster::AttackCheck()
 
 void AMyMonster::Die()
 {
-	
+	AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 	//hp가 0이 되면 이 함수 불릴 것
-	UE_LOG(LogTemp, Log, TEXT("Monster Dead"));
+	//UE_LOG(LogTemp, Log, TEXT("Monster Dead"));
 	IsDead = true;
 
+	//스폰된 몬스터의 MonNo를 가져와서 그 몬스터의 isDead를 true로 만들어주고
+	
+	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), MonsterNo);
+	
+	GM->MonsterMap.Find(MonsterNo)->D_isDead = true;
+	//GM->MonsterMap.Find(MonsterNo)->D_DeadTime = 설정
+	//UE_LOG(LogTemp, Warning, TEXT("MonsterNo %d is dead? %d "), MonsterNo, GM->MonsterMap.Find(MonsterNo)->D_isDead);
+	
 	if (IsDead == true)
 	{
 		SpawnRewardItem();

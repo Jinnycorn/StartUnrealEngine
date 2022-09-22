@@ -51,7 +51,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 GM_ItemNo;
 	TMap<int32, FMonsterSpawnData> MonsterMap;
-	//TMap<int32, FString> MonsterMap;
+	
 	int32 GM_MonsterNo;
 	
 	FMonsterSpawnData* GetSpawnData(int32 MonsterNo);
@@ -62,7 +62,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* SpawnDataTable;
 
-	
 	
 	FMonsterSpawnData* Mon1;
 	FMonsterSpawnData* Mon2;

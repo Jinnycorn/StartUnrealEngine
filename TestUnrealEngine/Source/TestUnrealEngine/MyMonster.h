@@ -91,6 +91,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText RewardItemType;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MonsterNo;
 
 };
