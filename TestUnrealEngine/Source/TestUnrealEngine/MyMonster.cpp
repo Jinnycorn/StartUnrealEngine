@@ -216,6 +216,7 @@ void AMyMonster::Die()
 	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), MonsterNo);
 	
 	GM->MonsterMap.Find(MonsterNo)->D_isDead = true;
+	
 	GM->MonsterMap.Find(MonsterNo)->D_DeadTime = GM->GameTime;
 	//UE_LOG(LogTemp, Warning, TEXT("MonsterNo %d is dead? %d "), MonsterNo, GM->MonsterMap.Find(MonsterNo)->D_isDead);
 	

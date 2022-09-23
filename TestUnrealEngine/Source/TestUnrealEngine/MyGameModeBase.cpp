@@ -135,8 +135,12 @@ void AMyGameModeBase::Tick(float DeltaTime)
 				//SpawnMonster();
 				FActorSpawnParameters SpawnParams;
 				FRotator rotator;
-				GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
+				AMyMonster* MyMonster;
+				MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
+
+				MyMonster->MonsterNo = i.Key;
 				i.Value.D_isDead = false;
+				//UE_LOG(LogTemp, Warning, TEXT("After spawn dead? %d "), i.Value.D_isDead);
 				i.Value.D_DeadTime = 0.f;
 				
 			}

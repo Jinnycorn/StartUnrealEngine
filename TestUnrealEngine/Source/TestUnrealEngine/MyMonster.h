@@ -52,6 +52,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
@@ -63,6 +64,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = Pawn)
 	bool IsAttacking = false;
 
+	
 	UPROPERTY(VisibleAnywhere)
 	bool IsDead= false;
 
