@@ -20,13 +20,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* IDataTable;
 
-protected:
-
-	virtual void BeginPlay() override;
-
-	virtual void PostInitializeComponents() override;
-
-public:	
+	FOnAttackEnd OnAttackEnd;
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -36,9 +30,6 @@ public:
 	void AttackCheck();
 	void Die();
 	void SpawnRewardItem();
-
-	FOnAttackEnd OnAttackEnd;
-
 	void UpDown(float Value);
 	void LeftRight(float Value);
 
@@ -48,30 +39,6 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
-
-
-private:
-
-	UPROPERTY(VisibleAnywhere)
-	class USpringArmComponent* SpringArm;
-
-	UPROPERTY(VisibleAnywhere)
-	class UCameraComponent* Camera;
-
-	UPROPERTY(VisibleAnywhere, Category = Pawn)
-	bool IsAttacking = false;
-
-	
-	UPROPERTY(VisibleAnywhere)
-	bool IsDead= false;
-
-	UPROPERTY()
-	class UMonAnimInstance* MAnimInstance;
-
-	UPROPERTY()
-	int32 AttackIndex = 0;
-
-public:
 	UPROPERTY()
 	float UpDownValue = 0;
 
@@ -85,12 +52,41 @@ public:
 	class UWidgetComponent* HpBar;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MonsterRewardItemKey;
+	int32 m_MonsterRewardItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText RewardItemType;
+	FText m_RewardItemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 m_MonsterNo;
+	int32 MonsterNo;
+
+
+protected:
+
+	virtual void BeginPlay() override;
+
+	virtual void PostInitializeComponents() override;
+
+
+private:
+
+	UPROPERTY(VisibleAnywhere)
+	class USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere)
+	class UCameraComponent* Camera;
+
+	UPROPERTY(VisibleAnywhere, Category = Pawn)
+	bool IsAttacking = false;
+
+	UPROPERTY(VisibleAnywhere)
+	bool IsDead= false;
+
+	UPROPERTY()
+	class UMonAnimInstance* MAnimInstance;
+
+	UPROPERTY()
+	int32 AttackIndex = 0;
+
 
 };

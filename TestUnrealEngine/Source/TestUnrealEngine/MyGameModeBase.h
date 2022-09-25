@@ -58,7 +58,7 @@ public:
 
 	TMap<int32, FMonsterSpawnData>& getMonsterMap() { return MonsterMap; }
 
-	FMonsterSpawnData* GetSpawnData(int32 m_MonsterNo);
+	FMonsterSpawnData* GetSpawnData(int32 MonsterNo);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

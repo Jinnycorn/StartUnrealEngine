@@ -50,10 +50,10 @@ AMyGameModeBase::AMyGameModeBase()
 
 }
 
-FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 m_MonsterNo)
+FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 MonsterNo)
 {
 
-	return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(m_MonsterNo), TEXT(""));
+	return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(MonsterNo), TEXT(""));
 
 }
 
@@ -83,8 +83,8 @@ void AMyGameModeBase::SpawnMonster()
 		AMyMonster* myMonster;
 		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
-		myMonster->m_MonsterNo = i.Key;
-		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), myMonster->m_MonsterNo);
+		myMonster->MonsterNo = i.Key;
+		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), myMonster->MonsterNo);
 
 	}
 }
@@ -108,7 +108,7 @@ void AMyGameModeBase::Tick(float DeltaTime)
 				AMyMonster* myMonster;
 				myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
-				myMonster->m_MonsterNo = i.Key;
+				myMonster->MonsterNo = i.Key;
 				i.Value.D_isDead = false;
 				i.Value.D_DeadTime = 0.f;
 				
