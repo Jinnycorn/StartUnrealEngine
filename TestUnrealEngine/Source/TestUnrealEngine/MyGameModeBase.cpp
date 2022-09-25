@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MyGameModeBase.h"
 #include "MyCharacter.h"
 #include "MyMonster.h"
@@ -10,10 +7,7 @@ AMyGameModeBase::AMyGameModeBase()
 {
 
 	PrimaryActorTick.bCanEverTick = true;
-	//코드로 할 때
-	//DefaultPawnClass = AMyCharacter::StaticClass();
 	
-	//블루 프린트로 바꾸기
 	static ConstructorHelpers::FClassFinder<ACharacter>BP_Char(TEXT("Blueprint'/Game/Blueprints/BP_MyCharacter.BP_MyCharacter_C'"));
 
 	if (BP_Char.Succeeded())
@@ -21,18 +15,14 @@ AMyGameModeBase::AMyGameModeBase()
 		DefaultPawnClass = BP_Char.Class;
 	}
 
-	
-	GM_ItemNo = 0;
+	m_GM_ItemNo = 0;
 
-	//몬스터 스폰 테이블의 정보를 몬스터 맵에 넣어주기
-	
-	//MonsterSpawnTable 초기화
+
 	static ConstructorHelpers::FObjectFinder<UDataTable> SPAWNDATA(TEXT("DataTable'/Game/Data/MonsterSpawnTable.MonsterSpawnTable'"));
 	if (SPAWNDATA.Succeeded())
 	{
 		SpawnDataTable = SPAWNDATA.Object;
 	}
-
 
 
 	MonsterMap.Add(GetSpawnData(1)->D_MonsterNo);
@@ -58,16 +48,12 @@ AMyGameModeBase::AMyGameModeBase()
 	Mon2->D_isDead = GetSpawnData(2)->D_isDead;
 	
 
-
-	//FMonsterSpawnData* Ptr7 = MonsterMap.Find(1);
-	//UE_LOG(LogTemp, Warning, TEXT("FMonSpawnData is %s"), Ptr7);
-
 }
 
-FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 MonsterNo)
+FMonsterSpawnData* AMyGameModeBase::GetSpawnData(int32 m_MonsterNo)
 {
 
-	return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(MonsterNo), TEXT(""));
+	return SpawnDataTable->FindRow<FMonsterSpawnData>(*FString::FromInt(m_MonsterNo), TEXT(""));
 
 }
 
@@ -82,8 +68,7 @@ void AMyGameModeBase::SpawnMonster()
 {
 	for (auto& i : MonsterMap)
 	{
-		//MonsterMap에 있는 데이터로 Monster Spawn 해주기
-		FActorSpawnParameters SpawnParams;
+		FActorSpawnParameters spawnParams;
 		FRotator rotator;
 
 		UWorld* world = GetWorld();
@@ -95,19 +80,11 @@ void AMyGameModeBase::SpawnMonster()
 		i.Value.D_isDead = false;
 
 
-		AMyMonster* MyMonster;
-		MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
+		AMyMonster* myMonster;
+		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
-		MyMonster->MonsterNo = i.Key;
-		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), MyMonster->MonsterNo);
-		//UE_LOG(LogTemp, Warning, TEXT("M1 Spawn pos: %s "), *(i.Value.D_SpawnPosition).ToString());
-		//UE_LOG(LogTemp, Warning, TEXT("M1 Spawn pos: %s "), *(MonsterMap[1].D_SpawnPosition).ToString());
-
-		//GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), Mon2->D_SpawnPosition, rotator, SpawnParams);
-		//UE_LOG(LogTemp, Warning, TEXT("M2 Spawn pos: %s "), *(Mon2->D_SpawnPosition).ToString());
-
-
-
+		myMonster->m_MonsterNo = i.Key;
+		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), myMonster->m_MonsterNo);
 
 	}
 }
@@ -115,32 +92,24 @@ void AMyGameModeBase::SpawnMonster()
 void AMyGameModeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	GameTime += DeltaTime;
-	//UE_LOG(LogTemp, Warning, TEXT("DT is  %f"),GameTime); //잘 찍힘 1,2초씩
+	m_GameTime += DeltaTime;
 
 	for (auto& i : MonsterMap)
 	{
 
-		//만약 몬스터가 죽었다면 
 		if ((i.Value.D_isDead))
 		{
-			//i.Value.D_DeadTime = GameTime; // 게임타임이랑 같이 올라가서 데드타임이 딱 지정이 되야함
-			
-			if (GameTime >= i.Value.D_DeadTime + i.Value.D_RespawnTime)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("DeadTime: %f "), i.Value.D_DeadTime);
-				UE_LOG(LogTemp, Warning, TEXT("RespawnTime: %f "), i.Value.D_RespawnTime);
-				UE_LOG(LogTemp, Warning, TEXT("DeadTime +RespawnTime: %f "), i.Value.D_DeadTime +i.Value.D_RespawnTime);
-				UE_LOG(LogTemp, Log, TEXT("GameTime: %f "), GameTime);
-				//SpawnMonster();
-				FActorSpawnParameters SpawnParams;
-				FRotator rotator;
-				AMyMonster* MyMonster;
-				MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
 
-				MyMonster->MonsterNo = i.Key;
+			if (m_GameTime >= i.Value.D_DeadTime + i.Value.D_RespawnTime)
+			{
+
+				FActorSpawnParameters spawnParams;
+				FRotator rotator;
+				AMyMonster* myMonster;
+				myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
+
+				myMonster->m_MonsterNo = i.Key;
 				i.Value.D_isDead = false;
-				//UE_LOG(LogTemp, Warning, TEXT("After spawn dead? %d "), i.Value.D_isDead);
 				i.Value.D_DeadTime = 0.f;
 				
 			}

@@ -75,7 +75,7 @@ void AMyPotion::ReadItemPath()
 
 	
 
-		ItemNo = GM->GM_ItemNo++;
+		ItemNo = GM->m_GM_ItemNo++;
 		//UE_LOG(LogTemp, Warning, TEXT("Potion: GM_ItemNo %d"), GM->GM_ItemNo);
 
 	}

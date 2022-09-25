@@ -49,10 +49,9 @@ void AMyWeapon::BeginPlay()
 		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
-		//Health= GAMEINSTANCE->GetItemData(1)->D_Health;
 
-		ItemNo = GM->GM_ItemNo++;
-		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->GM_ItemNo);
+		ItemNo = GM->m_GM_ItemNo++;
+		
 		
 	}
 	

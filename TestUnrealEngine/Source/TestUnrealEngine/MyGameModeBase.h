@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -47,20 +45,20 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 
 	virtual void Tick(float DeltaTime) override;
 	
-	
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 GM_ItemNo;
 	TMap<int32, FMonsterSpawnData> MonsterMap;
-	
-	int32 GM_MonsterNo;
 
 	void SpawnMonster();
-
-	FMonsterSpawnData* GetSpawnData(int32 MonsterNo);
 	
+public:
 
-	float GameTime = 0.f;
+	float m_GameTime = 0.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 m_GM_ItemNo;
+
+	TMap<int32, FMonsterSpawnData>& getMonsterMap() { return MonsterMap; }
+
+	FMonsterSpawnData* GetSpawnData(int32 m_MonsterNo);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

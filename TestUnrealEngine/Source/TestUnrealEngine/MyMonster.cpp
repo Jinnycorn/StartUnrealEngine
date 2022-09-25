@@ -17,7 +17,7 @@
 
 AMyMonster::AMyMonster()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 
 	PrimaryActorTick.bCanEverTick = true;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
@@ -32,10 +32,8 @@ AMyMonster::AMyMonster()
 	GetMesh()->SetRelativeLocationAndRotation(
 	FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 
-	//1. 캐릭터 매쉬
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
-	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonCountess/Characters/Heroes/Countess/Meshes/SM_Countess.SM_Countess'"));
-
+	
 
 	if (SM.Succeeded())
 	{
@@ -50,8 +48,7 @@ AMyMonster::AMyMonster()
 
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
 
-	//원래 이부분 없었음
-	//2. Anim Instance
+
 	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> BP_MonAnim(TEXT
@@ -59,10 +56,10 @@ AMyMonster::AMyMonster()
 	if (BP_MonAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(BP_MonAnim.Class);
-		//UE_LOG(LogTemp, Warning, TEXT("MonAnim Succeeded"));
+	
 	}
 
-	//콜리전 프리셋 코드로 바꿔주기
+
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("MyMonster"));
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/WBP_HpBar.WBP_HpBar_C'"));
@@ -77,13 +74,11 @@ AMyMonster::AMyMonster()
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
-// Called when the game starts or when spawned
+
 void AMyMonster::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	//임시로
-	//SpawnRewardItem();
+
 }
 
 void AMyMonster::PostInitializeComponents()
@@ -116,12 +111,9 @@ void AMyMonster::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
 void AMyMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
-	//PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyMonster::Attack);
 
 }
 
@@ -188,13 +180,9 @@ void AMyMonster::AttackCheck()
 	);
 	if (bResult && HitResult.Actor.IsValid())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Monster's Hit Actor: %s"), *HitResult.Actor->GetName());
-		//UE_LOG(LogTemp, Warning, TEXT("HitResult.Actor->GetClass()->GetName: %s"), *HitResult.Actor->GetClass()->GetName()); //BP_MyMonster_C
-		//UE_LOG(LogTemp, Warning, TEXT("this->GetName: %s"), *this->GetClass()->GetName()); //BP_MyMonster2_2
 		if (HitResult.Actor->GetClass()->GetName()==this->GetClass()->GetName())
 		{
-			//UE_LOG(LogTemp, Warning, TEXT("HitResult.Actor->GetClass()->GetName: %s"), *HitResult.Actor->GetClass()->GetName()); //BP_MyMonster_C
-			//UE_LOG(LogTemp, Warning, TEXT("this->GetName: %s"), *this->GetClass()->GetName()); //BP_MyMonster2_2
+
 			return;
 		}
 		
@@ -207,18 +195,16 @@ void AMyMonster::AttackCheck()
 void AMyMonster::Die()
 {
 	AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
-	//hp가 0이 되면 이 함수 불릴 것
-	//UE_LOG(LogTemp, Log, TEXT("Monster Dead"));
+
 	IsDead = true;
 
-	//스폰된 몬스터의 MonNo를 가져와서 그 몬스터의 isDead를 true로 만들어주고
+
 	
-	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), MonsterNo);
+	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), m_MonsterNo);
 	
-	GM->MonsterMap.Find(MonsterNo)->D_isDead = true;
+	GM->getMonsterMap().Find(m_MonsterNo)->D_isDead = true;
 	
-	GM->MonsterMap.Find(MonsterNo)->D_DeadTime = GM->GameTime;
-	//UE_LOG(LogTemp, Warning, TEXT("MonsterNo %d is dead? %d "), MonsterNo, GM->MonsterMap.Find(MonsterNo)->D_isDead);
+	GM->getMonsterMap().Find(m_MonsterNo)->D_DeadTime = GM->m_GameTime;
 	
 	if (IsDead == true)
 	{
@@ -235,11 +221,6 @@ void AMyMonster::SpawnRewardItem()
 	if (GAMEINSTANCE)
 	{
 
-		//FText SomeText = FText::FromString("Something");
-		//FString SomeString = SomeText.ToString();
-		//UE_LOG(LogTemp, Log, TEXT("SomeString: %s"), *SomeString); 
-
-
 		MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
 		RewardItemType= GAMEINSTANCE->GetItemData(MonsterRewardItemKey)->D_ItemType;
 		FString RT = RewardItemType.ToString();
@@ -251,7 +232,7 @@ void AMyMonster::SpawnRewardItem()
 		}
 		else if (RT == "Potion")
 		{
-			//얘도 되고(죽은자리에 생김)
+
 			UWorld* world = GetWorld();
 			if (world)
 			{
@@ -264,13 +245,9 @@ void AMyMonster::SpawnRewardItem()
 				world->SpawnActor<AMyPotion>(SpawnLocation, rotator, SpawnParams);
 			}
 
-			//얘도 되고
-		/*	UE_LOG(LogTemp, Warning, TEXT("RT should be Potion: %s"), *RT);
-			FTransform SpawnLocation;
-			GetWorld()->SpawnActor<AMyPotion>(AMyPotion::StaticClass(), SpawnLocation);*/
 		}
 		
-		//UE_LOG(LogTemp, Warning, TEXT("MonsterRewardItemKey: %d"), MonsterRewardItemKey);
+	
 		
 	}
 

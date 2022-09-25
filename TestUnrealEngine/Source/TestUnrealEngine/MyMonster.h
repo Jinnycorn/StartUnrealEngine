@@ -27,10 +27,9 @@ protected:
 	virtual void PostInitializeComponents() override;
 
 public:	
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void Attack();
@@ -42,8 +41,6 @@ public:
 
 	void UpDown(float Value);
 	void LeftRight(float Value);
-
-	//FVector  MonsterDeadLocation;
 
 
 	UFUNCTION()
@@ -94,6 +91,6 @@ public:
 	FText RewardItemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MonsterNo;
+	int32 m_MonsterNo;
 
 };
