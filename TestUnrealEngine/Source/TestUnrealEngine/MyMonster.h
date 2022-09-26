@@ -20,18 +20,30 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* IDataTable;
 
-	FOnAttackEnd OnAttackEnd;
+protected:
 
+	virtual void BeginPlay() override;
+
+	virtual void PostInitializeComponents() override;
+
+public:	
+	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void Attack();
 	void AttackCheck();
 	void Die();
 	void SpawnRewardItem();
+
+	FOnAttackEnd OnAttackEnd;
+
 	void UpDown(float Value);
 	void LeftRight(float Value);
+
+	//FVector  MonsterDeadLocation;
 
 
 	UFUNCTION()
@@ -39,33 +51,6 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
-	UPROPERTY()
-	float UpDownValue = 0;
-
-	UPROPERTY()
-	float LeftRightValue = 0;
-
-	UPROPERTY(VisibleAnywhere)
-	class UMonStatComponent* MonStat;
-
-	UPROPERTY(VisibleAnywhere)
-	class UWidgetComponent* HpBar;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 m_MonsterRewardItemKey;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText m_RewardItemType;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MonsterNo;
-
-
-protected:
-
-	virtual void BeginPlay() override;
-
-	virtual void PostInitializeComponents() override;
 
 
 private:
@@ -79,6 +64,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = Pawn)
 	bool IsAttacking = false;
 
+	
 	UPROPERTY(VisibleAnywhere)
 	bool IsDead= false;
 
@@ -88,5 +74,26 @@ private:
 	UPROPERTY()
 	int32 AttackIndex = 0;
 
+public:
+	UPROPERTY()
+	float UpDownValue = 0;
+
+	UPROPERTY()
+	float LeftRightValue = 0;
+
+	UPROPERTY(VisibleAnywhere)
+	class UMonStatComponent* MonStat;
+
+	UPROPERTY(VisibleAnywhere)
+	class UWidgetComponent* HpBar;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MonsterRewardItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText RewardItemType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MonsterNo;
 
 };

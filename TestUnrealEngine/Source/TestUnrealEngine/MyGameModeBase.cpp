@@ -1,3 +1,6 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
 #include "MyGameModeBase.h"
 #include "MyCharacter.h"
 #include "MyMonster.h"
@@ -7,7 +10,7 @@ AMyGameModeBase::AMyGameModeBase()
 {
 
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 	static ConstructorHelpers::FClassFinder<ACharacter>BP_Char(TEXT("Blueprint'/Game/Blueprints/BP_MyCharacter.BP_MyCharacter_C'"));
 
 	if (BP_Char.Succeeded())
@@ -15,14 +18,15 @@ AMyGameModeBase::AMyGameModeBase()
 		DefaultPawnClass = BP_Char.Class;
 	}
 
-	m_GM_ItemNo = 0;
-
+	
+	GM_ItemNo = 0;
 
 	static ConstructorHelpers::FObjectFinder<UDataTable> SPAWNDATA(TEXT("DataTable'/Game/Data/MonsterSpawnTable.MonsterSpawnTable'"));
 	if (SPAWNDATA.Succeeded())
 	{
 		SpawnDataTable = SPAWNDATA.Object;
 	}
+
 
 
 	MonsterMap.Add(GetSpawnData(1)->D_MonsterNo);
@@ -46,7 +50,6 @@ AMyGameModeBase::AMyGameModeBase()
 	Mon2->D_RespawnTime = GetSpawnData(2)->D_RespawnTime;
 	Mon2->D_DeadTime = GetSpawnData(2)->D_DeadTime;
 	Mon2->D_isDead = GetSpawnData(2)->D_isDead;
-	
 
 }
 
@@ -68,7 +71,7 @@ void AMyGameModeBase::SpawnMonster()
 {
 	for (auto& i : MonsterMap)
 	{
-		FActorSpawnParameters spawnParams;
+		FActorSpawnParameters SpawnParams;
 		FRotator rotator;
 
 		UWorld* world = GetWorld();
@@ -80,11 +83,14 @@ void AMyGameModeBase::SpawnMonster()
 		i.Value.D_isDead = false;
 
 
-		AMyMonster* myMonster;
-		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
+		AMyMonster* MyMonster;
+		MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
 
-		myMonster->MonsterNo = i.Key;
-		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), myMonster->MonsterNo);
+		MyMonster->MonsterNo = i.Key;
+		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), MyMonster->MonsterNo);
+
+
+
 
 	}
 }
@@ -92,24 +98,30 @@ void AMyGameModeBase::SpawnMonster()
 void AMyGameModeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	m_GameTime += DeltaTime;
+	GameTime += DeltaTime;
+
 
 	for (auto& i : MonsterMap)
 	{
 
 		if ((i.Value.D_isDead))
 		{
-
-			if (m_GameTime >= i.Value.D_DeadTime + i.Value.D_RespawnTime)
+			
+			if (GameTime >= i.Value.D_DeadTime + i.Value.D_RespawnTime)
 			{
-
-				FActorSpawnParameters spawnParams;
+				UE_LOG(LogTemp, Warning, TEXT("DeadTime: %f "), i.Value.D_DeadTime);
+				UE_LOG(LogTemp, Warning, TEXT("RespawnTime: %f "), i.Value.D_RespawnTime);
+				UE_LOG(LogTemp, Warning, TEXT("DeadTime +RespawnTime: %f "), i.Value.D_DeadTime +i.Value.D_RespawnTime);
+				UE_LOG(LogTemp, Log, TEXT("GameTime: %f "), GameTime);
+		
+				FActorSpawnParameters SpawnParams;
 				FRotator rotator;
-				AMyMonster* myMonster;
-				myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
+				AMyMonster* MyMonster;
+				MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
 
-				myMonster->MonsterNo = i.Key;
+				MyMonster->MonsterNo = i.Key;
 				i.Value.D_isDead = false;
+				
 				i.Value.D_DeadTime = 0.f;
 				
 			}

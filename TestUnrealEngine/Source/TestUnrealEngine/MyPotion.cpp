@@ -18,17 +18,9 @@ AMyPotion::AMyPotion()
 
 	ReadItemPath();
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_3/SM_PotionBottle_3_Glass.SM_PotionBottle_3_Glass'"));
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
-	
-	//FString test = FString(TEXT("StaticMesh'/Game/PotionBottles/PotionBottle_2/SM_PotionBottle_2_Glass.SM_PotionBottle_2_Glass'"));
-	
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(*test[1]);
 
-
-	//UE_LOG(LogTemp, Warning, TEXT("ItemPath is %s"), *ItemPath); //몬스터 죽고 아이템 생길때만 읽힘
-	//UE_LOG(LogTemp, Warning, TEXT("test is %s"), *test);
 
 	if (SM.Succeeded())
 	{
@@ -46,19 +38,17 @@ AMyPotion::AMyPotion()
 	AActor* CurrentOverlappedItem = nullptr;
 }
 
-// Called when the game starts or when spawned
+
 void AMyPotion::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	//ReadItemPath();
+
 
 }
 
 void AMyPotion::ReadItemPath()
 {
 
-	//이부분은 원래 BeginPlay에 있었음
 	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GAMEINSTANCE)
 	{
@@ -71,12 +61,7 @@ void AMyPotion::ReadItemPath()
 		Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
 		Health = GAMEINSTANCE->GetItemData(2)->D_Health;
 
-		//FString SomeString = ItemPath.ToString();
-
-	
-
-		ItemNo = GM->m_GM_ItemNo++;
-		//UE_LOG(LogTemp, Warning, TEXT("Potion: GM_ItemNo %d"), GM->GM_ItemNo);
+		ItemNo = GM->GM_ItemNo++;
 
 	}
 

@@ -17,7 +17,6 @@
 
 AMyMonster::AMyMonster()
 {
- 
 	PrimaryActorTick.bCanEverTick = true;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
@@ -31,6 +30,7 @@ AMyMonster::AMyMonster()
 
 	GetMesh()->SetRelativeLocationAndRotation(
 	FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
+
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/ParagonZinx/Characters/Heroes/Zinx/Meshes/Zinx.Zinx'"));
 	
@@ -48,7 +48,6 @@ AMyMonster::AMyMonster()
 
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
 
-
 	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> BP_MonAnim(TEXT
@@ -56,9 +55,8 @@ AMyMonster::AMyMonster()
 	if (BP_MonAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(BP_MonAnim.Class);
-	
-	}
 
+	}
 
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("MyMonster"));
 
@@ -78,7 +76,7 @@ AMyMonster::AMyMonster()
 void AMyMonster::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 }
 
 void AMyMonster::PostInitializeComponents()
@@ -111,10 +109,10 @@ void AMyMonster::Tick(float DeltaTime)
 
 }
 
+
 void AMyMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 void AMyMonster::Attack()
@@ -135,77 +133,73 @@ void AMyMonster::Attack()
 
 void AMyMonster::AttackCheck()
 {
-	FHitResult hitResult;
+	FHitResult HitResult;
 	
-	FCollisionQueryParams params(NAME_None, false, this);
+	FCollisionQueryParams Params(NAME_None, false, this);
 
-	float attackRange = 100.f;
-	float attackRadius = 50.f;
+	float AttackRange = 100.f;
+	float AttackRadius = 50.f;
 
 	bool bResult = GetWorld()->SweepSingleByChannel(
-		OUT hitResult,
+		OUT HitResult,
 		GetActorLocation(),
-		GetActorLocation() + GetActorForwardVector() * attackRange,
+		GetActorLocation() + GetActorForwardVector() * AttackRange,
 		FQuat::Identity,
 		ECollisionChannel::ECC_GameTraceChannel2,
-		FCollisionShape::MakeSphere(attackRadius),
-		params
+		FCollisionShape::MakeSphere(AttackRadius),
+		Params
 	);
 
-	FVector vec = GetActorForwardVector() * attackRange;
-	FVector center = GetActorLocation() + vec * 0.5f;
-	float halfHeight = attackRange * 0.5f + attackRadius;
-	FQuat rotation = FRotationMatrix::MakeFromZ(vec).ToQuat();
-	FColor drawColor;
+	FVector Vec = GetActorForwardVector() * AttackRange;
+	FVector Center = GetActorLocation() + Vec * 0.5f;
+	float HalfHeight = AttackRange * 0.5f + AttackRadius;
+	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
+	FColor DrawColor;
 
 	if (bResult)
 	{
-		drawColor = FColor::Green;
+		DrawColor = FColor::Green;
 	}
 	else
 	{
-		drawColor = FColor::Red;
+		DrawColor = FColor::Red;
 	}
 
 
 	DrawDebugCapsule(
 		GetWorld(),
-		center,
-		halfHeight,
-		attackRadius,
-		rotation,
-		drawColor,
+		Center,
+		HalfHeight,
+		AttackRadius,
+		Rotation,
+		DrawColor,
 		false,
 		2.f
 	);
-	if (bResult && hitResult.Actor.IsValid())
+	if (bResult && HitResult.Actor.IsValid())
 	{
-		if (hitResult.Actor->GetClass()->GetName()==this->GetClass()->GetName())
+		if (HitResult.Actor->GetClass()->GetName()==this->GetClass()->GetName())
 		{
-
 			return;
 		}
 		
-		FDamageEvent damageEvent;
-		hitResult.Actor->TakeDamage(MonStat->GetAttack(),
-		damageEvent, GetController(), this);
+		FDamageEvent DamageEvent;
+		HitResult.Actor->TakeDamage(MonStat->GetAttack(),
+		DamageEvent, GetController(), this);
 	}
 }
 
 void AMyMonster::Die()
 {
-	AMyGameModeBase* gm = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
-
+	AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 	IsDead = true;
-
-
 	
 	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), MonsterNo);
 	
-	gm->getMonsterMap().Find(MonsterNo)->D_isDead = true;
+	GM->MonsterMap.Find(MonsterNo)->D_isDead = true;
 	
-	gm->getMonsterMap().Find(MonsterNo)->D_DeadTime = gm->m_GameTime;
-	
+	GM->MonsterMap.Find(MonsterNo)->D_DeadTime = GM->GameTime;
+
 	if (IsDead == true)
 	{
 		SpawnRewardItem();
@@ -215,24 +209,22 @@ void AMyMonster::Die()
 
 void AMyMonster::SpawnRewardItem()
 {
-	UMyGameInstance* gi = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
 
-	if (gi)
+	if (GAMEINSTANCE)
 	{
+		MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
+		RewardItemType= GAMEINSTANCE->GetItemData(MonsterRewardItemKey)->D_ItemType;
+		FString RT = RewardItemType.ToString();
 
-		m_MonsterRewardItemKey = gi->GetItemData(2)->D_ItemKey;
-		m_RewardItemType= gi->GetItemData(m_MonsterRewardItemKey)->D_ItemType;
-		FString rewardTypeName = m_RewardItemType.ToString();
-
-		if (rewardTypeName == "Weapon")
+		if (RT == "Weapon")
 		{
 
-			UE_LOG(LogTemp, Warning, TEXT("RT should be Weapon: %s"), *rewardTypeName);
+			UE_LOG(LogTemp, Warning, TEXT("RT should be Weapon: %s"), *RT);
 		}
-		else if (rewardTypeName == "Potion")
+		else if (RT == "Potion")
 		{
-
 			UWorld* world = GetWorld();
 			if (world)
 			{
@@ -246,8 +238,6 @@ void AMyMonster::SpawnRewardItem()
 			}
 
 		}
-		
-	
 		
 	}
 

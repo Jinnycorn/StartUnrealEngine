@@ -4,7 +4,6 @@
 #include "InventoryComponent.h"
 #include "Item.h"
 
-// Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
 {
 	Capacity = 20;
@@ -16,10 +15,6 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	/*for (auto& Item : DefaultItems)
-	{
-		AddItem(Item);
-	}*/
 	
 }
 

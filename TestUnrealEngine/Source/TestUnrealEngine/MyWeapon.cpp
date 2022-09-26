@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MyWeapon.h"
 #include "Components/BoxComponent.h"
 #include "MyCharacter.h"
@@ -18,8 +15,7 @@ AMyWeapon::AMyWeapon()
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SW(TEXT("SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_HeroSword22/SK_Blade_HeroSword22.SK_Blade_HeroSword22'"));
-	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SW(TEXT("SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Dual_Blade/Dual_Blade_Axe1/SK_Dual_Blade_Axe1_.SK_Dual_Blade_Axe1_'"));	
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
+
 	if (SW.Succeeded())
 	{
 		Weapon->SetSkeletalMesh(SW.Object);
@@ -50,8 +46,8 @@ void AMyWeapon::BeginPlay()
 		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
 		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
 
-		ItemNo = GM->m_GM_ItemNo++;
-		
+		ItemNo = GM->GM_ItemNo++;
+		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->GM_ItemNo);
 		
 	}
 	

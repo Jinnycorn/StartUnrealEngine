@@ -23,7 +23,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	//virtual void PostInitializeComponents() override;
 
 	UFUNCTION()
 	void OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -39,10 +38,10 @@ public:
 	class UBoxComponent* Trigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey; //아이템끼리의 구분 (Weapon, Potion)
+	int32 ItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemNo = 0; //아이템 내에서 구분(Weapon-1, Weapon-2)
+	int32 ItemNo = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTexture2D* Thumbnail;
