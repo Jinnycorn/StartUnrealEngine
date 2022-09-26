@@ -71,7 +71,7 @@ void AMyGameModeBase::SpawnMonster()
 {
 	for (auto& i : MonsterMap)
 	{
-		FActorSpawnParameters SpawnParams;
+		FActorSpawnParameters spawnParams;
 		FRotator rotator;
 
 		UWorld* world = GetWorld();
@@ -83,11 +83,10 @@ void AMyGameModeBase::SpawnMonster()
 		i.Value.D_isDead = false;
 
 
-		AMyMonster* MyMonster;
-		MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
+		AMyMonster* myMonster;
+		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
-		MyMonster->MonsterNo = i.Key;
-		UE_LOG(LogTemp, Warning, TEXT("SpawnMons's MonsterNo: %d "), MyMonster->MonsterNo);
+		myMonster->MonsterNo = i.Key;
 
 
 
@@ -110,19 +109,20 @@ void AMyGameModeBase::Tick(float DeltaTime)
 			if (m_GameTime >= i.Value.D_DeadTime + i.Value.D_RespawnTime)
 			{
 		
-				FActorSpawnParameters SpawnParams;
+				FActorSpawnParameters spawnParams;
 				FRotator rotator;
-				AMyMonster* MyMonster;
-				MyMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, SpawnParams);
-
-				if (MyMonster == nullptr)
+				AMyMonster* myMonster;
+				FPlatformProcess::Sleep(0.1f);
+				myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
+				
+				if (myMonster == nullptr)
 				{
 					UE_LOG(LogTemp, Warning, TEXT("MyMonster is null "));
 				}
 
-				if (MyMonster)
+				if (myMonster)
 				{
-					MyMonster->MonsterNo = i.Key;
+					myMonster->MonsterNo = i.Key;
 					i.Value.D_isDead = false;
 
 					i.Value.D_DeadTime = 0.f;
