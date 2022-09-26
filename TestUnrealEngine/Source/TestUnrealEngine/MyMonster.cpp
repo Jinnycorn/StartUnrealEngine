@@ -196,9 +196,11 @@ void AMyMonster::Die()
 	
 	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), MonsterNo);
 	
-	GM->MonsterMap.Find(MonsterNo)->D_isDead = true;
+	TMap<int32, FMonsterSpawnData>& monsterMap = GM->getMonsterMap();
+
+	monsterMap.Find(MonsterNo)->D_isDead = true;
 	
-	GM->MonsterMap.Find(MonsterNo)->D_DeadTime = GM->GameTime;
+	monsterMap.Find(MonsterNo)->D_DeadTime = GM->m_GameTime;
 
 	if (IsDead == true)
 	{
@@ -215,26 +217,26 @@ void AMyMonster::SpawnRewardItem()
 	if (GAMEINSTANCE)
 	{
 		m_MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
-		RewardItemType= GAMEINSTANCE->GetItemData(m_MonsterRewardItemKey)->D_ItemType;
-		FString RT = RewardItemType.ToString();
+		m_RewardItemType= GAMEINSTANCE->GetItemData(m_MonsterRewardItemKey)->D_ItemType;
+		FString rewardtype = m_RewardItemType.ToString();
 
-		if (RT == "Weapon")
+		if (rewardtype == "Weapon")
 		{
 
-			UE_LOG(LogTemp, Warning, TEXT("RT should be Weapon: %s"), *RT);
+			UE_LOG(LogTemp, Warning, TEXT("RT should be Weapon: %s"), *rewardtype);
 		}
-		else if (RT == "Potion")
+		else if (rewardtype == "Potion")
 		{
 			UWorld* world = GetWorld();
 			if (world)
 			{
-				FActorSpawnParameters SpawnParams;
-				SpawnParams.Owner = this;
+				FActorSpawnParameters spawnParams;
+				spawnParams.Owner = this;
 				FRotator rotator;
-				FVector  SpawnLocation = GetActorLocation();
-				SpawnLocation.Z -= 90.0f;
+				FVector  spawnLocation = GetActorLocation();
+				spawnLocation.Z -= 90.0f;
 
-				world->SpawnActor<AMyPotion>(SpawnLocation, rotator, SpawnParams);
+				world->SpawnActor<AMyPotion>(spawnLocation, rotator, spawnParams);
 			}
 
 		}

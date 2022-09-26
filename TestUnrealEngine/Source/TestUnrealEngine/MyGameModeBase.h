@@ -47,24 +47,26 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 
 	virtual void Tick(float DeltaTime) override;
 	
-	
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 m_GM_ItemNo;
 	TMap<int32, FMonsterSpawnData> MonsterMap;
+
+public:
+	
+	
+	TMap<int32, FMonsterSpawnData>& getMonsterMap() { return MonsterMap; }
 	
 	int32 GM_MonsterNo;
+	float m_GameTime = 0.f;
 
 	void SpawnMonster();
 
 	FMonsterSpawnData* GetSpawnData(int32 MonsterNo);
 	
 
-	float GameTime = 0.f;
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* SpawnDataTable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 m_GM_ItemNo;
 
 	
 	FMonsterSpawnData* Mon1;

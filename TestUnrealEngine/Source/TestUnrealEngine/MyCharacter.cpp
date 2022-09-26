@@ -19,11 +19,10 @@
 #include "Kismet/GameplayStatics.h"
 
 
-// Sets default values
 AMyCharacter::AMyCharacter()
 {
 
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
@@ -68,11 +67,9 @@ AMyCharacter::AMyCharacter()
 		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
 	}
 
-	//AIControllerClass = AMyAIController::StaticClass();
-	//AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
-// Called when the game starts or when spawned
+
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -107,7 +104,7 @@ void AMyCharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
+
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -128,9 +125,7 @@ void AMyCharacter::Attack()
 	if (IsAttacking)
 		return;
 
-	//UE_LOG(LogTemp, Log, TEXT("Character Attack!!!!"));
 	AnimInstance->PlayAttackMontage();
-
 	AnimInstance->JumpToSection(AttackIndex);
 	AttackIndex = (AttackIndex + 1) % 3;
 	
@@ -200,14 +195,13 @@ void AMyCharacter::PickUp()
 	
 	if (CurrentOverlappedItem != nullptr)
 	{
-		auto test = CurrentOverlappedItem->GetClass()->GetFName();
-		//UE_LOG(LogTemp, Log, TEXT("test is %s"), *test.ToString());
+		auto overlappedItem = CurrentOverlappedItem->GetClass()->GetFName();
 				
-		if (test.ToString() == "MyWeapon")
+		if (overlappedItem.ToString() == "MyWeapon")
 		{
 
 			AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem);
-			UItem* Item = NewObject<UItem>(); //유아이	
+			UItem* Item = NewObject<UItem>(); 
 
 			Item->m_ItemKey = MyWeapon->m_ItemKey;
 			Item->m_Thumbnail = MyWeapon->m_Thumbnail;
@@ -220,7 +214,7 @@ void AMyCharacter::PickUp()
 
 			
 		}
-		else if (test.ToString() == "MyPotion")
+		else if (overlappedItem.ToString() == "MyPotion")
 		{
 
 			AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
@@ -269,7 +263,7 @@ void AMyCharacter::Yaw(float Value)
 void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	IsAttacking = false;
-	//OnAttackEnd.Broadcast();
+
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
@@ -279,7 +273,7 @@ float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& Da
 	return DamageAmount;
 }
 
-//여기!!!!!!
+
 float AMyCharacter::TakeHp(float Health)
 {
 	Stat->RecoverHp(Health);
@@ -288,7 +282,6 @@ float AMyCharacter::TakeHp(float Health)
 }
 
 
-//인벤토리로부터 아이템을 빼는 것
 void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
 	if (Item)
@@ -297,12 +290,10 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 		{
 			AMyWeapon* WeaponForEquip;
 			WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
-			//정보 채우기
 			WeaponForEquip->m_Thumbnail = Item->m_Thumbnail;
 			WeaponForEquip->m_ItemDisplayName = Item->m_ItemDisplayName;
 
 			Item->Use(this);
-			//Item->OnUse(this); //BP event <--안불리고 있었음
 			WeaponForEquip->EquipWeapon(this);
 		}
 
