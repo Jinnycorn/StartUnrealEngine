@@ -37,17 +37,17 @@ void AMyWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	UMyGameInstance* GAMEINSTANCE = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (GAMEINSTANCE)
+	UMyGameInstance* GI = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GI)
 	{
 		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 		
-		m_ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
-		m_ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
-		m_Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
+		m_ItemKey = GI->GetItemData(1)->D_ItemKey;
+		m_ItemDisplayName = GI->GetItemData(1)->D_ItemDisplayName;
+		m_Thumbnail = GI->GetItemData(1)->D_Thumbnail;
 
 		m_ItemNo = GM->m_GM_ItemNo++;
-		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->m_GM_ItemNo);
+
 		
 	}
 	
@@ -56,13 +56,13 @@ void AMyWeapon::BeginPlay()
 
 void AMyWeapon::EquipWeapon(AActor* OtherActor) 
 {
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
-	if (MyCharacter)
+	AMyCharacter* myCharacter = Cast<AMyCharacter>(OtherActor);
+	if (myCharacter)
 	{
-		FName WeaponSocket(TEXT("hand_l_socket"));
-		AttachToComponent(MyCharacter->GetMesh(),
+		FName weaponSocket(TEXT("hand_l_socket"));
+		AttachToComponent(myCharacter->GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			WeaponSocket);
+			weaponSocket);
 	
 	}
 }

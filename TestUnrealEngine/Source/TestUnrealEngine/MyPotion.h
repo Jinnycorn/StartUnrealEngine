@@ -20,14 +20,6 @@ public:
 	AMyPotion* SpawnedActor;
 
 	void ReadItemPath();
-protected:
-	
-	virtual void BeginPlay() override;
-
-	virtual void PostInitializeComponents() override;
-
-
-public:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Potion;
@@ -36,7 +28,15 @@ public:
 	int32 Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString ItemPath;
+	FString m_ItemPath;
+
+
+protected:
+	
+	virtual void BeginPlay() override;
+
+	virtual void PostInitializeComponents() override;
+
 
 
 };

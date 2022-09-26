@@ -2,7 +2,7 @@
 #include "ItemBase.h"
 #include "MyCharacter.h"
 
-// Sets default values
+
 AItemBase::AItemBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -22,23 +22,23 @@ void AItemBase::BeginPlay()
 void AItemBase::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor); 
+	AMyCharacter* myCharacter = Cast<AMyCharacter>(OtherActor); 
 
-	if (MyCharacter) 
+	if (myCharacter)
 	{
-		MyCharacter->CurrentOverlappedItem = this;
+		myCharacter->CurrentOverlappedItem = this;
 
 	}
 }
 
 void AItemBase::OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
+	AMyCharacter* myCharacter = Cast<AMyCharacter>(OtherActor);
 
 
-	if (MyCharacter)
+	if (myCharacter)
 	{
-		MyCharacter->CurrentOverlappedItem = nullptr;
+		myCharacter->CurrentOverlappedItem = nullptr;
 
 	}
 }

@@ -20,6 +20,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EquipWeapon(AActor* OtherActor);
 
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* Weapon;
+	
 	AMyWeapon* SpawnedActor;
 
 protected:
@@ -28,10 +31,7 @@ protected:
 	
 	virtual void PostInitializeComponents() override;
 
-public:
 
-	UPROPERTY(VisibleAnywhere)
 
-	USkeletalMeshComponent* Weapon;
 	
 };

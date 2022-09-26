@@ -18,7 +18,6 @@ AMyPotion::AMyPotion()
 
 	ReadItemPath();
 
-
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(*itemlist[1]);
 
 
@@ -43,7 +42,6 @@ void AMyPotion::BeginPlay()
 {
 	Super::BeginPlay();
 
-
 }
 
 void AMyPotion::ReadItemPath()
@@ -55,7 +53,7 @@ void AMyPotion::ReadItemPath()
 		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 
 		
-		ItemPath = GAMEINSTANCE->GetItemData(2)->D_ItemPath;
+		m_ItemPath = GAMEINSTANCE->GetItemData(2)->D_ItemPath;
 		m_ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
 		m_ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
 		m_Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
