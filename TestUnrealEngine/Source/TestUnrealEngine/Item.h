@@ -25,13 +25,13 @@ public:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey;
+	int32 m_ItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UTexture2D* Thumbnail;
+	class UTexture2D* m_Thumbnail;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemDisplayName;
+	FText m_ItemDisplayName;
 
     //The inventory that owns this item
 	UPROPERTY()

@@ -42,12 +42,12 @@ void AMyWeapon::BeginPlay()
 	{
 		AMyGameModeBase* GM = (AMyGameModeBase*)GetWorld()->GetAuthGameMode();
 		
-		ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
-		ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
-		Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
+		m_ItemKey = GAMEINSTANCE->GetItemData(1)->D_ItemKey;
+		m_ItemDisplayName = GAMEINSTANCE->GetItemData(1)->D_ItemDisplayName;
+		m_Thumbnail = GAMEINSTANCE->GetItemData(1)->D_Thumbnail;
 
-		ItemNo = GM->GM_ItemNo++;
-		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->GM_ItemNo);
+		m_ItemNo = GM->m_GM_ItemNo++;
+		UE_LOG(LogTemp, Warning, TEXT("Weapon: GM_ItemNo %d"), GM->m_GM_ItemNo);
 		
 	}
 	

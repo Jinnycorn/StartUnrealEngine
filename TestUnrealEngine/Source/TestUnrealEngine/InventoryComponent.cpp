@@ -15,7 +15,6 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
 }
 
 
@@ -30,7 +29,6 @@ bool UInventoryComponent::AddItem(class UItem* Item)
 	Item->World = GetWorld();
 	Items.Add(Item);
 
-	//Update UI
 	OnInventoryUpdated.Broadcast();
 
 	return true;

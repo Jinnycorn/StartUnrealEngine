@@ -19,7 +19,7 @@ AMyPotion::AMyPotion()
 	ReadItemPath();
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(*test[1]);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM(*itemlist[1]);
 
 
 	if (SM.Succeeded())
@@ -56,12 +56,12 @@ void AMyPotion::ReadItemPath()
 
 		
 		ItemPath = GAMEINSTANCE->GetItemData(2)->D_ItemPath;
-		ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
-		ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
-		Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
+		m_ItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
+		m_ItemDisplayName = GAMEINSTANCE->GetItemData(2)->D_ItemDisplayName;
+		m_Thumbnail = GAMEINSTANCE->GetItemData(2)->D_Thumbnail;
 		Health = GAMEINSTANCE->GetItemData(2)->D_Health;
 
-		ItemNo = GM->GM_ItemNo++;
+		m_ItemNo = GM->m_GM_ItemNo++;
 
 	}
 

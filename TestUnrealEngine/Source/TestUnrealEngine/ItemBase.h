@@ -18,6 +18,23 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UWorld* World;
 
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* Trigger;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 m_ItemKey;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 m_ItemNo = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UTexture2D* m_Thumbnail;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText m_ItemDisplayName;
+
+	FString itemlist[100];
+
 
 
 protected:
@@ -30,25 +47,6 @@ protected:
 	UFUNCTION()
 	void OnCharacterEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-
-
-public:
-
-	UPROPERTY(VisibleAnywhere)
-	class UBoxComponent* Trigger;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemKey;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ItemNo = 0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UTexture2D* Thumbnail;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText ItemDisplayName;
-
-	FString test[100];
+	
 
 };

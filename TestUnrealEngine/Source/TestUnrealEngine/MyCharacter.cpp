@@ -209,12 +209,12 @@ void AMyCharacter::PickUp()
 			AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem);
 			UItem* Item = NewObject<UItem>(); //유아이	
 
-			Item->ItemKey = MyWeapon->ItemKey;
-			Item->Thumbnail = MyWeapon->Thumbnail;
-			Item->ItemDisplayName = MyWeapon->ItemDisplayName;
+			Item->m_ItemKey = MyWeapon->m_ItemKey;
+			Item->m_Thumbnail = MyWeapon->m_Thumbnail;
+			Item->m_ItemDisplayName = MyWeapon->m_ItemDisplayName;
 			Inventory->AddItem(Item);
 
-			UE_LOG(LogTemp, Warning, TEXT("Weapon: Destroy_ItemNo %d"), MyWeapon->ItemNo);
+			UE_LOG(LogTemp, Warning, TEXT("Weapon: Destroy_ItemNo %d"), MyWeapon->m_ItemNo);
 			
 			CurrentOverlappedItem->Destroy();
 
@@ -226,12 +226,12 @@ void AMyCharacter::PickUp()
 			AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
 			UItem* Item = NewObject<UItem>(); 
 
-			Item->ItemKey = MyPotion->ItemKey;
-			Item->Thumbnail = MyPotion->Thumbnail;
-			Item->ItemDisplayName = MyPotion->ItemDisplayName;
+			Item->m_ItemKey = MyPotion->m_ItemKey;
+			Item->m_Thumbnail = MyPotion->m_Thumbnail;
+			Item->m_ItemDisplayName = MyPotion->m_ItemDisplayName;
 			Inventory->AddItem(Item);
 
-			UE_LOG(LogTemp, Warning, TEXT("Potion: Destroy_ItemNo %d"), MyPotion->ItemNo);
+			UE_LOG(LogTemp, Warning, TEXT("Potion: Destroy_ItemNo %d"), MyPotion->m_ItemNo);
 
 			CurrentOverlappedItem->Destroy();
 		}
@@ -293,34 +293,30 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 {
 	if (Item)
 	{
-		if (Item->ItemDisplayName.ToString() == "Weapon")
+		if (Item->m_ItemDisplayName.ToString() == "Weapon")
 		{
 			AMyWeapon* WeaponForEquip;
 			WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
 			//정보 채우기
-			WeaponForEquip->Thumbnail = Item->Thumbnail;
-			WeaponForEquip->ItemDisplayName = Item->ItemDisplayName;
+			WeaponForEquip->m_Thumbnail = Item->m_Thumbnail;
+			WeaponForEquip->m_ItemDisplayName = Item->m_ItemDisplayName;
 
 			Item->Use(this);
 			//Item->OnUse(this); //BP event <--안불리고 있었음
 			WeaponForEquip->EquipWeapon(this);
 		}
 
-		if(Item->ItemDisplayName.ToString() == "Potion")
+		if(Item->m_ItemDisplayName.ToString() == "Potion")
 		{
 			UE_LOG(LogTemp, Log, TEXT("I EAT POTION!!!!"));
 			
-			//AMyPotion* PotionForEat; 
-			//PotionForEat->Thumbnail = Item->Thumbnail;
-			//PotionForEat->ItemDisplayName = Item->ItemDisplayName;
+			
 			Item->Use(this);
 			auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 			if (MyGameInstance)
 			{
 				int32 Health = MyGameInstance->GetItemData(2)->D_Health;
-				
-				//여기!!
-				TakeHp(Health); //여기꺼 아이템 테이블껄로 
+				TakeHp(Health); 
 			}
 			
 			

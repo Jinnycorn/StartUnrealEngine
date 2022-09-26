@@ -19,7 +19,7 @@ AMyGameModeBase::AMyGameModeBase()
 	}
 
 	
-	GM_ItemNo = 0;
+	m_GM_ItemNo = 0;
 
 	static ConstructorHelpers::FObjectFinder<UDataTable> SPAWNDATA(TEXT("DataTable'/Game/Data/MonsterSpawnTable.MonsterSpawnTable'"));
 	if (SPAWNDATA.Succeeded())

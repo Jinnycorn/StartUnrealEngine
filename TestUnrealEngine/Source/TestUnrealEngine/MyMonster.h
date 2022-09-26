@@ -88,7 +88,7 @@ public:
 	class UWidgetComponent* HpBar;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MonsterRewardItemKey;
+	int32 m_MonsterRewardItemKey;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText RewardItemType;

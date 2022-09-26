@@ -40,10 +40,10 @@ FMyCharacterData* UMyGameInstance::GetStatData(int32 Level)
 	return MyStats->FindRow<FMyCharacterData>(*FString::FromInt(Level), TEXT(""));
 }
 
-FMyItemData* UMyGameInstance::GetItemData(int32 ItemKey)
+FMyItemData* UMyGameInstance::GetItemData(int32 m_ItemKey)
 {
 
-	return IDataTable->FindRow<FMyItemData>(*FString::FromInt(ItemKey), TEXT(""));
+	return IDataTable->FindRow<FMyItemData>(*FString::FromInt(m_ItemKey), TEXT(""));
 
 }
 

@@ -89,7 +89,7 @@ public:
 	class UDataTable* IDataTable;
 
 	
-	FMyItemData* GetItemData(int32 ItemKey);
+	FMyItemData* GetItemData(int32 m_ItemKey);
 
 	//MonsterData 가져오기
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

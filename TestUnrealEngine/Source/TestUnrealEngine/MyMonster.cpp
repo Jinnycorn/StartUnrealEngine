@@ -214,8 +214,8 @@ void AMyMonster::SpawnRewardItem()
 
 	if (GAMEINSTANCE)
 	{
-		MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
-		RewardItemType= GAMEINSTANCE->GetItemData(MonsterRewardItemKey)->D_ItemType;
+		m_MonsterRewardItemKey = GAMEINSTANCE->GetItemData(2)->D_ItemKey;
+		RewardItemType= GAMEINSTANCE->GetItemData(m_MonsterRewardItemKey)->D_ItemType;
 		FString RT = RewardItemType.ToString();
 
 		if (RT == "Weapon")

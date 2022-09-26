@@ -50,7 +50,7 @@ class TESTUNREALENGINE_API AMyGameModeBase : public AGameModeBase
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 GM_ItemNo;
+	int32 m_GM_ItemNo;
 	TMap<int32, FMonsterSpawnData> MonsterMap;
 	
 	int32 GM_MonsterNo;
