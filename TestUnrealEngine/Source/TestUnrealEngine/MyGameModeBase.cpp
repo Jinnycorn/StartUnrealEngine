@@ -84,7 +84,7 @@ void AMyGameModeBase::SpawnMonster()
 
 
 		AMyMonster* myMonster;
-		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
+		myMonster = world->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
 		myMonster->m_MonsterNo = i.Key;
 
