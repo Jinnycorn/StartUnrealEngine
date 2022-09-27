@@ -86,7 +86,7 @@ void AMyGameModeBase::SpawnMonster()
 		AMyMonster* myMonster;
 		myMonster = GetWorld()->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
-		myMonster->MonsterNo = i.Key;
+		myMonster->m_MonsterNo = i.Key;
 
 
 
@@ -122,7 +122,7 @@ void AMyGameModeBase::Tick(float DeltaTime)
 
 				if (myMonster)
 				{
-					myMonster->MonsterNo = i.Key;
+					myMonster->m_MonsterNo = i.Key;
 					i.Value.D_isDead = false;
 
 					i.Value.D_DeadTime = 0.f;

@@ -56,7 +56,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Items")
 	void EquipItemFromInventory(class UItem* Item);
 
-
+	
 protected:
 
 	virtual void BeginPlay() override;
@@ -79,10 +79,5 @@ private:
 
 	UPROPERTY()
 	int32 AttackIndex=0;
-
-public:
-	
-
-	
 
 };

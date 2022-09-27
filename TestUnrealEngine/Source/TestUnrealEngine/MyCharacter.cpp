@@ -90,9 +90,9 @@ void AMyCharacter::PostInitializeComponents()
 	
 	HpBar->InitWidget();
 
-	auto HpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
-	if (HpWidget)
-		HpWidget->BindHp(Stat);
+	auto hpWidget = Cast<UMyCharacterWidget>(HpBar->GetUserWidgetObject());
+	if (hpWidget)
+		hpWidget->BindHp(Stat);
 
 	
 }
@@ -135,57 +135,57 @@ void AMyCharacter::Attack()
 void AMyCharacter::AttackCheck()
 {
 	
-	FHitResult HitResult;
-	FCollisionQueryParams Params(NAME_None, false, this);
+	FHitResult hitResult;
+	FCollisionQueryParams params(NAME_None, false, this);
 
-	float AttackRange = 100.f;
-	float AttackRadius = 50.f;
+	float attackRange = 100.f;
+	float attackRadius = 50.f;
 
 	bool bResult= GetWorld()->SweepSingleByChannel(
-		OUT HitResult,
+		OUT hitResult,
 		GetActorLocation(),
-		GetActorLocation() + GetActorForwardVector() * AttackRange,
+		GetActorLocation() + GetActorForwardVector() * attackRange,
 		FQuat::Identity,
 		ECollisionChannel::ECC_GameTraceChannel2,
-		FCollisionShape::MakeSphere(AttackRadius),
-		Params
+		FCollisionShape::MakeSphere(attackRadius),
+		params
 	);
 
 
-	FVector Vec = GetActorForwardVector() * AttackRange;
-	FVector Center = GetActorLocation() + Vec * 0.5f;
-	float HalfHeight = AttackRange * 0.5f + AttackRadius;
-	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
-	FColor DrawColor;
+	FVector vec = GetActorForwardVector() * attackRange;
+	FVector center = GetActorLocation() + vec * 0.5f;
+	float halfHeight = attackRange * 0.5f + attackRadius;
+	FQuat rotation = FRotationMatrix::MakeFromZ(vec).ToQuat();
+	FColor drawColor;
 
 	if (bResult)
 	{
 		
-		DrawColor = FColor::Green;
+		drawColor = FColor::Green;
 	}
 	else
 	{
 		
-		DrawColor = FColor::Red;
+		drawColor = FColor::Red;
 	}
 
 
 	DrawDebugCapsule(
 		GetWorld(),
-		Center,
-		HalfHeight,
-		AttackRadius,
-		Rotation,
-		DrawColor,
+		center,
+		halfHeight,
+		attackRadius,
+		rotation,
+		drawColor,
 		false,
 		2.f
 	);
-	if (bResult && HitResult.Actor.IsValid())
+	if (bResult && hitResult.Actor.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Hit Actor: %s"), *HitResult.Actor->GetName());
-		FDamageEvent DamageEvent;
-		HitResult.Actor->TakeDamage(Stat->GetAttack(),
-		DamageEvent,GetController(), this);
+		UE_LOG(LogTemp, Log, TEXT("Hit Actor: %s"), *hitResult.Actor->GetName());
+		FDamageEvent damageEvent;
+		hitResult.Actor->TakeDamage(Stat->GetAttack(),
+		damageEvent,GetController(), this);
 	}
 }
 
@@ -200,15 +200,15 @@ void AMyCharacter::PickUp()
 		if (overlappedItem.ToString() == "MyWeapon")
 		{
 
-			AMyWeapon* MyWeapon = Cast<AMyWeapon>(CurrentOverlappedItem);
-			UItem* Item = NewObject<UItem>(); 
+			AMyWeapon* myWeapon = Cast<AMyWeapon>(CurrentOverlappedItem);
+			UItem* item = NewObject<UItem>(); 
 
-			Item->m_ItemKey = MyWeapon->m_ItemKey;
-			Item->m_Thumbnail = MyWeapon->m_Thumbnail;
-			Item->m_ItemDisplayName = MyWeapon->m_ItemDisplayName;
-			Inventory->AddItem(Item);
+			item->m_ItemKey = myWeapon->m_ItemKey;
+			item->m_Thumbnail = myWeapon->m_Thumbnail;
+			item->m_ItemDisplayName = myWeapon->m_ItemDisplayName;
+			Inventory->AddItem(item);
 
-			UE_LOG(LogTemp, Warning, TEXT("Weapon: Destroy_ItemNo %d"), MyWeapon->m_ItemNo);
+			UE_LOG(LogTemp, Warning, TEXT("Weapon: Destroy_ItemNo %d"), myWeapon->m_ItemNo);
 			
 			CurrentOverlappedItem->Destroy();
 
@@ -217,15 +217,15 @@ void AMyCharacter::PickUp()
 		else if (overlappedItem.ToString() == "MyPotion")
 		{
 
-			AMyPotion* MyPotion = Cast<AMyPotion>(CurrentOverlappedItem);
-			UItem* Item = NewObject<UItem>(); 
+			AMyPotion* myPotion = Cast<AMyPotion>(CurrentOverlappedItem);
+			UItem* item = NewObject<UItem>(); 
 
-			Item->m_ItemKey = MyPotion->m_ItemKey;
-			Item->m_Thumbnail = MyPotion->m_Thumbnail;
-			Item->m_ItemDisplayName = MyPotion->m_ItemDisplayName;
-			Inventory->AddItem(Item);
+			item->m_ItemKey = myPotion->m_ItemKey;
+			item->m_Thumbnail = myPotion->m_Thumbnail;
+			item->m_ItemDisplayName = myPotion->m_ItemDisplayName;
+			Inventory->AddItem(item);
 
-			UE_LOG(LogTemp, Warning, TEXT("Potion: Destroy_ItemNo %d"), MyPotion->m_ItemNo);
+			UE_LOG(LogTemp, Warning, TEXT("Potion: Destroy_ItemNo %d"), myPotion->m_ItemNo);
 
 			CurrentOverlappedItem->Destroy();
 		}
@@ -288,13 +288,13 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 	{
 		if (Item->m_ItemDisplayName.ToString() == "Weapon")
 		{
-			AMyWeapon* WeaponForEquip;
-			WeaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
-			WeaponForEquip->m_Thumbnail = Item->m_Thumbnail;
-			WeaponForEquip->m_ItemDisplayName = Item->m_ItemDisplayName;
+			AMyWeapon* weaponForEquip;
+			weaponForEquip = GetWorld()->SpawnActor<AMyWeapon>();
+			weaponForEquip->m_Thumbnail = Item->m_Thumbnail;
+			weaponForEquip->m_ItemDisplayName = Item->m_ItemDisplayName;
 
 			Item->Use(this);
-			WeaponForEquip->EquipWeapon(this);
+			weaponForEquip->EquipWeapon(this);
 		}
 
 		if(Item->m_ItemDisplayName.ToString() == "Potion")
@@ -303,22 +303,16 @@ void AMyCharacter::EquipItemFromInventory(class UItem* Item)
 			
 			
 			Item->Use(this);
-			auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-			if (MyGameInstance)
+			auto myGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+			if (myGameInstance)
 			{
-				int32 Health = MyGameInstance->GetItemData(2)->D_Health;
-				TakeHp(Health); 
+				int32 health = myGameInstance->GetItemData(2)->D_Health;
+				TakeHp(health); 
 			}
-			
-			
+	
 			
 		}
-		
 
 	}
-
-
-	
-
 
 }

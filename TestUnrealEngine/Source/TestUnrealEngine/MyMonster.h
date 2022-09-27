@@ -51,7 +51,7 @@ public:
 	FText m_RewardItemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MonsterNo;
+	int32 m_MonsterNo;
 	
 
 protected:
@@ -84,7 +84,6 @@ private:
 
 	UPROPERTY()
 	int32 AttackIndex = 0;
-
 
 
 };

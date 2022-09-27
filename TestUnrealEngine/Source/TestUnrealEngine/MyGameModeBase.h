@@ -54,13 +54,14 @@ public:
 	
 	TMap<int32, FMonsterSpawnData>& getMonsterMap() { return MonsterMap; }
 	
-	int32 GM_MonsterNo;
+	int32 m_GM_MonsterNo;
 	float m_GameTime = 0.f;
 
 	void SpawnMonster();
 
 	FMonsterSpawnData* GetSpawnData(int32 MonsterNo);
-	
+	FMonsterSpawnData* Mon1;
+	FMonsterSpawnData* Mon2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* SpawnDataTable;
@@ -68,7 +69,4 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 m_GM_ItemNo;
 
-	
-	FMonsterSpawnData* Mon1;
-	FMonsterSpawnData* Mon2;
 };
