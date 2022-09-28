@@ -27,16 +27,13 @@ public:
 	void UpDown(float Value);
 	void LeftRight(float Value);
 
+	float& getUpDownValue() { return m_UpDownValue; }
+	float& getLeftRightValue() { return m_LeftRightValue; }
+
 	FOnAttackEnd OnAttackEnd;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UDataTable* IDataTable;
-
-	UPROPERTY()
-	float UpDownValue = 0;
-
-	UPROPERTY()
-	float LeftRightValue = 0;
 
 	UPROPERTY(VisibleAnywhere)
 	class UMonStatComponent* MonStat;
@@ -52,7 +49,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 m_MonsterNo;
-	
+
 
 protected:
 
@@ -85,5 +82,9 @@ private:
 	UPROPERTY()
 	int32 AttackIndex = 0;
 
+	UPROPERTY()
+	float m_UpDownValue = 0;
 
+	UPROPERTY()
+	float m_LeftRightValue = 0;
 };

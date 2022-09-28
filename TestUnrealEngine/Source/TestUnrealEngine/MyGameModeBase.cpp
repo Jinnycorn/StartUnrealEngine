@@ -28,7 +28,6 @@ AMyGameModeBase::AMyGameModeBase()
 	}
 
 
-
 	MonsterMap.Add(GetSpawnData(1)->D_MonsterNo);
 	MonsterMap.Add(GetSpawnData(2)->D_MonsterNo);
 	
@@ -82,13 +81,10 @@ void AMyGameModeBase::SpawnMonster()
 
 		i.Value.D_isDead = false;
 
-
 		AMyMonster* myMonster;
 		myMonster = world->SpawnActor<AMyMonster>(AMyMonster::StaticClass(), i.Value.D_SpawnPosition, rotator, spawnParams);
 
 		myMonster->m_MonsterNo = i.Key;
-
-
 
 
 	}
@@ -120,9 +116,9 @@ void AMyGameModeBase::Tick(float DeltaTime)
 					UE_LOG(LogTemp, Warning, TEXT("MyMonster is null "));
 				}
 				else {
+
 					myMonster->m_MonsterNo = i.Key;
 					i.Value.D_isDead = false;
-
 					i.Value.D_DeadTime = 0.f;
 				}
 				

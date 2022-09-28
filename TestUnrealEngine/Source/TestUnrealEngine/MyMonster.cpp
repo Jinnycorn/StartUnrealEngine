@@ -197,10 +197,11 @@ void AMyMonster::Die()
 	UE_LOG(LogTemp, Warning, TEXT("DeadMons's MonsterNo: %d "), m_MonsterNo);
 	
 	TMap<int32, FMonsterSpawnData>& monsterMap = GM->getMonsterMap();
-
-	monsterMap.Find(m_MonsterNo)->D_isDead = true;
+	FMonsterSpawnData* currentMonsterNo = monsterMap.Find(m_MonsterNo);
 	
-	monsterMap.Find(m_MonsterNo)->D_DeadTime = GM->m_GameTime;
+	currentMonsterNo->D_isDead = true;
+	
+	currentMonsterNo->D_DeadTime = GM->m_GameTime;
 
 	if (IsDead == true)
 	{
@@ -255,7 +256,7 @@ void AMyMonster::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 void AMyMonster::UpDown(float Value)
 {
 
-	UpDownValue = Value;
+	m_UpDownValue = Value;
 	AddMovementInput(GetActorForwardVector(), Value);
 
 }
@@ -263,7 +264,7 @@ void AMyMonster::UpDown(float Value)
 void AMyMonster::LeftRight(float Value)
 {
 
-	LeftRightValue = Value;
+	m_LeftRightValue = Value;
 	AddMovementInput(GetActorRightVector(), Value);
 }
 

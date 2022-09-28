@@ -32,8 +32,8 @@ void UMonAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		{
 			IsFalling = Monster->GetMovementComponent()->IsFalling();
 
-			Vertical = Monster->UpDownValue;
-			Horizontal = Monster->LeftRightValue;
+			Vertical = Monster->getUpDownValue();
+			Horizontal = Monster->getLeftRightValue();
 		}
 
 	}
