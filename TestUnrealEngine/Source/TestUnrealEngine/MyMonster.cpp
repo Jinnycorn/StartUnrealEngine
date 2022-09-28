@@ -200,7 +200,6 @@ void AMyMonster::Die()
 	FMonsterSpawnData* currentMonsterNo = monsterMap.Find(m_MonsterNo);
 	
 	currentMonsterNo->D_isDead = true;
-	
 	currentMonsterNo->D_DeadTime = GM->m_GameTime;
 
 	if (IsDead == true)
@@ -219,6 +218,7 @@ void AMyMonster::SpawnRewardItem()
 	{
 		m_MonsterRewardItemKey = GI->GetItemData(2)->D_ItemKey;
 		m_RewardItemType= GI->GetItemData(m_MonsterRewardItemKey)->D_ItemType;
+		
 		FString rewardtype = m_RewardItemType.ToString();
 
 		if (rewardtype == "Weapon")

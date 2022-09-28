@@ -1,5 +1,3 @@
- // Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "MyCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -241,7 +239,7 @@ void AMyCharacter::PickUp()
 void AMyCharacter::UpDown(float Value)
 {
 	
-	UpDownValue = Value;
+	m_UpDownValue = Value;
 	AddMovementInput(GetActorForwardVector(), Value);
 
 }
@@ -249,7 +247,7 @@ void AMyCharacter::UpDown(float Value)
 void AMyCharacter::LeftRight(float Value)
 {
 	
-	LeftRightValue = Value;
+	m_LeftRightValue = Value;
 	AddMovementInput(GetActorRightVector(), Value);
 }
 

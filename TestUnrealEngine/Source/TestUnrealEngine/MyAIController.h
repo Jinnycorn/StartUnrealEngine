@@ -24,7 +24,6 @@ public:
 private:
 	void RandomMove();
 
-private:
 	FTimerHandle TimerHandle;
 
 	UPROPERTY()

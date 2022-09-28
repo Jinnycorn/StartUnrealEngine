@@ -9,7 +9,7 @@
 UMonAnimInstance::UMonAnimInstance()
 {
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> AMON(TEXT("AnimMontage'/Game/Animations/Zinx_Skeleton_Montage.Zinx_Skeleton_Montage'"));
-    //static ConstructorHelpers::FObjectFinder<UAnimMontage> AMON(TEXT("AnimMontage'/Game/Animations/S_Countess_Skeleton_Montage.S_Countess_Skeleton_Montage'"));
+    
 
 	if (AMON.Succeeded())
 	{
@@ -22,18 +22,18 @@ void UMonAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	auto Pawn = TryGetPawnOwner();
-	if (IsValid(Pawn))
+	auto pawn = TryGetPawnOwner();
+	if (IsValid(pawn))
 	{
-		Speed = Pawn->GetVelocity().Size();
+		Speed = pawn->GetVelocity().Size();
 
-		auto Monster = Cast<AMyMonster>(Pawn);
-		if (Monster)
+		auto monster = Cast<AMyMonster>(pawn);
+		if (monster)
 		{
-			IsFalling = Monster->GetMovementComponent()->IsFalling();
+			IsFalling = monster->GetMovementComponent()->IsFalling();
 
-			Vertical = Monster->getUpDownValue();
-			Horizontal = Monster->getLeftRightValue();
+			Vertical = monster->getUpDownValue();
+			Horizontal = monster->getLeftRightValue();
 		}
 
 	}
@@ -48,9 +48,9 @@ void UMonAnimInstance::MonPlayAttackMontage()
 void UMonAnimInstance::JumpToSection(int32 SectionIndex)
 {
 
-	FName Name = GetAttackMontageName(SectionIndex);
+	FName name = GetAttackMontageName(SectionIndex);
 	
-	Montage_JumpToSection(Name, MonAttackMontage);
+	Montage_JumpToSection(name, MonAttackMontage);
 
 	
 }
@@ -63,6 +63,5 @@ FName UMonAnimInstance::GetAttackMontageName(int32 SectionIndex)
 
 void UMonAnimInstance::AnimNotify_AttackHit()
 {
-	//UE_LOG(LogTemp, Log, TEXT("MonsterAnimNotify_AttackHit"));
 	OnMonAttackHit.Broadcast();
 }

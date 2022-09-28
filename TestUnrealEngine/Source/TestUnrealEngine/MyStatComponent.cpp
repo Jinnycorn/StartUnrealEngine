@@ -27,16 +27,16 @@ void UMyStatComponent::InitializeComponent()
 
 void UMyStatComponent::SetLevel(int32 NewLevel)
 {
-	auto MyGameInstance=Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (MyGameInstance)
+	auto myGameInstance=Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (myGameInstance)
 	{
-		auto StatData = MyGameInstance->GetStatData(NewLevel);
-		if (StatData)
+		auto statData = myGameInstance->GetStatData(NewLevel);
+		if (statData)
 		{
-			Level = StatData->Level;
-			SetHp(StatData->MaxHp);
-			MaxHp = StatData->MaxHp;
-			Attack = StatData->Attack;
+			Level = statData->Level;
+			SetHp(statData->MaxHp);
+			MaxHp = statData->MaxHp;
+			Attack = statData->Attack;
 
 		}
 	}
@@ -49,7 +49,6 @@ void UMyStatComponent::SetHp(int32 NewHp)
 	{
 		Hp = 0;
 	}
-		
 
 
 	OnHpChanged.Broadcast();
@@ -58,15 +57,15 @@ void UMyStatComponent::SetHp(int32 NewHp)
 void UMyStatComponent::OnAttacked(float DamageAmount)
 {
 	
-	int32 NewHp = Hp - DamageAmount;
-	SetHp(NewHp);
+	int32 newHp = Hp - DamageAmount;
+	SetHp(newHp);
 
 }
 
 void UMyStatComponent::RecoverHp(float Health)
 {
 
-	int32 NewHp = Hp + Health;
-	SetHp(NewHp);
+	int32 newHp = Hp + Health;
+	SetHp(newHp);
 
 }

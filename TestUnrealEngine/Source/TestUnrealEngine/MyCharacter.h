@@ -29,11 +29,9 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 	float TakeHp(float Health);
 
-	UPROPERTY()
-	float UpDownValue = 0;
+	float& getUpDownValue() { return m_UpDownValue; }
+	float& getLeftRightValue() { return m_LeftRightValue; }
 
-	UPROPERTY()
-	float LeftRightValue = 0;
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Weapon;
@@ -80,4 +78,10 @@ private:
 	UPROPERTY()
 	int32 AttackIndex=0;
 
+
+	UPROPERTY()
+	float m_UpDownValue = 0;
+
+	UPROPERTY()
+	float m_LeftRightValue = 0;
 };

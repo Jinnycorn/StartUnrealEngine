@@ -17,12 +17,6 @@ public:
 	// Sets default values for this component's properties
 	UMyStatComponent();
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-	virtual void InitializeComponent() override;
-
-public:
 	void SetLevel(int32 Level);
 	void SetHp(int32 NewHp);
 	void OnAttacked(float DamageAmount);
@@ -33,6 +27,14 @@ public:
 	int32 GetMaxHP() { return MaxHp; }
 	float GetHpRatio() { return Hp / (float)MaxHp; }
 	int32 GetAttack() { return Attack; }
+
+	FOnHpChanged OnHpChanged;
+
+protected:
+
+	virtual void BeginPlay() override;
+	virtual void InitializeComponent() override;
+
 
 private:
 	UPROPERTY(EditAnywhere, Category=Stat, Meta=(AllowPrivateAccess=true))
@@ -47,7 +49,5 @@ private:
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
 	int32 Attack;
 
-public:
-	FOnHpChanged OnHpChanged;
 		
 };

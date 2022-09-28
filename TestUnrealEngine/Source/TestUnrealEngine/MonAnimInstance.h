@@ -23,14 +23,12 @@ public:
 
 	FName GetAttackMontageName(int32 SectionIndex);
 
-
+	FOnMonsterAttackHit OnMonAttackHit;
 	
 
 private:
 	UFUNCTION()
 	void AnimNotify_AttackHit();
-
-private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	float Speed;
@@ -46,11 +44,6 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	float Vertical;
-
-
-public:
-	FOnMonsterAttackHit OnMonAttackHit;
-
 
 	
 };
