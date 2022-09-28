@@ -119,15 +119,12 @@ void AMyGameModeBase::Tick(float DeltaTime)
 				{
 					UE_LOG(LogTemp, Warning, TEXT("MyMonster is null "));
 				}
-
-				if (myMonster)
-				{
+				else {
 					myMonster->m_MonsterNo = i.Key;
 					i.Value.D_isDead = false;
 
 					i.Value.D_DeadTime = 0.f;
 				}
-
 				
 			}
 			
